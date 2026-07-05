@@ -85,6 +85,7 @@ Update `DATABASE_URL` when moving to PostgreSQL for production.
 ## Branching & Workflow
 
 - `main` — production-ready code only
+- **Never commit or push directly to `main`.** All changes must be made on a separate branch.
 - Create a feature branch per task: `feature/short-description`
 - Open a pull request before merging into `main`
 - Pricing, scope, or client-facing copy changes should be confirmed with Xant before merging
