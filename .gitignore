@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.pyc
+venv/
+env/
+.env
+*.egg-info/
+
+# Django
+db.sqlite3
+*.log
+/media/
+/staticfiles/
+local_settings.py
+
+# React/Node
+node_modules/
+build/
+dist/
+.env
+.env.local
+npm-debug.log*
+
+# Editor/OS
+.DS_Store
+Thumbs.db
+*.swp
+
+# VS Code (keep settings.json, ignore personal overrides)
+.vscode/*
+!.vscode/settings.json
+
+# Vite
+.vite/
+
+# ESLint/Prettier cache
+.eslintcache
