@@ -1,5 +1,6 @@
 import CardsRotateSlider from "@/components/ui/cards-rotate-slider";
 import { servicesData } from "@/data/servicesData";
+import { motion } from "framer-motion";
 
 export function Services() {
   return (
@@ -11,18 +12,31 @@ export function Services() {
 
       {/* Subtle Twinkling Starfield Overlay */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-        {[...Array(40)].map((_, i) => (
-          <div
+        {[...Array(150)].map((_, i) => (
+          <motion.div
             key={i}
-            className="absolute rounded-full bg-white animate-pulse"
+            className="absolute rounded-full bg-white"
             style={{
-              top: `${(i * 17) % 97}%`,
-              left: `${(i * 23) % 95}%`,
+              top: `${(i * 17.3) % 100}%`,
+              left: `${(i * 23.4) % 100}%`,
               width: `${(i % 3) + 1}px`,
               height: `${(i % 3) + 1}px`,
-              opacity: (i % 5 + 3) / 10,
-              animationDuration: `${(i % 4) + 2}s`,
-              animationDelay: `${(i % 3) * 0.7}s`,
+            }}
+            initial={{
+              opacity: (i % 5 + 2) / 10,
+              y: 0,
+              x: 0,
+            }}
+            animate={{
+              opacity: [(i % 5 + 2) / 10, (i % 5 + 7) / 10, (i % 5 + 2) / 10],
+              y: [0, (i % 2 === 0 ? -15 : 15), 0],
+              x: [0, (i % 3 === 0 ? 10 : -10), 0],
+            }}
+            transition={{
+              duration: (i % 4) + 4,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: (i % 5) * 0.5,
             }}
           />
         ))}

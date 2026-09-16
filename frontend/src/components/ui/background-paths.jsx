@@ -101,12 +101,12 @@ export function BackgroundPaths({
           className="flex flex-col items-center"
         >
           {/* Hero Main Heading */}
-          <h1 className="font-heading text-4xl sm:text-6xl md:text-7xl font-extrabold mb-6 tracking-tight drop-shadow-md max-w-4xl leading-[1.1]">
+          <h1 className="font-heading text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold mb-6 tracking-tight drop-shadow-md max-w-5xl leading-[1.05]">
             {title}
           </h1>
 
           {/* Subtitle */}
-          <p className="font-body text-base sm:text-lg md:text-xl text-slate-300/80 mb-24 max-w-2xl font-normal leading-relaxed">
+          <p className="font-body text-base sm:text-lg md:text-xl text-slate-300/80 mb-10 sm:mb-12 max-w-2xl font-normal leading-relaxed">
             {subtitle}
           </p>
 
