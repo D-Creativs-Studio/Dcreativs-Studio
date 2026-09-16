@@ -1,12 +1,16 @@
 import { motion } from "framer-motion";
+import { LogoModelBackground } from "@/components/ui/logo-model-background";
 
 export function BackgroundPaths({
-  title = "Built to be noticed.",
+  title = "Built To Be Noticed.",
   subtitle = "A creative tech agency turning brands, products, and ideas into things people actually stop for.",
 }) {
   return (
-    <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#030412] text-white font-body selection:bg-[#4100F5] selection:text-white pt-24 pb-16">
-      {/* Volumetric Top-Right Spotlight (Wide at Top, Tapered/Narrower at Bottom Tip) */}
+    <section id="home" className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#030412] text-white font-body selection:bg-[#4100F5] selection:text-white pt-40 pb-16">
+      {/* 3D Floating Model Canvas Background Layer */}
+      <LogoModelBackground />
+
+      {/* Volumetric Top-Right Spotlight */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {/* Top-Right Soft Ambient Glows */}
         <div className="absolute -top-24 -right-24 w-[700px] h-[700px] bg-[#4100F5]/25 rounded-full blur-[140px]" />
@@ -102,11 +106,49 @@ export function BackgroundPaths({
           </h1>
 
           {/* Subtitle */}
-          <p className="font-body text-base sm:text-lg md:text-xl text-slate-300/80 mb-0 max-w-2xl font-normal leading-relaxed">
+          <p className="font-body text-base sm:text-lg md:text-xl text-slate-300/80 mb-24 max-w-2xl font-normal leading-relaxed">
             {subtitle}
           </p>
+
+          {/* CTA Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.6 }}
+            className="flex flex-col sm:flex-row items-center gap-4"
+          >
+            {/* Primary Button — Filled Purple */}
+            <a
+              href="#contact"
+              className="group relative inline-flex items-center gap-2 px-8 py-3.5 rounded-full
+              bg-gradient-to-r from-[#4100F5] to-[#885FFF]
+              text-white font-heading font-semibold text-base sm:text-lg
+              shadow-[0_0_25px_rgba(65,0,245,0.45)] hover:shadow-[0_0_40px_rgba(136,95,255,0.65)]
+              hover:-translate-y-0.5 active:scale-95
+              transition-all duration-300
+              border border-[#885FFF]/40"
+            >
+              <span>Start a Project</span>
+              <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
+            </a>
+
+            {/* Secondary Button — Ghost/Outline */}
+            <a
+              href="#portfolio"
+              className="group inline-flex items-center gap-2 px-8 py-3.5 rounded-full
+              bg-white/[0.04] hover:bg-white/[0.10] backdrop-blur-md
+              text-white font-heading font-semibold text-base sm:text-lg
+              border border-white/25 hover:border-white/50
+              hover:-translate-y-0.5 active:scale-95
+              transition-all duration-300
+              shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
+            >
+              <span>See Our Work</span>
+              <span className="opacity-60 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200">↗</span>
+            </a>
+          </motion.div>
         </motion.div>
       </div>
-    </div>
+    </section>
   );
 }
