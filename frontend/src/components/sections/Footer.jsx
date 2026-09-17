@@ -77,7 +77,7 @@ export function Footer() {
   ];
 
   return (
-    <footer className="relative w-full bg-[#000422] text-white overflow-hidden">
+    <footer id="contact" className="relative w-full bg-[#000422] text-white overflow-hidden">
       {/* ── Cosmic parallax hero section ────────────────────────── */}
       <CosmicParallaxBg
         head="D'Creativs"

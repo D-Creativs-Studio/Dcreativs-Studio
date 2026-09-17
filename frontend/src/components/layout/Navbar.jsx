@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -7,7 +7,11 @@ export function Navbar() {
   const [isLightSection, setIsLightSection] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const isServicePage = location.pathname.startsWith("/services");
+  const isSubPage = location.pathname !== "/";
+
+  // Lock to prevent scroll-spy from interrupting programmatic smooth scroll
+  const isManualClickRef = useRef(false);
+  const clickTimeoutRef = useRef(null);
 
   const navItems = [
     { name: "Home", href: "#home" },
@@ -17,20 +21,46 @@ export function Navbar() {
     { name: "Contact", href: "#contact" },
   ];
 
+  const scrollToTarget = (sectionId) => {
+    if (sectionId === "home") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+    const el = document.getElementById(sectionId);
+    if (el) {
+      const navOffset = 80;
+      const elementPosition = el.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = Math.max(0, elementPosition - navOffset);
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+  };
+
   const handleNavClick = (e, item) => {
     e.preventDefault();
-    setActiveTab(item.name);
     const sectionId = item.href.replace("#", "");
-    if (isServicePage) {
-      // Navigate home first, then scroll to section
+
+    // Lock scroll-spy during navigation so the pill slides cleanly to target
+    isManualClickRef.current = true;
+    setActiveTab(item.name);
+
+    if (clickTimeoutRef.current) {
+      clearTimeout(clickTimeoutRef.current);
+    }
+    // Release lock once programmatic scroll settles
+    clickTimeoutRef.current = setTimeout(() => {
+      isManualClickRef.current = false;
+    }, 1100);
+
+    if (isSubPage) {
       navigate("/");
       setTimeout(() => {
-        const el = document.getElementById(sectionId);
-        if (el) el.scrollIntoView({ behavior: "smooth" });
+        scrollToTarget(sectionId);
       }, 150);
     } else {
-      const el = document.getElementById(sectionId);
-      if (el) el.scrollIntoView({ behavior: "smooth" });
+      scrollToTarget(sectionId);
     }
   };
 
@@ -38,40 +68,66 @@ export function Navbar() {
     // List of section IDs that have light backgrounds
     const lightSections = ["about", "nigeria-to-world"];
 
+    // User manual wheel/touch immediately releases click lock
+    const handleUserInteraction = () => {
+      isManualClickRef.current = false;
+    };
+
     const handleScroll = () => {
       const sections = navItems.map((item) => item.href.replace("#", ""));
-      const triggerPoint = 140; // distance from top of viewport
+      const triggerPoint = 180; // distance from top of viewport
 
       let currentSection = "home";
       let lightDetected = false;
 
-      for (const sectionId of sections) {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= triggerPoint && rect.bottom > triggerPoint) {
-            currentSection = sectionId;
-            if (lightSections.includes(sectionId)) {
-              lightDetected = true;
+      // Check if user is scrolled near the bottom of the page
+      const scrollPosition = window.scrollY + window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const isNearBottom = scrollPosition >= documentHeight - 120;
+
+      if (isNearBottom) {
+        currentSection = "contact";
+      } else {
+        for (const sectionId of sections) {
+          const element = document.getElementById(sectionId);
+          if (element) {
+            const rect = element.getBoundingClientRect();
+            if (rect.top <= triggerPoint && rect.bottom > triggerPoint) {
+              currentSection = sectionId;
+              if (lightSections.includes(sectionId)) {
+                lightDetected = true;
+              }
             }
           }
         }
       }
 
-      const matchingItem = navItems.find(
-        (item) => item.href.replace("#", "") === currentSection
-      );
-      if (matchingItem) {
-        setActiveTab(matchingItem.name);
-      }
       setIsLightSection(lightDetected);
+
+      // Only update activeTab if user is NOT in the middle of a smooth nav jump
+      if (!isManualClickRef.current) {
+        const matchingItem = navItems.find(
+          (item) => item.href.replace("#", "") === currentSection
+        );
+        if (matchingItem) {
+          setActiveTab(matchingItem.name);
+        }
+      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll(); // Initial position check
+    window.addEventListener("wheel", handleUserInteraction, { passive: true });
+    window.addEventListener("touchmove", handleUserInteraction, { passive: true });
 
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    handleScroll(); // Initial check
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("wheel", handleUserInteraction);
+      window.removeEventListener("touchmove", handleUserInteraction);
+      if (clickTimeoutRef.current) clearTimeout(clickTimeoutRef.current);
+    };
+  }, [location.pathname]);
 
   return (
     <header className="fixed top-3 sm:top-6 left-1/2 -translate-x-1/2 z-50 px-2 sm:px-4 max-w-[96vw]">
@@ -91,7 +147,7 @@ export function Navbar() {
               key={item.name}
               href={item.href}
               onClick={(e) => handleNavClick(e, item)}
-              className={`relative px-2 xs:px-3 sm:px-4 md:px-5 py-1 sm:py-2 text-[10px] xs:text-xs sm:text-sm md:text-base font-semibold font-heading rounded-full transition-colors duration-300 whitespace-nowrap ${
+              className={`relative px-2 xs:px-3 sm:px-4 md:px-5 py-1 sm:py-2 text-[10px] xs:text-xs sm:text-sm md:text-base font-semibold font-heading rounded-full transition-colors duration-300 whitespace-nowrap cursor-pointer ${
                 isLightSection
                   ? isActive
                     ? "text-white"
@@ -107,9 +163,9 @@ export function Navbar() {
                   className="absolute inset-0 rounded-full -z-10 overflow-hidden pointer-events-none"
                   transition={{
                     type: "spring",
-                    stiffness: 320,
-                    damping: 24,
-                    mass: 0.8,
+                    stiffness: 380,
+                    damping: 30,
+                    mass: 0.6,
                   }}
                 >
                   {isLightSection ? (
@@ -135,3 +191,4 @@ export function Navbar() {
   );
 }
 
+export default Navbar;

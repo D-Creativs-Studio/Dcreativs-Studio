@@ -1,6 +1,6 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { getServiceBySlug, servicesData } from "@/data/servicesData";
-import { ArrowLeft, ArrowRight, CheckCircle2, Cpu, Layers, Sparkles, Send } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, Cpu, Layers, Send } from "lucide-react";
 
 export function ServiceDetailPage() {
   const { serviceId } = useParams();
@@ -56,7 +56,7 @@ export function ServiceDetailPage() {
             Back to All Services
           </Link>
 
-          <span className="text-xs font-heading font-semibold tracking-widest text-[#885FFF] uppercase bg-[#4100F5]/20 border border-[#4100F5]/40 px-3 py-1 rounded-full">
+          <span className="text-xs font-heading font-semibold tracking-widest text-[#885FFF] uppercase">
             0{currentIndex + 1} / 0{servicesData.length}
           </span>
         </div>
@@ -64,9 +64,9 @@ export function ServiceDetailPage() {
         {/* Hero Section */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center mb-16">
           <div className="lg:col-span-7 space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-heading font-medium bg-[#4100F5]/20 text-[#C4B5FD] border border-[#4100F5]/40">
-              <Sparkles className="w-3.5 h-3.5" /> Capabilities & Solutions
-            </div>
+            <p className="font-heading text-xs sm:text-sm font-semibold tracking-[0.25em] uppercase text-[#885FFF]">
+              Capabilities & Solutions
+            </p>
 
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-heading font-black leading-tight tracking-tight">
               {service.text}

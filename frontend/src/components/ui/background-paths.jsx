@@ -1,6 +1,29 @@
 import { motion } from "framer-motion";
 import { LogoModelBackground } from "@/components/ui/logo-model-background";
 
+const ShootingStar = ({ delay, top, left, duration }) => (
+  <div className="absolute pointer-events-none z-0" style={{ top: `${top}%`, left: `${left}%`, transform: 'rotate(215deg)' }}>
+    <motion.div
+      initial={{ x: 0, opacity: 0, scaleX: 0 }}
+      animate={{ 
+        x: [0, 1200],
+        opacity: [0, 1, 0],
+        scaleX: [0, 1, 0] 
+      }}
+      transition={{
+        duration: duration,
+        delay: delay,
+        repeat: Infinity,
+        ease: "easeOut"
+      }}
+      className="w-[150px] sm:w-[200px] h-[1.5px] bg-gradient-to-r from-transparent via-white to-transparent"
+      style={{
+        boxShadow: "0 0 10px 1px rgba(255,255,255,0.4)"
+      }}
+    />
+  </div>
+);
+
 export function BackgroundPaths({
   title = "Built To Be Noticed.",
   subtitle = "A creative tech agency turning brands, products, and ideas into things people actually stop for.",
@@ -12,6 +35,13 @@ export function BackgroundPaths({
 
       {/* Volumetric Top-Right Spotlight */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        
+        {/* Shooting Stars */}
+        <ShootingStar delay={0.5} top={10} left={80} duration={2.5} />
+        <ShootingStar delay={2.1} top={-5} left={50} duration={3} />
+        <ShootingStar delay={4.5} top={20} left={95} duration={2.2} />
+        <ShootingStar delay={6.2} top={40} left={110} duration={3.5} />
+        <ShootingStar delay={8.0} top={-10} left={70} duration={2.8} />
         {/* Top-Right Soft Ambient Glows */}
         <div className="absolute -top-24 -right-24 w-[700px] h-[700px] bg-[#4100F5]/25 rounded-full blur-[140px]" />
         <div className="absolute -top-12 -right-12 w-[450px] h-[450px] bg-[#885FFF]/30 rounded-full blur-[90px]" />
