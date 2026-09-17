@@ -2,13 +2,11 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
-  Sparkles,
   Palette,
   Code2,
   TrendingUp,
   GraduationCap,
   CheckCircle2,
-  Users,
   Compass,
   Zap,
   Target,
@@ -126,16 +124,6 @@ export function AboutPage() {
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Hero Section */}
         <div className="max-w-4xl mb-16 sm:mb-20">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#4100F5]/10 border border-[#4100F5]/20 text-[#4100F5] text-xs font-heading font-semibold uppercase tracking-wider mb-6"
-          >
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>We Build to Be Noticed</span>
-          </motion.div>
-
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -199,11 +187,6 @@ export function AboutPage() {
         >
           <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-heading font-semibold uppercase tracking-wider">
-                <Users className="w-3.5 h-3.5 text-[#4100F5]" />
-                <span>Who We Are</span>
-              </div>
-
               <h2 className="text-2xl sm:text-4xl font-heading font-extrabold text-[#030412] leading-tight">
                 No templates. No guesswork. Just builders who care.
               </h2>
@@ -247,10 +230,6 @@ export function AboutPage() {
         {/* Section: What We Do (4 Pillars) */}
         <div className="mb-20 sm:mb-24">
           <div className="max-w-2xl mb-10 sm:mb-12">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#4100F5]/10 text-[#4100F5] text-xs font-heading font-semibold uppercase tracking-wider mb-4">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>What We Do</span>
-            </div>
             <h2 className="text-3xl sm:text-5xl font-heading font-extrabold text-[#030412] tracking-tight">
               Everything your brand needs to scale.
             </h2>
@@ -314,10 +293,6 @@ export function AboutPage() {
         {/* Section: How We Work */}
         <div className="mb-20 sm:mb-24">
           <div className="max-w-2xl mb-10 sm:mb-12">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-heading font-semibold uppercase tracking-wider mb-4">
-              <Zap className="w-3.5 h-3.5 text-[#4100F5]" />
-              <span>How We Work</span>
-            </div>
             <h2 className="text-3xl sm:text-5xl font-heading font-extrabold text-[#030412] tracking-tight mb-4">
               We treat every brand like it&apos;s ours.
             </h2>
@@ -364,11 +339,6 @@ export function AboutPage() {
           <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-[#885FFF]/25 rounded-full blur-[100px] pointer-events-none" />
 
           <div className="relative z-10 max-w-3xl mx-auto space-y-6">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-heading font-semibold uppercase tracking-wider text-purple-200">
-              <Sparkles className="w-3.5 h-3.5 text-[#a78bfa]" />
-              <span>Our Promise</span>
-            </div>
-
             <h2 className="text-3xl sm:text-5xl lg:text-6xl font-heading font-extrabold tracking-tight leading-tight">
               Dare to be noticed.
             </h2>

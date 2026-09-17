@@ -1,4 +1,4 @@
-import { Cpu, Sparkles, Layers, ShieldCheck, Zap, Activity } from "lucide-react";
+import { Activity } from "lucide-react";
 
 /**
  * Curated metadata dictionary for creative & engineering tools
@@ -307,10 +307,6 @@ export function ToolsStackMarquee({ tools = [], serviceName = "This Service" }) 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 mb-10 sm:mb-14">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-black/[0.08]">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#4100F5]/10 border border-[#4100F5]/20 text-[#4100F5] text-xs font-mono font-medium uppercase tracking-widest mb-3">
-              <Cpu className="w-3.5 h-3.5 text-[#4100F5]" />
-              <span>Arsenal &amp; Infrastructure</span>
-            </div>
             <h2 className="font-heading text-2xl sm:text-4xl font-extrabold tracking-tight text-[#030412]">
               Tools of Precision.{" "}
               <span className="bg-gradient-to-r from-[#4100F5] to-[#885FFF] bg-clip-text text-transparent">
