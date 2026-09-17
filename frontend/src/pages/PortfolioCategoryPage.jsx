@@ -48,7 +48,7 @@ export function PortfolioCategoryPage() {
       <SEO
         title={`${category.name} — Portfolio`}
         description={category.shortDescription || category.heroSubtitle}
-        image={category.image.startsWith("http") ? category.image : `https://dcreativs.com${category.image}`}
+        image={category.image.startsWith("http") ? category.image : `https://dcreativs.vercel.app${category.image}`}
       />
       {/* ── Background Subtle Ambient Glows ─────────────────────── */}
       <div className="absolute top-10 left-1/4 w-[600px] h-[600px] rounded-full blur-[180px] bg-[#4100F5]/[0.06] pointer-events-none z-0" />

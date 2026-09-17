@@ -4,8 +4,8 @@ import { useLocation } from "react-router-dom";
 const DEFAULT_TITLE = "D'Creativs Studio — Digital Experience & Brand Innovation";
 const DEFAULT_DESC =
   "D'Creativs Studio crafts bespoke digital experiences, high-performance web platforms, 3D motion graphics, and scalable brand identity systems that captivate and convert.";
-const DEFAULT_IMAGE = "https://dcreativs.com/og-image.png";
-const BASE_URL = "https://dcreativs.com";
+const DEFAULT_IMAGE = "https://dcreativs.vercel.app/og-image.png";
+const BASE_URL = "https://dcreativs.vercel.app";
 
 function setMetaTag(selector, attribute, value) {
   if (!value) return;
