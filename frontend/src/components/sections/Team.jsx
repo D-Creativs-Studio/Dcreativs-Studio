@@ -189,19 +189,15 @@ export function Team() {
                     </div>
                   </div>
 
-                  {/* Monogram Avatar Badge */}
-                  <div className="mb-3.5 sm:mb-5">
-                    <div
-                      className="w-11 h-11 min-[390px]:w-12 min-[390px]:h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center font-heading font-extrabold text-base min-[390px]:text-lg sm:text-2xl text-white shadow-lg transition-transform duration-300 group-hover:scale-105 border border-white/15"
-                      style={{
-                        background: `linear-gradient(135deg, ${member.accent}cc, #030412)`,
-                        boxShadow: isHovered
-                          ? `0 0 25px ${member.accent}66`
-                          : "none",
-                      }}
-                    >
-                      {member.initials}
-                    </div>
+                  {/* Person Image */}
+                  <div className="relative mb-3.5 sm:mb-4 rounded-xl sm:rounded-2xl overflow-hidden aspect-square w-full bg-white/[0.04] border border-white/10 group-hover:border-white/25 transition-all duration-300 shadow-md">
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#000422]/50 via-transparent to-transparent opacity-40 group-hover:opacity-20 transition-opacity duration-300 pointer-events-none" />
                   </div>
 
                   {/* Name & Role */}
@@ -210,25 +206,15 @@ export function Team() {
                   </h3>
 
                   <div
-                    className="font-heading font-semibold text-[11px] min-[390px]:text-xs sm:text-sm mb-2 sm:mb-3 leading-snug"
+                    className="font-heading font-semibold text-[11px] min-[390px]:text-xs sm:text-sm leading-snug"
                     style={{ color: member.accent }}
                   >
                     {member.role}
                   </div>
-
-                  {/* Specialty badge */}
-                  <div className="text-[9px] min-[390px]:text-[10px] sm:text-xs font-mono text-slate-400 bg-white/[0.03] border border-white/[0.06] rounded-lg px-2 py-1 mb-2.5 sm:mb-4 line-clamp-1">
-                    {member.specialty}
-                  </div>
-
-                  {/* Bio */}
-                  <p className="font-body text-slate-400 text-[11px] min-[390px]:text-xs sm:text-sm leading-relaxed mb-4 line-clamp-3 font-light">
-                    {member.bio}
-                  </p>
                 </div>
 
                 {/* Social icons footer */}
-                <div className="relative z-10 pt-3 border-t border-white/10 flex items-center justify-between">
+                <div className="relative z-10 pt-3 mt-3.5 sm:mt-4 border-t border-white/10 flex items-center justify-between">
                   <div className="flex items-center gap-1.5 sm:gap-2">
                     {member.socials.linkedin && (
                       <a
@@ -297,10 +283,6 @@ export function Team() {
                       </a>
                     )}
                   </div>
-
-                  <span className="text-[10px] font-mono text-slate-500">
-                    Active
-                  </span>
                 </div>
               </motion.div>
             );
