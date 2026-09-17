@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { LogoModelBackground } from "@/components/ui/logo-model-background";
+import { HeroAmbientSound } from "@/components/ui/hero-ambient-sound";
 
 const ShootingStar = ({ delay, top, left, duration }) => (
   <div className="absolute pointer-events-none z-0" style={{ top: `${top}%`, left: `${left}%`, transform: 'rotate(215deg)' }}>
@@ -179,6 +180,9 @@ export function BackgroundPaths({
           </motion.div>
         </motion.div>
       </div>
+
+      {/* Floating 3D Soundscape Audio Controller */}
+      <HeroAmbientSound />
     </section>
   );
 }

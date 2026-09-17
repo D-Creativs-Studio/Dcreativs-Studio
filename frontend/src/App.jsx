@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Navbar } from "@/components/layout/Navbar";
 import { HomePage } from "@/pages/HomePage";
+import { AboutPage } from "@/pages/AboutPage";
 import { ServiceDetailPage } from "@/pages/ServiceDetailPage";
 import { PortfolioCategoryPage } from "@/pages/PortfolioCategoryPage";
 import { ScrollToTop } from "@/components/utils/ScrollToTop";
@@ -14,6 +15,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
           <Route path="/services/:serviceId" element={<ServiceDetailPage />} />
           <Route path="/portfolio/:categoryId" element={<PortfolioCategoryPage />} />
         </Routes>

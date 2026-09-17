@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const stats = [
   { value: "8", label: "Founding Members" },
@@ -93,8 +94,8 @@ export function About() {
               className="mt-10 flex items-center gap-6"
             >
               <div className="w-16 h-[2px] bg-gradient-to-r from-[#4100F5] to-[#885FFF] rounded-full" />
-              <a
-                href="#about"
+              <Link
+                to="/about"
                 className="group inline-flex items-center gap-2 px-6 py-2.5 rounded-full
                   bg-[#030412]/[0.05] hover:bg-[#4100F5]/10
                   text-[#030412] font-heading font-semibold text-sm
@@ -105,7 +106,7 @@ export function About() {
               >
                 <span>Read More</span>
                 <span className="opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200">→</span>
-              </a>
+              </Link>
             </motion.div>
           </div>
 

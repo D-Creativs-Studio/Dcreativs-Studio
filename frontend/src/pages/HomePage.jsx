@@ -2,6 +2,7 @@ import { BackgroundPaths } from "@/components/ui/background-paths";
 import { About } from "@/components/sections/About";
 import { Services } from "@/components/sections/Services";
 import { Portfolio } from "@/components/sections/Portfolio";
+import { Team } from "@/components/sections/Team";
 
 export function HomePage() {
   return (
@@ -18,6 +19,7 @@ export function HomePage() {
       <About />
       <Services />
       <Portfolio />
+      <Team />
     </>
   );
 }
