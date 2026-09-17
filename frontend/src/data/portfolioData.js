@@ -251,7 +251,7 @@ export const portfolioCategories = [
     heroSubtitle: "When flat isn't enough. We engineer photorealistic CGI worlds, product hero visuals, and real-time interactive 3D assets.",
     stats: [
       { label: "3D Renders Completed", value: "120+" },
-      { label: "Polygon Optimization", value: "Real-Time 60FPS" },
+      { label: "Real-Time Optimization", value: "60 FPS" },
       { label: "4K Studio Renders", value: "300+" },
     ],
     technologies: ["Blender", "Unreal Engine 5", "Cinema 4D", "Octane Render", "Three.js", "ZBrush"],

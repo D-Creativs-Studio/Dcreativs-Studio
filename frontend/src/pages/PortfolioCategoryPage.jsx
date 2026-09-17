@@ -107,14 +107,14 @@ export function PortfolioCategoryPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="grid grid-cols-3 gap-3 sm:gap-6 pt-5 border-t border-black/[0.08] max-w-lg"
+              className="grid grid-cols-3 gap-4 sm:gap-6 lg:gap-8 pt-5 border-t border-black/[0.08] max-w-xl"
             >
               {category.stats.map((stat, i) => (
                 <div key={i} className="space-y-1">
-                  <div className="text-xl sm:text-2xl lg:text-3xl font-heading font-extrabold text-[#030412]">
+                  <div className="text-xl sm:text-2xl lg:text-3xl font-heading font-extrabold text-[#030412] tracking-tight whitespace-nowrap">
                     {stat.value}
                   </div>
-                  <div className="text-[11px] sm:text-xs text-slate-500 font-medium">
+                  <div className="text-[11px] sm:text-xs text-slate-500 font-medium leading-relaxed">
                     {stat.label}
                   </div>
                 </div>
