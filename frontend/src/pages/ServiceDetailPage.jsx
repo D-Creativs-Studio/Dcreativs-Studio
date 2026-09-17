@@ -42,21 +42,13 @@ export function ServiceDetailPage() {
         <div className="mb-8 flex items-center justify-between">
           <Link
             to="/#services"
-            onClick={(e) => {
-              e.preventDefault();
-              navigate("/", { replace: false });
-              setTimeout(() => {
-                const el = document.getElementById("services");
-                if (el) el.scrollIntoView({ behavior: "smooth" });
-              }, 100);
-            }}
-            className="inline-flex items-center gap-2 text-sm font-heading font-semibold text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2 rounded-full backdrop-blur-md transition-all duration-300 group"
+            className="inline-flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-sm font-heading font-semibold text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full backdrop-blur-md transition-all duration-300 group"
           >
-            <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+            <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 transition-transform group-hover:-translate-x-1" />
             Back to All Services
           </Link>
 
-          <span className="text-xs font-heading font-semibold tracking-widest text-[#885FFF] uppercase">
+          <span className="hidden sm:inline-block text-xs font-heading font-semibold tracking-widest text-[#885FFF] uppercase">
             0{currentIndex + 1} / 0{servicesData.length}
           </span>
         </div>

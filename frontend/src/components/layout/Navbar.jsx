@@ -3,11 +3,16 @@ import { motion } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
 
 export function Navbar() {
-  const [activeTab, setActiveTab] = useState("Home");
-  const [isLightSection, setIsLightSection] = useState(false);
-  const navigate = useNavigate();
   const location = useLocation();
   const isSubPage = location.pathname !== "/";
+
+  const [activeTab, setActiveTab] = useState(() => {
+    if (location.pathname.startsWith("/portfolio")) return "Portfolio";
+    if (location.pathname.startsWith("/services")) return "Services";
+    return "Home";
+  });
+  const [isLightSection, setIsLightSection] = useState(() => location.pathname.startsWith("/portfolio"));
+  const navigate = useNavigate();
 
   // Lock to prevent scroll-spy from interrupting programmatic smooth scroll
   const isManualClickRef = useRef(false);
@@ -74,16 +79,35 @@ export function Navbar() {
     };
 
     const handleScroll = () => {
+      // Check if user is scrolled near the bottom of the page
+      const scrollPosition = window.scrollY + window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const isNearBottom = scrollPosition >= documentHeight - 120;
+
+      // When on portfolio sub-pages, retain Portfolio active tab and light mode
+      if (location.pathname.startsWith("/portfolio")) {
+        setIsLightSection(true);
+        if (!isManualClickRef.current) {
+          setActiveTab(isNearBottom ? "Contact" : "Portfolio");
+        }
+        return;
+      }
+
+      // When on service sub-pages, retain Services active tab
+      if (location.pathname.startsWith("/services")) {
+        setIsLightSection(false);
+        if (!isManualClickRef.current) {
+          setActiveTab(isNearBottom ? "Contact" : "Services");
+        }
+        return;
+      }
+
+      // Homepage scroll spy logic
       const sections = navItems.map((item) => item.href.replace("#", ""));
       const triggerPoint = 180; // distance from top of viewport
 
       let currentSection = "home";
       let lightDetected = false;
-
-      // Check if user is scrolled near the bottom of the page
-      const scrollPosition = window.scrollY + window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-      const isNearBottom = scrollPosition >= documentHeight - 120;
 
       if (isNearBottom) {
         currentSection = "contact";
