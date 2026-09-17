@@ -11,7 +11,9 @@ export function Navbar() {
     if (location.pathname.startsWith("/services")) return "Services";
     return "Home";
   });
-  const [isLightSection, setIsLightSection] = useState(() => location.pathname.startsWith("/portfolio"));
+  const [isLightSection, setIsLightSection] = useState(
+    () => location.pathname.startsWith("/portfolio") || location.pathname.startsWith("/services")
+  );
   const navigate = useNavigate();
 
   // Lock to prevent scroll-spy from interrupting programmatic smooth scroll
@@ -93,9 +95,9 @@ export function Navbar() {
         return;
       }
 
-      // When on service sub-pages, retain Services active tab
+      // When on service sub-pages, retain Services active tab and light mode
       if (location.pathname.startsWith("/services")) {
-        setIsLightSection(false);
+        setIsLightSection(true);
         if (!isManualClickRef.current) {
           setActiveTab(isNearBottom ? "Contact" : "Services");
         }

@@ -15,7 +15,7 @@ const REDUCED_PERSPECTIVE = "4800px";
 const MOBILE_BREAKPOINT = 640;
 const TABLET_BREAKPOINT = 1025;
 
-const MOBILE_STEP = 1.8;
+const MOBILE_STEP = 1.2;
 const TABLET_STEP = 4;
 const DESKTOP_STEP = 10;
 
@@ -228,12 +228,12 @@ export default function CardsRotateSlider({
   return (
     <div ref={outerRef} className="relative bg-transparent" style={{ overflowX: "clip" }}>
       <div
-        className="sticky top-0 flex h-screen items-center max-md:items-start max-md:pt-[4vh] overflow-hidden"
+        className="sticky top-0 flex h-screen items-center overflow-hidden"
         style={{ perspective: reducedMotion ? REDUCED_PERSPECTIVE : `${perspective}px` }}
       >
         <div
           ref={trackRef}
-          className="relative z-10 flex h-full items-center max-md:items-start will-change-transform gap-[5vw] max-[1025px]:gap-[6vw] max-md:gap-[8vw] pl-[30vw] pr-[30vw] max-[1025px]:pl-[20vw] max-[1025px]:pr-[20vw] max-md:pl-[7.5vw] max-md:pr-[7.5vw]"
+          className="relative z-10 flex h-full items-center will-change-transform gap-[5vw] max-[1025px]:gap-[6vw] max-md:gap-[8vw] pl-[30vw] pr-[30vw] max-[1025px]:pl-[20vw] max-[1025px]:pr-[20vw] max-md:pl-[7vw] max-md:pr-[7vw]"
           style={{ transformStyle: "preserve-3d" }}
         >
           {images.map((img, index) => (
@@ -242,7 +242,7 @@ export default function CardsRotateSlider({
               ref={(element) => {
                 wrappersRef.current[index] = element;
               }}
-              className="relative flex h-[50vh] w-[40vw] shrink-0 items-center justify-center max-[1025px]:h-[46vh] max-[1025px]:w-[58vw] max-md:h-[54vh] max-md:w-[85vw] max-[1025px]:[&>div]:h-[46vh] max-[1025px]:[&>div]:w-[58vw] max-md:[&>div]:h-[54vh] max-md:[&>div]:w-[85vw]"
+              className="relative flex h-[50vh] w-[40vw] shrink-0 items-center justify-center max-[1025px]:h-[46vh] max-[1025px]:w-[58vw] max-md:h-[60vh] max-md:w-[86vw] max-[1025px]:[&>div]:h-[46vh] max-[1025px]:[&>div]:w-[58vw] max-md:[&>div]:h-[60vh] max-md:[&>div]:w-[86vw]"
               style={{ transformStyle: "preserve-3d" }}
             >
               <RotationCard
@@ -280,7 +280,7 @@ const RotationCard = forwardRef(({ src, index, total, text, subtitle, tags, slug
     <div
       ref={ref}
       onClick={handleClick}
-      className="absolute h-[50vh] w-[40vw] origin-right overflow-hidden rounded-3xl border border-white/20 opacity-0 shadow-[0_15px_40px_rgba(0,0,0,0.6)] max-md:h-[54vh] max-md:w-[85vw] group backdrop-blur-xl bg-[#0A0C22]/90 cursor-pointer hover:border-[#885FFF]/70 hover:shadow-[0_20px_50px_rgba(136,95,255,0.3)]"
+      className="absolute h-[50vh] w-[40vw] origin-right overflow-hidden rounded-3xl border border-white/20 opacity-0 shadow-[0_15px_40px_rgba(0,0,0,0.6)] max-md:h-[60vh] max-md:w-[86vw] group backdrop-blur-xl bg-[#0A0C22]/90 cursor-pointer hover:border-[#885FFF]/70 hover:shadow-[0_20px_50px_rgba(136,95,255,0.3)]"
       style={{
         transformStyle: "preserve-3d",
         zIndex: total - index,
