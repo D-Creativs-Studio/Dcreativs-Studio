@@ -83,7 +83,7 @@ export function PortfolioCategoryPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl sm:text-6xl lg:text-7xl font-heading font-extrabold tracking-tight leading-[1.1] text-[#030412]"
+              className="text-3xl min-[375px]:text-4xl sm:text-6xl lg:text-7xl font-heading font-extrabold tracking-tight leading-[1.1] text-[#030412]"
             >
               {category.name.split("&")[0]}
               {category.name.includes("&") && (
@@ -340,7 +340,7 @@ export function PortfolioCategoryPage() {
       {/* ── Case Study Detail Modal ─────────────────────────────── */}
       <AnimatePresence>
         {selectedCaseStudy && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 min-[390px]:p-4 sm:p-6 md:p-10">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -354,7 +354,7 @@ export function PortfolioCategoryPage() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ type: "spring", damping: 26, stiffness: 300 }}
-              className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl bg-[#F8F8F6] text-[#030412] border border-black/15 p-6 sm:p-8 md:p-10 shadow-2xl z-10"
+              className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl bg-[#F8F8F6] text-[#030412] border border-black/15 p-4 min-[390px]:p-6 sm:p-8 md:p-10 shadow-2xl z-10"
             >
               <button
                 onClick={() => setSelectedCaseStudy(null)}

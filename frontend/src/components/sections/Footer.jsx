@@ -78,18 +78,20 @@ export function Footer() {
 
   return (
     <footer id="contact" className="relative w-full bg-[#000422] text-white overflow-hidden">
-      {/* ── Cosmic parallax hero section ────────────────────────── */}
-      <CosmicParallaxBg
-        head="D'Creativs"
-        text="Creative, Bold, Impactful, Unforgettable"
-        loop={true}
-      />
+      {/* ── Cosmic parallax hero section (Desktop & Tablet only) ── */}
+      <div className="hidden md:block">
+        <CosmicParallaxBg
+          head="D'Creativs"
+          text="Creative, Bold, Impactful, Unforgettable"
+          loop={true}
+        />
+      </div>
 
       {/* ── Glowing top border divider ─────────────────────────── */}
       <div className="relative w-full h-[1px] bg-gradient-to-r from-transparent via-[#885FFF]/40 to-transparent" />
 
       {/* ── Footer content grid section ────────────────────────── */}
-      <div className="relative z-20 bg-gradient-to-b from-[#000422] via-[#030626] to-[#000216] pt-16 pb-10 px-6 sm:px-10 lg:px-16">
+      <div className="relative z-20 bg-gradient-to-b from-[#000422] via-[#030626] to-[#000216] pt-12 sm:pt-16 pb-10 px-4 min-[390px]:px-6 sm:px-10 lg:px-16">
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-10">
 

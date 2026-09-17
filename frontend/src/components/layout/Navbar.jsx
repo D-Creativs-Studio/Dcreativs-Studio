@@ -154,11 +154,11 @@ export function Navbar() {
   }, [location.pathname]);
 
   return (
-    <header className="fixed top-3 sm:top-6 left-1/2 -translate-x-1/2 z-50 px-2 sm:px-4 max-w-[96vw]">
+    <header className="fixed top-2.5 sm:top-6 left-1/2 -translate-x-1/2 z-50 px-1 sm:px-4 max-w-[98vw]">
       {/* Main Water Pill Navbar Container */}
       <nav
         aria-label="Main Navigation"
-        className={`relative flex items-center justify-center gap-0.5 xs:gap-1 sm:gap-1.5 px-1 xs:px-2 sm:px-3 py-1 sm:py-1.5 rounded-full transition-all duration-500 ${
+        className={`relative flex items-center justify-center gap-0.5 min-[390px]:gap-1 sm:gap-1.5 px-1 min-[375px]:px-1.5 min-[390px]:px-2 sm:px-3 py-0.5 min-[375px]:py-1 sm:py-1.5 rounded-full transition-all duration-500 ${
           isLightSection
             ? "bg-white/85 backdrop-blur-3xl backdrop-saturate-200 border border-[#030412]/15 shadow-[0_12px_40px_rgba(0,0,0,0.12),inset_0_1.5px_0_0_rgba(255,255,255,0.9),0_0_20px_rgba(65,0,245,0.06)]"
             : "bg-white/[0.05] backdrop-blur-3xl backdrop-saturate-200 border border-white/30 shadow-[0_15px_40px_rgba(0,0,0,0.5),inset_0_1.5px_0_0_rgba(255,255,255,0.7),inset_0_-2px_4px_rgba(0,0,0,0.35),0_0_25px_rgba(255,255,255,0.08)]"
@@ -171,7 +171,7 @@ export function Navbar() {
               key={item.name}
               href={item.href}
               onClick={(e) => handleNavClick(e, item)}
-              className={`relative px-2 xs:px-3 sm:px-4 md:px-5 py-1 sm:py-2 text-[10px] xs:text-xs sm:text-sm md:text-base font-semibold font-heading rounded-full transition-colors duration-300 whitespace-nowrap cursor-pointer ${
+              className={`relative px-1.5 min-[370px]:px-2 min-[390px]:px-3 sm:px-4 md:px-5 py-1 sm:py-2 text-[10px] min-[370px]:text-[11px] min-[390px]:text-xs sm:text-sm md:text-base font-semibold font-heading rounded-full transition-colors duration-300 whitespace-nowrap cursor-pointer ${
                 isLightSection
                   ? isActive
                     ? "text-white"

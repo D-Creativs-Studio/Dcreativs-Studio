@@ -29,7 +29,7 @@ export function BackgroundPaths({
   subtitle = "A creative tech agency turning brands, products, and ideas into things people actually stop for.",
 }) {
   return (
-    <section id="home" className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#030412] text-white font-body selection:bg-[#4100F5] selection:text-white pt-40 pb-16">
+    <section id="home" className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#030412] text-white font-body selection:bg-[#4100F5] selection:text-white pt-32 sm:pt-40 pb-12 sm:pb-16">
       {/* 3D Floating Model Canvas Background Layer */}
       <LogoModelBackground />
 
@@ -145,14 +145,14 @@ export function BackgroundPaths({
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.6 }}
-            className="flex flex-col sm:flex-row items-center gap-4"
+            className="flex flex-col sm:flex-row items-center gap-3.5 sm:gap-4 w-full sm:w-auto px-4 sm:px-0"
           >
             {/* Primary Button — Filled Purple */}
             <a
               href="#contact"
-              className="group relative inline-flex items-center gap-2 px-8 py-3.5 rounded-full
+              className="group relative inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 min-[390px]:px-8 py-3 sm:py-3.5 rounded-full
               bg-gradient-to-r from-[#4100F5] to-[#885FFF]
-              text-white font-heading font-semibold text-base sm:text-lg
+              text-white font-heading font-semibold text-sm min-[390px]:text-base sm:text-lg
               shadow-[0_0_25px_rgba(65,0,245,0.45)] hover:shadow-[0_0_40px_rgba(136,95,255,0.65)]
               hover:-translate-y-0.5 active:scale-95
               transition-all duration-300
@@ -165,9 +165,9 @@ export function BackgroundPaths({
             {/* Secondary Button — Ghost/Outline */}
             <a
               href="#portfolio"
-              className="group inline-flex items-center gap-2 px-8 py-3.5 rounded-full
+              className="group inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 min-[390px]:px-8 py-3 sm:py-3.5 rounded-full
               bg-white/[0.04] hover:bg-white/[0.10] backdrop-blur-md
-              text-white font-heading font-semibold text-base sm:text-lg
+              text-white font-heading font-semibold text-sm min-[390px]:text-base sm:text-lg
               border border-white/25 hover:border-white/50
               hover:-translate-y-0.5 active:scale-95
               transition-all duration-300

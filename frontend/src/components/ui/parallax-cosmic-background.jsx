@@ -137,9 +137,9 @@ const CosmicParallaxBg = ({
       </div>
       <div id="earth" />
 
-      {/* Main Title - Massive full-width text (Affinity style) */}
-      <div className="w-full overflow-x-auto overflow-y-hidden sm:overflow-visible no-scrollbar absolute sm:relative top-[22%] sm:top-auto left-0 right-0 z-30 pointer-events-auto flex justify-start sm:justify-center px-4 sm:px-0">
-        <h2 id="title" className="select-none mb-0 sm:mb-5 leading-none">
+      {/* Main Title - Responsive header */}
+      <div className="w-full absolute sm:relative top-[22%] sm:top-auto left-0 right-0 z-30 pointer-events-auto flex justify-center px-3 sm:px-0">
+        <h2 id="title" className="select-none mb-0 sm:mb-5 leading-none text-center">
           {head.toUpperCase()}
         </h2>
       </div>

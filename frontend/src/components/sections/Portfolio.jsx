@@ -13,7 +13,7 @@ export function Portfolio() {
   return (
     <section
       id="portfolio"
-      className="relative bg-[#000422] text-white py-24 sm:py-32 px-6 sm:px-12 lg:px-20 overflow-hidden select-none"
+      className="relative bg-[#000422] text-white py-20 sm:py-32 px-4 min-[390px]:px-6 sm:px-12 lg:px-20 overflow-hidden select-none"
     >
       {/* ── Film Grain Noise Overlay ────────────────────────────── */}
       <div className="absolute inset-0 bg-grain pointer-events-none z-10 opacity-30" />
@@ -51,7 +51,7 @@ export function Portfolio() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="font-heading text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight"
+              className="font-heading text-3xl min-[375px]:text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight"
             >
               Curated{" "}
               <span className="bg-gradient-to-r from-white via-white/90 to-[#885FFF] bg-clip-text text-transparent">
@@ -93,21 +93,21 @@ export function Portfolio() {
               >
                 {/* Row Hover Background Accent Sweep */}
                 <div
-                  className="absolute inset-0 -mx-6 sm:-mx-12 px-6 sm:px-12 pointer-events-none transition-opacity duration-300 opacity-0 group-hover:opacity-100 rounded-2xl"
+                  className="absolute inset-0 -mx-4 min-[390px]:-mx-6 sm:-mx-12 px-4 min-[390px]:px-6 sm:px-12 pointer-events-none transition-opacity duration-300 opacity-0 group-hover:opacity-100 rounded-2xl"
                   style={{
                     background: `linear-gradient(90deg, ${project.accent}14 0%, transparent 60%)`,
                   }}
                 />
 
-                <div className="relative flex flex-col lg:flex-row lg:items-center justify-between gap-4 sm:gap-6 z-10">
+                <div className="relative flex flex-col lg:flex-row lg:items-center justify-between gap-3 sm:gap-6 z-10">
                   {/* Left: Index & Project Name & Description */}
-                  <div className="flex items-start sm:items-baseline gap-4 sm:gap-8 transition-transform duration-300 group-hover:translate-x-3">
+                  <div className="flex items-start sm:items-baseline gap-3 sm:gap-8 transition-transform duration-300 group-hover:translate-x-3">
                     <span className="font-heading text-xs sm:text-sm font-semibold tracking-widest text-slate-500 group-hover:text-white/80 transition-colors shrink-0 pt-1 sm:pt-0">
                       /{project.id}
                     </span>
                     <div>
                       <h3
-                        className="font-heading text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white transition-colors duration-300"
+                        className="font-heading text-xl min-[390px]:text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white transition-colors duration-300"
                         style={{
                           color: isHovered ? project.accent : "#ffffff",
                           textShadow: isHovered ? `0 0 35px ${project.glowColor}` : "none",
@@ -121,35 +121,35 @@ export function Portfolio() {
                     </div>
                   </div>
 
-                  {/* Middle / Right: Category, Discipline, Year, & Action Arrow */}
-                  <div className="flex items-center justify-between lg:justify-end gap-6 sm:gap-12 text-sm sm:text-base text-slate-400 shrink-0">
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-6">
+                  {/* Middle / Right: Category, Discipline, & Action Arrow */}
+                  <div className="flex items-center justify-between lg:justify-end gap-4 sm:gap-12 text-sm sm:text-base text-slate-400 shrink-0">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-0.5 sm:gap-6">
                       <span className="text-xs sm:text-sm font-medium uppercase tracking-wider text-slate-300 group-hover:text-white transition-colors">
                         {project.category}
                       </span>
                       <span className="hidden sm:inline-block w-1 h-1 rounded-full bg-slate-600" />
-                      <span className="text-xs sm:text-sm font-light text-slate-500 group-hover:text-slate-300 transition-colors">
+                      <span className="text-[11px] sm:text-sm font-light text-slate-500 group-hover:text-slate-300 transition-colors">
                         {project.discipline}
                       </span>
                     </div>
 
                     <div className="flex items-center">
                       <div
-                        className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/15 flex items-center justify-center text-white/70 group-hover:text-white group-hover:border-white/40 transition-all duration-300 group-hover:scale-110 group-hover:rotate-45 shrink-0"
+                        className="w-9 h-9 sm:w-12 sm:h-12 rounded-full border border-white/15 flex items-center justify-center text-white/70 group-hover:text-white group-hover:border-white/40 transition-all duration-300 group-hover:scale-110 group-hover:rotate-45 shrink-0"
                         style={{
                           borderColor: isHovered ? project.accent : "rgba(255, 255, 255, 0.15)",
                           backgroundColor: isHovered ? `${project.accent}1a` : "transparent",
                           color: isHovered ? project.accent : "rgba(255, 255, 255, 0.7)",
                         }}
                       >
-                        <ArrowUpRight className="w-5 h-5" />
+                        <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5" />
                       </div>
                     </div>
                   </div>
                 </div>
 
                 {/* Mobile description snippet */}
-                <p className="sm:hidden text-xs text-slate-400 font-light mt-3 pl-8">
+                <p className="sm:hidden text-xs text-slate-400 font-light mt-2.5 pl-6 min-[390px]:pl-8">
                   {project.shortDescription}
                 </p>
               </motion.div>
@@ -163,22 +163,22 @@ export function Portfolio() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mt-16 sm:mt-24 p-8 sm:p-12 rounded-3xl bg-gradient-to-b from-white/[0.04] to-transparent border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6"
+          className="mt-14 sm:mt-24 p-5 min-[390px]:p-8 sm:p-12 rounded-3xl bg-gradient-to-b from-white/[0.04] to-transparent border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left"
         >
           <div>
-            <h4 className="font-heading text-xl sm:text-2xl font-bold mb-2 text-white">
+            <h4 className="font-heading text-lg sm:text-2xl font-bold mb-2 text-white">
               Have a visionary project in mind?
             </h4>
-            <p className="font-body text-sm sm:text-base text-slate-400 font-light">
+            <p className="font-body text-xs sm:text-base text-slate-400 font-light">
               We collaborate with ambitious teams worldwide to construct memorable digital systems.
             </p>
           </div>
           <a
             href="#contact"
-            className="inline-flex items-center gap-3 px-7 py-3.5 rounded-full bg-gradient-to-r from-[#4100F5] to-[#885FFF] hover:from-[#5212FF] hover:to-[#9f7dff] text-white font-heading font-semibold text-sm tracking-wide shadow-lg shadow-[#4100F5]/30 hover:shadow-[#4100F5]/50 transition-all duration-300 hover:scale-105"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-gradient-to-r from-[#4100F5] to-[#885FFF] hover:from-[#5212FF] hover:to-[#9f7dff] text-white font-heading font-semibold text-sm tracking-wide shadow-lg shadow-[#4100F5]/30 hover:shadow-[#4100F5]/50 transition-all duration-300 hover:scale-105 shrink-0"
           >
             <span>Start a Project</span>
-            <ArrowUpRight className="w-5 h-5" />
+            <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5" />
           </a>
         </motion.div>
       </div>

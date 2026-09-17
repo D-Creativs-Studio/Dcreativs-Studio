@@ -15,8 +15,8 @@ const REDUCED_PERSPECTIVE = "4800px";
 const MOBILE_BREAKPOINT = 640;
 const TABLET_BREAKPOINT = 1025;
 
-const MOBILE_STEP = 4.5;
-const TABLET_STEP = 5;
+const MOBILE_STEP = 1.8;
+const TABLET_STEP = 4;
 const DESKTOP_STEP = 10;
 
 const MOBILE_ROTATE_IN = -45;
@@ -228,12 +228,12 @@ export default function CardsRotateSlider({
   return (
     <div ref={outerRef} className="relative bg-transparent" style={{ overflowX: "clip" }}>
       <div
-        className="sticky top-0 flex h-screen items-center overflow-hidden"
+        className="sticky top-0 flex h-screen items-center max-md:items-start max-md:pt-[4vh] overflow-hidden"
         style={{ perspective: reducedMotion ? REDUCED_PERSPECTIVE : `${perspective}px` }}
       >
         <div
           ref={trackRef}
-          className="relative z-10 flex h-full items-center will-change-transform gap-[5vw] max-[1025px]:gap-[6vw] max-md:gap-[8vw] pl-[30vw] pr-[30vw] max-[1025px]:pl-[20vw] max-[1025px]:pr-[20vw] max-md:pl-[7.5vw] max-md:pr-[7.5vw]"
+          className="relative z-10 flex h-full items-center max-md:items-start will-change-transform gap-[5vw] max-[1025px]:gap-[6vw] max-md:gap-[8vw] pl-[30vw] pr-[30vw] max-[1025px]:pl-[20vw] max-[1025px]:pr-[20vw] max-md:pl-[7.5vw] max-md:pr-[7.5vw]"
           style={{ transformStyle: "preserve-3d" }}
         >
           {images.map((img, index) => (

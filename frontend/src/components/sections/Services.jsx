@@ -43,23 +43,23 @@ export function Services() {
       </div>
 
       {/* Top Header intro before horizontal track */}
-      <div className="relative z-10 pt-16 sm:pt-20 pb-2 sm:pb-3 px-6 text-center max-w-3xl mx-auto">
-        <p className="font-heading text-xs sm:text-sm font-semibold tracking-[0.25em] uppercase text-[#885FFF] mb-3">
+      <div className="relative z-10 pt-10 sm:pt-16 md:pt-20 pb-0 px-4 sm:px-6 text-center max-w-3xl mx-auto">
+        <p className="font-heading text-xs sm:text-sm font-semibold tracking-[0.25em] uppercase text-[#885FFF] mb-2 sm:mb-3">
           Our Capabilities & Deliverables
         </p>
-        <h2 className="font-heading text-3xl sm:text-5xl font-extrabold leading-[1.15] tracking-tight mb-4">
+        <h2 className="font-heading text-2xl min-[375px]:text-3xl sm:text-5xl font-extrabold leading-[1.15] tracking-tight mb-2 sm:mb-4">
           Services Built to{" "}
           <span className="bg-gradient-to-r from-[#4100F5] via-[#885FFF] to-[#C4B5FD] bg-clip-text text-transparent">
             Make an Impact.
           </span>
         </h2>
-        <p className="font-body text-base sm:text-lg text-slate-400 font-normal">
+        <p className="font-body text-sm sm:text-base md:text-lg text-slate-400 font-normal mb-3 sm:mb-4">
           Scroll down to pan through our 3D rotating capabilities track.
         </p>
       </div>
 
       {/* 3D Rotating Cards Slider */}
-      <div className="relative z-10">
+      <div className="relative z-10 mt-3 sm:mt-6 md:mt-0">
         <CardsRotateSlider
           images={servicesData}
           rotationAmount={1.15}
