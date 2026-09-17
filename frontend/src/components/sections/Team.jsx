@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { teamMembers } from "@/data/teamData";
-import { ArrowUpRight, Plus, X, Play } from "lucide-react";
+import { ArrowUpRight, Plus, X } from "lucide-react";
 
 // Clean inline social icons
 const LinkedInIcon = () => (
@@ -87,7 +87,6 @@ export function Team() {
   const [expandedId, setExpandedId] = useState(teamMembers[0].id);
   // spotlightId tracks which member is displayed on the sticky picture side
   const [spotlightId, setSpotlightId] = useState(teamMembers[0].id);
-  const [isPlayingReel, setIsPlayingReel] = useState(false);
 
   const memberRowRefs = useRef({});
   const isClickingRef = useRef(false);
@@ -216,114 +215,53 @@ export function Team() {
       </div>
 
       {/* ══════════════════════════════════════════════════════════════
-          50/50 SPLIT SECTION (Sticky Portrait Top/Left + Accordion)
+          50/50 FULL-BLEED SPLIT SECTION (Sticky Portrait Left + Accordion Right)
           ══════════════════════════════════════════════════════════════ */}
-      <div className="relative max-w-7xl mx-auto px-0 sm:px-6 lg:px-20 z-20">
-        <div className="relative grid grid-cols-1 lg:grid-cols-12 lg:gap-14 items-start">
+      <div className="relative w-full border-y border-white/10 z-20">
+        <div className="relative grid grid-cols-1 lg:grid-cols-2 items-start">
           
-          {/* ── STICKY PICTURE DISPLAY STAGE ─────────────────────────
-              Mobile: Sticks flush to the very top (top-0) taking ~42vh
-              Desktop: Sticks on left half (top-24) taking full side stage
+          {/* ── STICKY PICTURE DISPLAY STAGE (50vw) ────────────────────
+              Mobile: Sticks flush to the very top taking ~45vh
+              Desktop: Sticky at top-0 taking full 100vh height & 50vw width
           ─────────────────────────────────────────────────────────── */}
-          <div className="sticky top-0 lg:top-24 z-30 w-full lg:col-span-5 mb-0 lg:mb-0 transition-all">
-            <div className="relative bg-[#000422] rounded-none sm:rounded-3xl border-b sm:border border-white/10 sm:backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.8)] overflow-hidden">
-              
+          <div className="sticky top-0 z-30 w-full h-[45vh] lg:h-screen overflow-hidden bg-[#000422]">
+            <div className="relative w-full h-full">
               {/* Dynamic ambient brand spotlight */}
               <div
-                className="absolute -top-12 -left-12 w-56 h-56 rounded-full blur-[70px] pointer-events-none transition-all duration-700 opacity-40"
+                className="absolute -top-16 -left-16 w-80 h-80 rounded-full blur-[100px] pointer-events-none transition-all duration-700 opacity-40"
                 style={{ backgroundColor: activeMember.accent }}
               />
 
-              {/* Portrait Image Container (Exact 4:3 on mobile, 3:4 on desktop) */}
-              <div className="relative aspect-[4/3] lg:aspect-[3/4] lg:max-h-[calc(100vh-8.5rem)] w-full overflow-hidden bg-[#000422]">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={activeMember.id}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className="absolute inset-0 w-full h-full"
-                  >
-                    <img
-                      src={activeMember.image}
-                      alt={activeMember.name}
-                      className="w-full h-full object-cover object-top"
-                      loading="eager"
-                    />
-                    {/* Subtle contrast gradient at bottom for text legibility */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#000422] via-[#000422]/15 to-transparent opacity-80 pointer-events-none" />
-                  </motion.div>
-                </AnimatePresence>
-
-                {/* Floating Top Left: Play / Reel Button */}
-                <button
-                  type="button"
-                  onClick={() => setIsPlayingReel(!isPlayingReel)}
-                  aria-label={`Play spotlight reel for ${activeMember.name}`}
-                  className="absolute top-5 left-4 sm:top-4 sm:left-4 z-20 w-11 h-11 rounded-full bg-white/95 hover:bg-[#4100F5] text-[#000422] hover:text-white border border-white/40 flex items-center justify-center shadow-lg transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer"
+              {/* Portrait Image (100% full bleed, object-cover) */}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeMember.id}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.35, ease: "easeInOut" }}
+                  className="absolute inset-0 w-full h-full"
                 >
-                  <Play className="w-4 h-4 ml-0.5 fill-current" />
-                </button>
+                  <img
+                    src={activeMember.image}
+                    alt={activeMember.name}
+                    className="w-full h-full object-cover object-top"
+                    loading="eager"
+                  />
+                  {/* Subtle contrast gradient for depth */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#000422]/60 via-transparent to-black/20 pointer-events-none" />
+                </motion.div>
+              </AnimatePresence>
 
-                {/* Floating Top Right: Serial Tag */}
-                <div className="absolute top-5 right-4 sm:top-4 sm:right-4 z-20 px-3 py-1 rounded-full bg-black/70 border border-white/15 backdrop-blur-md font-mono text-[11px] font-bold text-white/90">
-                  <span className="text-[#885FFF]">// {activeMember.id}</span> / 08
-                </div>
-
-                {/* Bottom Overlay Info (Active member summary) */}
-                <div className="absolute bottom-0 inset-x-0 p-4 sm:p-6 z-20 flex flex-col justify-end">
-                  <div className="inline-flex items-center gap-2 mb-1">
-                    <span
-                      className="w-2 h-2 rounded-full"
-                      style={{ backgroundColor: activeMember.accent }}
-                    />
-                    <span className="font-mono text-[11px] sm:text-xs text-white/90 font-semibold tracking-wider uppercase">
-                      {activeMember.discipline}
-                    </span>
-                  </div>
-
-                  <h3 className="font-heading font-extrabold text-xl sm:text-2xl lg:text-3xl text-white tracking-tight leading-tight">
-                    {activeMember.name}
-                  </h3>
-                  <p
-                    className="font-heading font-semibold text-xs sm:text-sm text-[#885FFF]"
-                  >
-                    {activeMember.role}
-                  </p>
-                </div>
-              </div>
-
-              {/* Quick Jump Thumbnail Indicator Bar */}
-              <div className="hidden sm:flex items-center justify-between gap-1.5 p-3 border-t border-white/10 overflow-x-auto no-scrollbar bg-black/40">
-                {teamMembers.map((m) => {
-                  const isCur = m.id === spotlightId;
-                  return (
-                    <button
-                      key={m.id}
-                      type="button"
-                      onClick={() => setSpotlightId(m.id)}
-                      className={`relative w-8 h-8 rounded-lg overflow-hidden border transition-all duration-200 shrink-0 cursor-pointer ${
-                        isCur
-                          ? "border-[#885FFF] scale-105 shadow-[0_0_12px_rgba(136,95,255,0.6)]"
-                          : "border-white/15 opacity-40 hover:opacity-80"
-                      }`}
-                      title={m.name}
-                    >
-                      <img
-                        src={m.image}
-                        alt={m.name}
-                        className="w-full h-full object-cover"
-                      />
-                    </button>
-                  );
-                })}
+              {/* Floating Top Right: Serial Tag */}
+              <div className="absolute top-6 right-6 z-20 px-3 py-1 rounded-full bg-black/60 border border-white/15 backdrop-blur-md font-mono text-[11px] font-bold text-white/90">
+                <span className="text-[#885FFF]">// {activeMember.id}</span> / 08
               </div>
             </div>
           </div>
 
-          {/* ── RIGHT COLUMN: Interactive Member Accordion Roster ─── */}
-          <div className="lg:col-span-7 flex flex-col px-4 sm:px-0">
+          {/* ── RIGHT COLUMN: Interactive Member Accordion Roster (50vw) ─── */}
+          <div className="w-full flex flex-col border-t lg:border-t-0 lg:border-l border-white/10 bg-[#000422]">
             {teamMembers.map((member) => {
               const isExpanded = member.id === expandedId;
               const isSpotlight = member.id === spotlightId;
@@ -334,9 +272,9 @@ export function Team() {
                   ref={(el) => {
                     memberRowRefs.current[member.id] = el;
                   }}
-                  className={`relative transition-all duration-300 border-t border-white/15 first:border-t-0 lg:first:border-t ${
+                  className={`relative transition-all duration-300 border-b border-white/10 ${
                     isExpanded
-                      ? "bg-[#4100F5] text-white shadow-[0_12px_40px_rgba(65,0,245,0.45)] rounded-2xl my-2 border-transparent"
+                      ? "bg-[#4100F5] text-white"
                       : isSpotlight
                       ? "bg-white/[0.04] text-white"
                       : "text-white hover:bg-white/[0.02]"
@@ -345,53 +283,44 @@ export function Team() {
                   {/* Row Header: Hover or click name to change photo; click (+) to see details */}
                   <div
                     onMouseEnter={() => handleNameHover(member.id)}
-                    className="w-full p-5 sm:p-7 md:p-8 flex items-center justify-between gap-4 select-none group"
+                    className={`w-full flex items-start justify-between gap-6 select-none group transition-all duration-200 ${
+                      isExpanded
+                        ? "px-6 pt-6 pb-2 sm:px-10 sm:pt-8 sm:pb-3 lg:px-12 lg:pt-9 lg:pb-3"
+                        : "px-6 py-5 sm:px-10 sm:py-6 lg:px-12 lg:py-7 items-center"
+                    }`}
                   >
                     {/* Team Name Area: Hovering or clicking changes the spotlight image */}
                     <button
                       type="button"
                       onClick={() => handleNameClick(member.id)}
-                      className="flex-1 pr-2 text-left cursor-pointer focus:outline-none"
+                      className="flex-1 pr-4 text-left cursor-pointer focus:outline-none"
                       aria-label={`View photo of ${member.name}`}
                     >
                       {/* Chunky First Name */}
                       <h3
-                        className={`font-heading font-black text-3xl sm:text-5xl md:text-6xl tracking-tight leading-none transition-colors duration-200 ${
+                        className={`font-heading font-black text-3xl sm:text-5xl lg:text-6xl tracking-tight leading-none transition-colors duration-200 ${
                           isExpanded
                             ? "text-white"
                             : isSpotlight
                             ? "text-white"
-                            : "text-white/80 group-hover:text-[#885FFF]"
+                            : "text-white/90 group-hover:text-[#885FFF]"
                         }`}
                       >
                         {member.firstName}
                       </h3>
 
-                      {/* Subtitle with Full Name & Role */}
-                      <div className="flex items-center gap-2.5 mt-2 flex-wrap">
-                        <span
-                          className={`text-xs sm:text-sm font-semibold transition-colors ${
-                            isExpanded
-                              ? "text-white/90"
-                              : isSpotlight
-                              ? "text-white"
-                              : "text-slate-300"
-                          }`}
-                        >
-                          {member.name}
-                        </span>
-                        <span
-                          className={`text-[10px] sm:text-xs font-mono px-2 py-0.5 rounded-full transition-colors ${
-                            isExpanded
-                              ? "bg-white/20 text-white font-semibold"
-                              : isSpotlight
-                              ? "bg-[#885FFF]/20 text-[#885FFF] font-semibold"
-                              : "bg-white/10 text-slate-400"
-                          }`}
-                        >
-                          {member.role}
-                        </span>
-                      </div>
+                      {/* Subtitle with Full Name */}
+                      <p
+                        className={`text-xs sm:text-sm md:text-base transition-colors mt-1.5 ${
+                          isExpanded
+                            ? "text-white/90 font-medium"
+                            : isSpotlight
+                            ? "text-white font-normal"
+                            : "text-slate-300 font-normal"
+                        }`}
+                      >
+                        {member.name}
+                      </p>
                     </button>
 
                     {/* Circular Action Button (+) / (×) to toggle person details */}
@@ -401,10 +330,14 @@ export function Team() {
                         e.stopPropagation();
                         handleToggleAccordion(member.id);
                       }}
-                      aria-label={isExpanded ? `Hide ${member.name} details` : `Show ${member.name} details`}
-                      className={`w-11 h-11 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 cursor-pointer ${
+                      aria-label={
                         isExpanded
-                          ? "border border-white/40 text-white bg-white/15 hover:bg-white/25 hover:scale-105 active:scale-95 shadow-md"
+                          ? `Hide ${member.name} details`
+                          : `Show ${member.name} details`
+                      }
+                      className={`w-11 h-11 sm:w-13 sm:h-13 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 cursor-pointer mt-0.5 ${
+                        isExpanded
+                          ? "border border-white/50 text-white bg-white/15 hover:bg-white/25 hover:scale-105 active:scale-95 shadow-md"
                           : "border border-white/25 text-white hover:border-white hover:bg-white/10 hover:scale-110 active:scale-95"
                       }`}
                     >
@@ -416,7 +349,7 @@ export function Team() {
                     </button>
                   </div>
 
-                  {/* Expandable Accordion Body (Quote + Bio + Skills) */}
+                  {/* Expandable Accordion Body (Compact Quote + Bio matching reference screenshot) */}
                   <AnimatePresence initial={false}>
                     {isExpanded && (
                       <motion.div
@@ -427,89 +360,16 @@ export function Team() {
                         transition={{ duration: 0.35, ease: [0.33, 1, 0.68, 1] }}
                         className="overflow-hidden"
                       >
-                        <div className="px-5 pb-6 sm:px-8 sm:pb-8 pt-0">
+                        <div className="px-6 pb-6 sm:px-10 sm:pb-8 lg:px-12 lg:pb-9 pt-0">
                           {/* Editorial Serif Italic Quote */}
-                          <blockquote className="font-serif italic text-base sm:text-xl md:text-2xl leading-relaxed text-white/95 my-3 font-medium">
+                          <blockquote className="font-serif italic text-base sm:text-lg lg:text-xl leading-snug text-white/95 my-2.5 sm:my-3 font-normal max-w-xl">
                             {member.quote}
                           </blockquote>
 
                           {/* Authentic Bio Narrative */}
-                          <p className="font-body text-xs sm:text-sm md:text-base text-white/85 leading-relaxed max-w-2xl mb-5 font-normal">
+                          <p className="font-body text-xs sm:text-sm lg:text-[14.5px] text-white/85 leading-relaxed max-w-xl font-normal">
                             {member.bio}
                           </p>
-
-                          {/* Skill / Superpower Tags */}
-                          {member.skills && (
-                            <div className="flex items-center gap-2 flex-wrap mb-5">
-                              {member.skills.map((skill) => (
-                                <span
-                                  key={skill}
-                                  className="text-[11px] sm:text-xs font-mono font-semibold px-2.5 py-1 rounded-full bg-white/15 text-white border border-white/20"
-                                >
-                                  {skill}
-                                </span>
-                              ))}
-                            </div>
-                          )}
-
-                          {/* Social Channel Links */}
-                          <div className="flex items-center gap-2 pt-3 border-t border-white/20">
-                            {member.socials.linkedin && (
-                              <a
-                                href={member.socials.linkedin}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label={`${member.name} LinkedIn`}
-                                className="w-8 h-8 rounded-full bg-white/15 hover:bg-white text-white hover:text-[#4100F5] flex items-center justify-center transition-all duration-200"
-                              >
-                                <LinkedInIcon />
-                              </a>
-                            )}
-                            {member.socials.twitter && (
-                              <a
-                                href={member.socials.twitter}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label={`${member.name} Twitter`}
-                                className="w-8 h-8 rounded-full bg-white/15 hover:bg-white text-white hover:text-[#4100F5] flex items-center justify-center transition-all duration-200"
-                              >
-                                <TwitterIcon />
-                              </a>
-                            )}
-                            {member.socials.github && (
-                              <a
-                                href={member.socials.github}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label={`${member.name} GitHub`}
-                                className="w-8 h-8 rounded-full bg-white/15 hover:bg-white text-white hover:text-[#4100F5] flex items-center justify-center transition-all duration-200"
-                              >
-                                <GithubIcon />
-                              </a>
-                            )}
-                            {member.socials.dribbble && (
-                              <a
-                                href={member.socials.dribbble}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label={`${member.name} Dribbble`}
-                                className="w-8 h-8 rounded-full bg-white/15 hover:bg-white text-white hover:text-[#4100F5] flex items-center justify-center transition-all duration-200"
-                              >
-                                <DribbbleIcon />
-                              </a>
-                            )}
-                            {member.socials.instagram && (
-                              <a
-                                href={member.socials.instagram}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label={`${member.name} Instagram`}
-                                className="w-8 h-8 rounded-full bg-white/15 hover:bg-white text-white hover:text-[#4100F5] flex items-center justify-center transition-all duration-200"
-                              >
-                                <InstagramIcon />
-                              </a>
-                            )}
-                          </div>
                         </div>
                       </motion.div>
                     )}
