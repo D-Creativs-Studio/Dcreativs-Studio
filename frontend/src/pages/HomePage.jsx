@@ -1,3 +1,4 @@
+import { SEO } from "@/components/common/SEO";
 import { BackgroundPaths } from "@/components/ui/background-paths";
 import { About } from "@/components/sections/About";
 import { Services } from "@/components/sections/Services";
@@ -7,6 +8,10 @@ import { Team } from "@/components/sections/Team";
 export function HomePage() {
   return (
     <>
+      <SEO
+        title="Digital Experience & Brand Innovation"
+        description="D'Creativs Studio crafts bespoke digital experiences, high-performance web platforms, 3D motion graphics, and scalable brand identity systems that captivate and convert."
+      />
       <BackgroundPaths 
         title={
           <span className="flex flex-col items-center justify-center gap-1 sm:gap-2">

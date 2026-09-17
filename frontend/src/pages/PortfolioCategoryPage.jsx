@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { portfolioCategories, getPortfolioByCategory } from "@/data/portfolioData";
 import { motion, AnimatePresence } from "framer-motion";
+import { SEO } from "@/components/common/SEO";
 import { 
   ArrowLeft, 
   ArrowUpRight, 
@@ -44,6 +45,11 @@ export function PortfolioCategoryPage() {
 
   return (
     <div className="min-h-screen bg-[#F8F8F6] text-[#030412] pt-24 pb-24 px-4 sm:px-6 lg:px-12 relative overflow-hidden">
+      <SEO
+        title={`${category.name} — Portfolio`}
+        description={category.shortDescription || category.heroSubtitle}
+        image={category.image.startsWith("http") ? category.image : `https://dcreativs.com${category.image}`}
+      />
       {/* ── Background Subtle Ambient Glows ─────────────────────── */}
       <div className="absolute top-10 left-1/4 w-[600px] h-[600px] rounded-full blur-[180px] bg-[#4100F5]/[0.06] pointer-events-none z-0" />
       <div className="absolute top-1/2 right-10 w-[500px] h-[500px] bg-[#885FFF]/[0.05] rounded-full blur-[160px] pointer-events-none z-0" />

@@ -1,37 +1,167 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <!-- Standard SEO -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="D'Creativs Studio — Digital Experience & Brand Innovation. We build futuristic, immersive digital experiences for visionary brands." />
-    <meta name="theme-color" content="#000422" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    
+    <!-- Primary Page Metadata -->
+    <title>D'Creativs Studio — Digital Experience &amp; Brand Innovation</title>
+    <meta name="title" content="D'Creativs Studio — Digital Experience &amp; Brand Innovation" />
+    <meta
+      name="description"
+      content="D'Creativs Studio crafts bespoke digital experiences, high-performance web platforms, 3D motion graphics, and scalable brand identity systems that captivate and convert."
+    />
+    <meta
+      name="keywords"
+      content="creative tech agency, web development, UI/UX design, 3D motion graphics, brand identity, digital experience, React, Next.js, AI automation, branding agency Nigeria, creative studio, full stack developers"
+    />
+    <meta name="author" content="D'Creativs Technologies" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <link rel="canonical" href="https://dcreativs.com/" />
 
-    <!-- Open Graph (WhatsApp, Facebook, LinkedIn) -->
+    <!-- Favicon & Touch Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon" href="/favicon.svg" color="#4100F5" />
+    <meta name="theme-color" content="#000422" />
+    <meta name="msapplication-TileColor" content="#000422" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="D'Creativs" />
+
+    <!-- Open Graph / Facebook / WhatsApp / LinkedIn / Discord -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="D'Creativs Studio" />
     <meta property="og:url" content="https://dcreativs.com/" />
-    <meta property="og:title" content="D'Creativs Studio — Digital Experience & Brand Innovation" />
-    <meta property="og:description" content="We build futuristic, immersive digital experiences for visionary brands." />
-    <!-- WhatsApp & other platforms require an absolute URL for the image -->
-    <meta property="og:image" content="https://dcreativs.com/og-image.jpg" />
+    <meta property="og:title" content="D'Creativs Studio — Digital Experience &amp; Brand Innovation" />
+    <meta
+      property="og:description"
+      content="We build digital experiences and brands people actually stop for. UI/UX, Web &amp; Apps, 3D Motion, and Brand Systems."
+    />
+    <meta property="og:image" content="https://dcreativs.com/og-image.png" />
+    <meta property="og:image:secure_url" content="https://dcreativs.com/og-image.png" />
+    <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="D'Creativs Studio — Digital Experience &amp; Brand Innovation" />
+    <meta property="og:locale" content="en_US" />
 
-    <!-- Twitter -->
+    <!-- X (formerly Twitter) Cards -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@dcreativs" />
+    <meta name="twitter:creator" content="@dcreativs" />
     <meta name="twitter:url" content="https://dcreativs.com/" />
-    <meta name="twitter:title" content="D'Creativs Studio" />
-    <meta name="twitter:description" content="We build futuristic, immersive digital experiences for visionary brands." />
-    <meta name="twitter:image" content="https://dcreativs.com/og-image.jpg" />
+    <meta name="twitter:title" content="D'Creativs Studio — Digital Experience &amp; Brand Innovation" />
+    <meta
+      name="twitter:description"
+      content="We build digital experiences and brands people actually stop for. UI/UX, Web &amp; Apps, 3D Motion, and Brand Systems."
+    />
+    <meta name="twitter:image" content="https://dcreativs.com/og-image.png" />
+    <meta name="twitter:image:alt" content="D'Creativs Studio — Digital Experience &amp; Brand Innovation" />
 
-    <title>D'Creativs Studio — Digital Experience & Brand Innovation</title>
+    <!-- Schema.org JSON-LD Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://dcreativs.com/#organization",
+            "name": "D'Creativs Studio",
+            "url": "https://dcreativs.com/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://dcreativs.com/android-chrome-512x512.png",
+              "width": 512,
+              "height": 512
+            },
+            "image": "https://dcreativs.com/og-image.png",
+            "description": "Creative technology studio combining product design, full-stack development, 3D motion, and brand marketing under one roof.",
+            "email": "hello@dcreativs.com",
+            "sameAs": [
+              "https://twitter.com/dcreativs",
+              "https://linkedin.com/company/dcreativs",
+              "https://instagram.com/dcreativs.studio",
+              "https://github.com/dcreativs"
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://dcreativs.com/#website",
+            "url": "https://dcreativs.com/",
+            "name": "D'Creativs Studio",
+            "publisher": {
+              "@id": "https://dcreativs.com/#organization"
+            },
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "ProfessionalService",
+            "@id": "https://dcreativs.com/#service",
+            "name": "D'Creativs Studio",
+            "url": "https://dcreativs.com/",
+            "image": "https://dcreativs.com/og-image.png",
+            "priceRange": "$$",
+            "address": {
+              "@type": "PostalAddress",
+              "addressCountry": "NG"
+            },
+            "openingHours": "Mo-Fr 09:00-18:00",
+            "hasOfferCatalog": {
+              "@type": "OfferCatalog",
+              "name": "Creative Tech & Digital Services",
+              "itemListElement": [
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Brand Identity & Strategy",
+                    "description": "Logo suites, typography scales, brand guidelines, and visual identity systems."
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Web & App Development",
+                    "description": "High-performance React, Next.js, and full-stack digital products."
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "3D & Motion Graphics",
+                    "description": "Photorealistic 3D modeling, kinetic video ads, and interactive WebGL experiences."
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "AI & Workflow Automations",
+                    "description": "Custom AI chatbots, intelligent workflow pipelines, and data integrations."
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    </script>
+
     <!-- Google Fonts: Sora & Raleway -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300..800;1,300..800&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300..800;1,300..800&family=Sora:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <body class="bg-[#000422] text-white font-body selection:bg-[#4100F5] selection:text-white">
+  <body class="bg-[#000422] text-white font-body selection:bg-[#4100F5] selection:text-white antialiased">
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

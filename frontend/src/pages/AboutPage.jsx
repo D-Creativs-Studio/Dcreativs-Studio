@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { SEO } from "@/components/common/SEO";
 import {
   ArrowRight,
   Palette,
@@ -116,6 +117,10 @@ export function AboutPage() {
 
   return (
     <div className="min-h-screen bg-[#F8F8F6] text-[#030412] pt-28 sm:pt-36 pb-24 px-4 sm:px-6 lg:px-12 relative overflow-hidden selection:bg-[#4100F5] selection:text-white">
+      <SEO
+        title="About Us — The Creative Tech Studio"
+        description="Learn about D'Creativs Studio — a team of multidisciplinary builders combining UI/UX design, full-stack development, 3D motion, and brand strategy under one roof."
+      />
       {/* Ambient background glows */}
       <div className="absolute top-20 left-10 w-[600px] h-[600px] bg-[#4100F5]/[0.05] rounded-full blur-[180px] pointer-events-none z-0" />
       <div className="absolute top-1/3 right-5 w-[500px] h-[500px] bg-[#885FFF]/[0.05] rounded-full blur-[160px] pointer-events-none z-0" />

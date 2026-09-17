@@ -2,6 +2,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { getServiceBySlug, servicesData } from "@/data/servicesData";
 import { ArrowLeft, ArrowRight, CheckCircle2, Cpu, Layers, Send } from "lucide-react";
 import { ToolsStackMarquee } from "@/components/ui/tools-stack-marquee";
+import { SEO } from "@/components/common/SEO";
 
 export function ServiceDetailPage() {
   const { serviceId } = useParams();
@@ -34,6 +35,11 @@ export function ServiceDetailPage() {
 
   return (
     <div className="min-h-screen bg-[#F8F8F6] text-[#030412] pt-24 pb-20 px-4 sm:px-6 lg:px-12 relative overflow-hidden">
+      <SEO
+        title={`${service.text} — Service`}
+        description={service.subtitle || service.overview}
+        image={service.src}
+      />
       {/* Background Ambient Glows */}
       <div className="absolute top-20 left-10 w-[600px] h-[600px] bg-[#4100F5]/[0.06] rounded-full blur-[180px] pointer-events-none z-0" />
       <div className="absolute top-1/2 right-10 w-[500px] h-[500px] bg-[#885FFF]/[0.05] rounded-full blur-[160px] pointer-events-none z-0" />
