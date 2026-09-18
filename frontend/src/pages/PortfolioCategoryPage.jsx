@@ -18,7 +18,7 @@ export function PortfolioCategoryPage() {
   const navigate = useNavigate();
   const [selectedCaseStudy, setSelectedCaseStudy] = useState(null);
 
-  const category = getPortfolioByCategory(categoryId);
+  const category = getPortfolioByCategory(categoryId) || portfolioCategories[0];
 
   // Fallback if category not found
   if (!category) {

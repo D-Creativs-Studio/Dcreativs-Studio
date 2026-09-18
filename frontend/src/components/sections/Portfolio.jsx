@@ -1,186 +1,254 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { useState, useRef } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
+import { Link } from "react-router-dom";
 import { portfolioCategories } from "@/data/portfolioData";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export function Portfolio() {
-  const [hoveredIndex, setHoveredIndex] = useState(null);
-  const navigate = useNavigate();
+  const [isHovered, setIsHovered] = useState(false);
+  const cardAreaRef = useRef(null);
 
-  const activeCategory = hoveredIndex !== null ? portfolioCategories[hoveredIndex] : null;
+  // Smooth custom cursor tracking coordinates
+  const mouseX = useMotionValue(-100);
+  const mouseY = useMotionValue(-100);
+
+  // Elastic spring physics for smooth, responsive cursor following
+  const springConfig = { damping: 28, stiffness: 350, mass: 0.4 };
+  const smoothX = useSpring(mouseX, springConfig);
+  const smoothY = useSpring(mouseY, springConfig);
+
+  const handleMouseMove = (e) => {
+    if (!cardAreaRef.current) return;
+    const rect = cardAreaRef.current.getBoundingClientRect();
+    mouseX.set(e.clientX - rect.left);
+    mouseY.set(e.clientY - rect.top);
+  };
+
+  // Layers recreating the exact visual stacking order:
+  // Each card sits directly on top of the other with its own border, shadow, and rotation.
+  const stackLayers = [
+    {
+      id: "card-red-backdrop",
+      title: "Red Backdrop",
+      isRedBackdrop: true,
+      baseRotate: 0,
+      hoverRotate: 0,
+      baseX: "0%",
+      hoverX: "0%",
+      baseY: "-2%",
+      hoverY: "-14%",
+      scale: 0.95,
+      hoverScale: 1.0,
+      zIndex: 1,
+    },
+    {
+      id: "card-far-left-pink",
+      title: portfolioCategories[1].name,
+      image: portfolioCategories[1].image,
+      baseRotate: -26,
+      hoverRotate: -36,
+      baseX: "-9%",
+      hoverX: "-40%",
+      baseY: "-2%",
+      hoverY: "5%",
+      scale: 0.90,
+      hoverScale: 0.96,
+      zIndex: 2,
+    },
+    {
+      id: "card-mid-left-photo",
+      title: portfolioCategories[5].name,
+      image: portfolioCategories[5].image,
+      baseRotate: -14,
+      hoverRotate: -18,
+      baseX: "-4%",
+      hoverX: "-21%",
+      baseY: "1%",
+      hoverY: "-1%",
+      scale: 0.93,
+      hoverScale: 0.98,
+      zIndex: 3,
+    },
+    {
+      id: "card-bottom-peek",
+      title: portfolioCategories[3].name,
+      image: portfolioCategories[3].image,
+      baseRotate: -4,
+      hoverRotate: -2,
+      baseX: "2%",
+      hoverX: "2%",
+      baseY: "6%",
+      hoverY: "16%",
+      scale: 0.92,
+      hoverScale: 0.96,
+      zIndex: 4,
+    },
+    {
+      id: "card-mid-right-photo",
+      title: portfolioCategories[4].name,
+      image: portfolioCategories[4].image,
+      baseRotate: 14,
+      hoverRotate: 18,
+      baseX: "6%",
+      hoverX: "21%",
+      baseY: "-2%",
+      hoverY: "-1%",
+      scale: 0.92,
+      hoverScale: 0.98,
+      zIndex: 5,
+    },
+    {
+      id: "card-far-right-dark",
+      title: portfolioCategories[2].name,
+      image: portfolioCategories[2].image,
+      baseRotate: 28,
+      hoverRotate: 36,
+      baseX: "10%",
+      hoverX: "40%",
+      baseY: "4%",
+      hoverY: "5%",
+      scale: 0.88,
+      hoverScale: 0.96,
+      zIndex: 6,
+    },
+    {
+      id: "card-front-hero",
+      title: portfolioCategories[0].name,
+      image: portfolioCategories[0].image,
+      isHero: true,
+      baseRotate: -7,
+      hoverRotate: -2,
+      baseX: "-1%",
+      hoverX: "0%",
+      baseY: "0%",
+      hoverY: "-2%",
+      scale: 1.0,
+      hoverScale: 1.05,
+      zIndex: 10,
+    },
+  ];
 
   return (
     <section
       id="portfolio"
-      className="relative bg-[#000422] text-white py-20 sm:py-32 px-4 min-[390px]:px-6 sm:px-12 lg:px-20 overflow-hidden select-none"
+      className="relative bg-[#F7F7F9] text-[#0A0A0A] pt-14 sm:pt-20 md:pt-28 pb-0 overflow-hidden select-none transition-colors duration-500"
     >
-      {/* ── Film Grain Noise Overlay ────────────────────────────── */}
-      <div className="absolute inset-0 bg-grain pointer-events-none z-10 opacity-30" />
-
-      {/* ── Dynamic Ambient Background Glow ──────────────────────── */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-        <motion.div
-          animate={{
-            backgroundColor: activeCategory ? activeCategory.accent : "#4100F5",
-            opacity: activeCategory ? 0.18 : 0.08,
-            scale: activeCategory ? 1.15 : 1.0,
-          }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] sm:w-[900px] h-[550px] sm:h-[700px] rounded-full blur-[180px]"
-        />
-        <div className="absolute -bottom-20 right-10 w-[450px] h-[450px] bg-[#885FFF]/10 rounded-full blur-[140px]" />
+      {/* ── Soft Atmospheric Ambient Lighting ────────────────── */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-[#4100F5]/5 rounded-full blur-[140px]" />
+        <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] bg-cyan-400/8 rounded-full blur-[140px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[550px] bg-indigo-500/[0.03] rounded-full blur-[160px]" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto z-20">
-        {/* ── Header Intro ────────────────────────────────────────── */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 sm:mb-24 pb-8 border-b border-white/10 gap-6">
-          <div>
-            <motion.p
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="font-heading text-xs sm:text-sm font-semibold tracking-[0.25em] uppercase text-[#885FFF] mb-3"
-            >
-              Selected Work (01 — 06)
-            </motion.p>
-            
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="font-heading text-3xl min-[375px]:text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight"
-            >
-              Curated{" "}
-              <span className="bg-gradient-to-r from-white via-white/90 to-[#885FFF] bg-clip-text text-transparent">
-                Creations.
-              </span>
-            </motion.h2>
-          </div>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="font-body text-slate-400 text-sm sm:text-base lg:text-lg max-w-md md:text-right font-light leading-relaxed"
+      <div className="relative w-full z-10 flex flex-col items-center">
+        {/* ── HERO STAGE: Individual Physical Cards Layered On Top Of Each Other ── */}
+        <div className="relative w-full flex flex-col items-center justify-center pt-4 sm:pt-8">
+          
+          {/* ── Single Semantic Link with Custom Magnetic Follower Cursor ── */}
+          <Link
+            ref={cardAreaRef}
+            to="/portfolio"
+            aria-label="Explore Full Portfolio Index"
+            onMouseEnter={(e) => {
+              setIsHovered(true);
+              handleMouseMove(e);
+            }}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={() => setIsHovered(false)}
+            className="group relative block w-[68vw] sm:w-[44vw] md:w-[32vw] lg:w-[24vw] min-w-[240px] max-w-[380px] aspect-[3/4.2] z-10 cursor-none overflow-visible"
           >
-            Click any discipline to explore our production case studies, engineering breakthroughs, and interactive deliverables.
-          </motion.p>
-        </div>
+            {stackLayers.map((layer) => {
+              const currentRotate = isHovered ? layer.hoverRotate : layer.baseRotate;
+              const currentX = isHovered ? layer.hoverX : layer.baseX;
+              const currentY = isHovered ? layer.hoverY : layer.baseY;
+              const currentScale = isHovered ? (layer.hoverScale || layer.scale) : layer.scale;
 
-        {/* ── Project Rows List ───────────────────────────────────── */}
-        <div className="flex flex-col divide-y divide-white/10 border-b border-white/10">
-          {portfolioCategories.map((project, index) => {
-            const isHovered = hoveredIndex === index;
-            const isDimmed = hoveredIndex !== null && !isHovered;
-
-            return (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: index * 0.08 }}
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-                onClick={() => navigate(`/portfolio/${project.slug}`)}
-                className={`group relative py-8 sm:py-10 lg:py-12 cursor-pointer transition-opacity duration-300 ${
-                  isDimmed ? "opacity-30" : "opacity-100"
-                }`}
-              >
-                {/* Row Hover Background Accent Sweep */}
+              return (
                 <div
-                  className="absolute inset-0 -mx-4 min-[390px]:-mx-6 sm:-mx-12 px-4 min-[390px]:px-6 sm:px-12 pointer-events-none transition-opacity duration-300 opacity-0 group-hover:opacity-100 rounded-2xl"
+                  key={layer.id}
                   style={{
-                    background: `linear-gradient(90deg, ${project.accent}14 0%, transparent 60%)`,
+                    zIndex: layer.zIndex,
+                    transform: `translate(${currentX}, ${currentY}) rotate(${currentRotate}deg) scale(${currentScale})`,
                   }}
-                />
+                  className={`absolute inset-0 w-full h-full rounded-2xl sm:rounded-3xl overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] origin-center
+                    ${
+                      layer.isHero
+                        ? "border-2 border-black/80 shadow-[0_30px_70px_-10px_rgba(0,0,0,0.40)] ring-4 ring-black/5"
+                        : layer.isRedBackdrop
+                        ? "bg-[#D90429] border border-red-700 shadow-[0_20px_45px_-10px_rgba(217,4,41,0.35)]"
+                        : "bg-white border border-white/80 shadow-[0_20px_45px_-10px_rgba(0,0,0,0.25)]"
+                    }
+                  `}
+                >
+                  {layer.isRedBackdrop ? (
+                    <div className="w-full h-full bg-[#D90429]" />
+                  ) : (
+                    <img
+                      src={layer.image}
+                      alt={layer.title}
+                      className="w-full h-full object-cover select-none pointer-events-none"
+                      loading="lazy"
+                    />
+                  )}
 
-                <div className="relative flex flex-col lg:flex-row lg:items-center justify-between gap-3 sm:gap-6 z-10">
-                  {/* Left: Index & Project Name & Description */}
-                  <div className="flex items-start sm:items-baseline gap-3 sm:gap-8 transition-transform duration-300 group-hover:translate-x-3">
-                    <span className="font-heading text-xs sm:text-sm font-semibold tracking-widest text-slate-500 group-hover:text-white/80 transition-colors shrink-0 pt-1 sm:pt-0">
-                      /{project.id}
-                    </span>
-                    <div>
-                      <h3
-                        className="font-heading text-xl min-[390px]:text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white transition-colors duration-300"
-                        style={{
-                          color: isHovered ? project.accent : "#ffffff",
-                          textShadow: isHovered ? `0 0 35px ${project.glowColor}` : "none",
-                        }}
-                      >
-                        {project.name}
-                      </h3>
-                      <p className="font-body text-xs sm:text-sm text-slate-400 font-light mt-2 max-w-2xl hidden sm:block">
-                        {project.shortDescription}
+                  {/* Gradient Scrim on Front Hero Card */}
+                  {layer.isHero && (
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
+                  )}
+
+                  {/* Editorial Tag on Front Hero Card */}
+                  {layer.isHero && (
+                    <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6 z-10 text-white flex flex-col justify-end pointer-events-none">
+                      <p className="font-mono text-[10px] sm:text-xs text-white/70 uppercase tracking-widest mb-1">
+                        Curated Works
                       </p>
+                      <h3 className="font-heading text-lg sm:text-2xl font-bold tracking-tight text-white leading-tight">
+                        Explore Portfolio
+                      </h3>
                     </div>
-                  </div>
-
-                  {/* Middle / Right: Category, Discipline, & Action Arrow */}
-                  <div className="flex items-center justify-between lg:justify-end gap-4 sm:gap-12 text-sm sm:text-base text-slate-400 shrink-0">
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-0.5 sm:gap-6">
-                      <span className="text-xs sm:text-sm font-medium uppercase tracking-wider text-slate-300 group-hover:text-white transition-colors">
-                        {project.category}
-                      </span>
-                      <span className="hidden sm:inline-block w-1 h-1 rounded-full bg-slate-600" />
-                      <span className="text-[11px] sm:text-sm font-light text-slate-500 group-hover:text-slate-300 transition-colors">
-                        {project.discipline}
-                      </span>
-                    </div>
-
-                    <div className="flex items-center">
-                      <div
-                        className="w-9 h-9 sm:w-12 sm:h-12 rounded-full border border-white/15 flex items-center justify-center text-white/70 group-hover:text-white group-hover:border-white/40 transition-all duration-300 group-hover:scale-110 group-hover:rotate-45 shrink-0"
-                        style={{
-                          borderColor: isHovered ? project.accent : "rgba(255, 255, 255, 0.15)",
-                          backgroundColor: isHovered ? `${project.accent}1a` : "transparent",
-                          color: isHovered ? project.accent : "rgba(255, 255, 255, 0.7)",
-                        }}
-                      >
-                        <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5" />
-                      </div>
-                    </div>
-                  </div>
+                  )}
                 </div>
+              );
+            })}
 
-                {/* Mobile description snippet */}
-                <p className="sm:hidden text-xs text-slate-400 font-light mt-2.5 pl-6 min-[390px]:pl-8">
-                  {project.shortDescription}
-                </p>
-              </motion.div>
-            );
-          })}
+            {/* ── Magnetic Custom Follower Cursor Badge (Lavender Circle + Arrow) ── */}
+            <motion.div
+              style={{
+                left: smoothX,
+                top: smoothY,
+              }}
+              animate={{
+                scale: isHovered ? 1 : 0,
+                opacity: isHovered ? 1 : 0,
+              }}
+              transition={{
+                type: "spring",
+                stiffness: 400,
+                damping: 25,
+              }}
+              className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 z-40 w-14 h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full bg-[#885FFF] text-white flex items-center justify-center shadow-[0_15px_40px_rgba(136,95,255,0.45)] border border-white/30"
+              aria-hidden="true"
+            >
+              <ArrowRight className="w-6 h-6 sm:w-7 sm:h-7 stroke-[2.5] text-white" />
+            </motion.div>
+          </Link>
+
+          {/* ── Giant Base Typography: "PORTFOLIO" Directly Under The Stacked Cards ── */}
+          <div className="relative -mt-16 sm:-mt-24 md:-mt-28 pointer-events-none select-none z-0 w-full overflow-hidden leading-none px-2 sm:px-4 md:px-6 lg:px-8">
+            <div className="flex items-baseline justify-between w-full font-heading font-black text-[13.5vw] sm:text-[15.5vw] md:text-[17vw] lg:text-[18.2vw] text-[#885FFF] leading-none tracking-tighter">
+              <span>P</span>
+              <span>O</span>
+              <span>R</span>
+              <span>T</span>
+              <span>F</span>
+              <span>O</span>
+              <span>L</span>
+              <span>I</span>
+              <span>O</span>
+            </div>
+          </div>
         </div>
 
-        {/* Bottom CTA / Agency Philosophy Bar */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mt-14 sm:mt-24 p-5 min-[390px]:p-8 sm:p-12 rounded-3xl bg-gradient-to-b from-white/[0.04] to-transparent border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left"
-        >
-          <div>
-            <h4 className="font-heading text-lg sm:text-2xl font-bold mb-2 text-white">
-              Have a visionary project in mind?
-            </h4>
-            <p className="font-body text-xs sm:text-base text-slate-400 font-light">
-              We collaborate with ambitious teams worldwide to construct memorable digital systems.
-            </p>
-          </div>
-          <a
-            href="#contact"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-gradient-to-r from-[#4100F5] to-[#885FFF] hover:from-[#5212FF] hover:to-[#9f7dff] text-white font-heading font-semibold text-sm tracking-wide shadow-lg shadow-[#4100F5]/30 hover:shadow-[#4100F5]/50 transition-all duration-300 hover:scale-105 shrink-0"
-          >
-            <span>Start a Project</span>
-            <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5" />
-          </a>
-        </motion.div>
       </div>
     </section>
   );

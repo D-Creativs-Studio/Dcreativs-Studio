@@ -74,7 +74,7 @@ export function Navbar() {
 
   useEffect(() => {
     // List of section IDs that have light backgrounds
-    const lightSections = ["about", "nigeria-to-world"];
+    const lightSections = ["about", "nigeria-to-world", "portfolio"];
 
     // User manual wheel/touch immediately releases click lock
     const handleUserInteraction = () => {
