@@ -131,7 +131,7 @@ export function Portfolio() {
   return (
     <section
       id="portfolio"
-      className="relative bg-[#F7F7F9] text-[#0A0A0A] pt-14 sm:pt-20 md:pt-28 pb-0 overflow-hidden select-none transition-colors duration-500"
+      className="relative bg-[#F7F7F9] text-[#0A0A0A] pt-24 sm:pt-20 md:pt-28 pb-16 sm:pb-0 min-h-[680px] sm:min-h-0 overflow-hidden select-none transition-colors duration-500 flex flex-col justify-center"
     >
       {/* ── Soft Atmospheric Ambient Lighting ────────────────── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -234,8 +234,8 @@ export function Portfolio() {
           </Link>
 
           {/* ── Giant Base Typography: "PORTFOLIO" Directly Under The Stacked Cards ── */}
-          <div className="relative -mt-16 sm:-mt-24 md:-mt-28 pointer-events-none select-none z-0 w-full overflow-hidden leading-none px-2 sm:px-4 md:px-6 lg:px-8">
-            <div className="flex items-baseline justify-between w-full font-heading font-black text-[13.5vw] sm:text-[15.5vw] md:text-[17vw] lg:text-[18.2vw] text-[#885FFF] leading-none tracking-tighter">
+          <div className="relative mt-6 sm:-mt-24 md:-mt-28 pointer-events-none select-none z-0 w-full overflow-hidden leading-none px-3 sm:px-4 md:px-6 lg:px-8">
+            <div className="flex items-baseline justify-between w-full font-heading font-black text-[13vw] sm:text-[15.5vw] md:text-[17vw] lg:text-[18.2vw] text-[#885FFF] leading-none tracking-tighter">
               <span>P</span>
               <span>O</span>
               <span>R</span>
