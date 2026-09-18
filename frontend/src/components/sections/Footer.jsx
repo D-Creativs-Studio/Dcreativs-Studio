@@ -210,11 +210,15 @@ export function Footer() {
           {/* ── Bottom Divider & Copyright Bar ───────────────────── */}
           <div className="mt-14 border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
             <p>© {currentYear} D'Creativs Studio. All rights reserved.</p>
-            <p className="font-body">
-              Crafted with{' '}
-              <span className="text-[#885FFF]">♥</span>{' '}
-              by D'Creativs
-            </p>
+            <div className="flex items-center gap-4 font-body">
+              <a href="#privacy" className="hover:text-slate-300 transition-colors duration-200">
+                Privacy Policy
+              </a>
+              <span className="text-slate-700">•</span>
+              <a href="#terms" className="hover:text-slate-300 transition-colors duration-200">
+                Terms of Service
+              </a>
+            </div>
           </div>
         </div>
       </div>

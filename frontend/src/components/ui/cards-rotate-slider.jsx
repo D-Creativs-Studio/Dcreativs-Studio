@@ -94,7 +94,7 @@ export default function CardsRotateSlider({
   images = DEFAULT_IMAGES,
   rotationAmount = 1,
   verticalDrift = 1,
-  scrollSmoothing = 0.35,
+  scrollSmoothing = 0.5,
   perspective = 1200,
   showCaptions = true,
   textColor = "#ffffff",
@@ -111,20 +111,29 @@ export default function CardsRotateSlider({
 
     if (!outer || !track) return;
 
-    const onResize = () => {
+    let resizeTimer;
+    const updateHeight = () => {
+      if (!track || !outer) return;
       const travel = track.scrollWidth - window.innerWidth;
-      outer.style.height = `${travel + window.innerHeight}px`;
+      outer.style.height = `${Math.max(travel + window.innerHeight, window.innerHeight)}px`;
     };
 
-    onResize();
+    updateHeight();
+    const rafId = requestAnimationFrame(updateHeight);
 
-    const resizeObserver = new ResizeObserver(onResize);
+    const onResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        updateHeight();
+        ScrollTrigger.refresh();
+      }, 80);
+    };
 
-    resizeObserver.observe(track);
     window.addEventListener("resize", onResize);
 
     return () => {
-      resizeObserver.disconnect();
+      cancelAnimationFrame(rafId);
+      clearTimeout(resizeTimer);
       window.removeEventListener("resize", onResize);
     };
   }, [images]);
@@ -139,17 +148,18 @@ export default function CardsRotateSlider({
     const isTablet = window.innerWidth >= MOBILE_BREAKPOINT && window.innerWidth < TABLET_BREAKPOINT;
 
     const context = gsap.context(() => {
+      const getTravel = () => track.scrollWidth - window.innerWidth;
+
       const horizontalTween = gsap.to(track, {
-        x: () => -(track.scrollWidth - window.innerWidth),
+        x: () => -getTravel(),
         ease: "none",
         force3D: true,
         scrollTrigger: {
           trigger: outer,
           start: "top top",
-          end: () => `+=${track.scrollWidth - window.innerWidth}`,
+          end: () => `+=${getTravel()}`,
           scrub: reducedMotion ? true : scrollSmoothing,
           invalidateOnRefresh: true,
-          fastScrollEnd: true,
           anticipatePin: 1,
         },
       });
@@ -188,8 +198,7 @@ export default function CardsRotateSlider({
             containerAnimation: horizontalTween,
             start: "left 100%",
             end: "right 0%",
-            scrub: 0.1,
-            fastScrollEnd: true,
+            scrub: true,
           },
         });
 
@@ -198,7 +207,7 @@ export default function CardsRotateSlider({
           {
             rotateY: rotateInValue,
             rotateX: rotateXValue,
-            opacity: 0.8,
+            opacity: 0.75,
             y: `${offset}vh`,
             force3D: true,
           },
@@ -212,7 +221,7 @@ export default function CardsRotateSlider({
           },
         ).to(card, {
           rotateY: rotateOutValue,
-          opacity: 0.9,
+          opacity: 0.75,
           y: `${-offset}vh`,
           ease: "none",
           force3D: true,
@@ -280,9 +289,11 @@ const RotationCard = forwardRef(({ src, index, total, text, subtitle, tags, slug
     <div
       ref={ref}
       onClick={handleClick}
-      className="absolute h-[50vh] w-[40vw] origin-right overflow-hidden rounded-3xl border border-white/20 opacity-0 shadow-[0_15px_40px_rgba(0,0,0,0.6)] max-md:h-[60vh] max-md:w-[86vw] group backdrop-blur-xl bg-[#0A0C22]/90 cursor-pointer hover:border-[#885FFF]/70 hover:shadow-[0_20px_50px_rgba(136,95,255,0.3)]"
+      className="absolute h-[50vh] w-[40vw] origin-right overflow-hidden rounded-3xl border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.8)] max-md:h-[60vh] max-md:w-[86vw] group bg-[#0A0C22] cursor-pointer hover:border-[#885FFF]/70 hover:shadow-[0_20px_50px_rgba(136,95,255,0.3)] will-change-transform transform-gpu"
       style={{
         transformStyle: "preserve-3d",
+        backfaceVisibility: "hidden",
+        WebkitBackfaceVisibility: "hidden",
         zIndex: total - index,
         transition: "border-color 0.3s ease, box-shadow 0.3s ease",
       }}
@@ -291,10 +302,12 @@ const RotationCard = forwardRef(({ src, index, total, text, subtitle, tags, slug
         <img
           src={src}
           alt={text || "slide"}
+          loading={index < 2 ? "eager" : "lazy"}
+          decoding="async"
           className="absolute inset-0 h-full w-full object-cover opacity-40 group-hover:opacity-60"
-          style={{ transition: "opacity 0.5s ease" }}
+          style={{ transition: "opacity 0.4s ease" }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#030412] via-[#030412]/70 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#030412] via-[#030412]/75 to-transparent" />
       </div>
 
       {showCaptions && (
@@ -331,7 +344,7 @@ const RotationCard = forwardRef(({ src, index, total, text, subtitle, tags, slug
               {tags.map((tag) => (
                 <span
                   key={tag}
-                  className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-heading font-medium bg-[#4100F5]/20 text-[#C4B5FD] border border-[#4100F5]/40 backdrop-blur-md"
+                  className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-heading font-medium bg-[#4100F5]/25 text-[#C4B5FD] border border-[#4100F5]/40"
                 >
                   {tag}
                 </span>

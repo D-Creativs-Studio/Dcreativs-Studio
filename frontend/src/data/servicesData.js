@@ -1,7 +1,7 @@
 export const servicesData = [
   {
     slug: "brand-design",
-    src: "https://images.unsplash.com/photo-1600132806370-bf17e65e942f?auto=format&fit=crop&w=1200&q=80",
+    src: "https://images.unsplash.com/photo-1600132806370-bf17e65e942f?auto=format&fit=crop&w=800&q=75",
     text: "Brand & Design",
     subtitle:
       "We don't just make logos. We build brand systems — identity, guidelines, visuals that hold up whether you're printing a card or launching a campaign.",
@@ -37,7 +37,7 @@ export const servicesData = [
   },
   {
     slug: "web-app-development",
-    src: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80",
+    src: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=75",
     text: "Web & App Development",
     subtitle: "From landing pages to full platforms — built fast, built to scale.",
     tags: ["Websites", "Web Apps", "E-commerce", "Dashboards"],
@@ -72,7 +72,7 @@ export const servicesData = [
   },
   {
     slug: "motion-video",
-    src: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1200&q=80",
+    src: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=800&q=75",
     text: "Motion & Video",
     subtitle: "Content that moves. Reels, ads, product videos, motion graphics.",
     tags: ["Video Editing", "Motion Graphics", "Reels/Ads", "Product Videos"],
@@ -107,7 +107,7 @@ export const servicesData = [
   },
   {
     slug: "3d-visual-fx",
-    src: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
+    src: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=75",
     text: "3D & Visual FX",
     subtitle: "When flat isn't enough.",
     tags: ["3D Modeling", "Product Renders", "FX"],
@@ -142,7 +142,7 @@ export const servicesData = [
   },
   {
     slug: "social-marketing",
-    src: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=1200&q=80",
+    src: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=800&q=75",
     text: "Social & Marketing",
     subtitle: "Built to be seen, not just posted.",
     tags: ["Content Strategy", "Social Management", "Ad Campaigns"],
@@ -177,7 +177,7 @@ export const servicesData = [
   },
   {
     slug: "academy-training",
-    src: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1200&q=80",
+    src: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=75",
     text: "Academy / Training",
     subtitle: "We teach what we build.",
     tags: ["Bootcamps", "Webinars", "Partner Trainings"],
@@ -212,7 +212,7 @@ export const servicesData = [
   },
   {
     slug: "ai-automations",
-    src: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?auto=format&fit=crop&w=1200&q=80",
+    src: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?auto=format&fit=crop&w=800&q=75",
     text: "AI & Automations",
     subtitle: "Smarter workflows. Less manual work. More scale.",
     tags: ["AI Integration", "Workflow Automation", "Chatbots", "Custom AI Tools"],
