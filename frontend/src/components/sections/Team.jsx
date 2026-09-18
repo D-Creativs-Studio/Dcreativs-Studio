@@ -253,8 +253,8 @@ export function Team() {
                 </motion.div>
               </AnimatePresence>
 
-              {/* Floating Top Right: Serial Tag */}
-              <div className="absolute top-6 right-6 z-20 px-3 py-1 rounded-full bg-black/60 border border-white/15 backdrop-blur-md font-mono text-[11px] font-bold text-white/90">
+              {/* Floating Top Right: Serial Tag (hidden on mobile) */}
+              <div className="hidden sm:block absolute top-6 right-6 z-20 px-3 py-1 rounded-full bg-black/60 border border-white/15 backdrop-blur-md font-mono text-[11px] font-bold text-white/90">
                 <span className="text-[#885FFF]">// {activeMember.id}</span> / 08
               </div>
             </div>
