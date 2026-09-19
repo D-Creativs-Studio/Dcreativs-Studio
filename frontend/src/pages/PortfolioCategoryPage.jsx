@@ -59,11 +59,11 @@ export function PortfolioCategoryPage() {
         {/* ── Top Navigation Bar ────────────────────────────────── */}
         <div className="mb-6 sm:mb-10 flex flex-wrap items-center justify-between gap-4 border-b border-black/[0.08] pb-4 sm:pb-6">
           <Link
-            to="/#portfolio"
+            to="/works"
             className="inline-flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-sm font-heading font-semibold text-[#030412] hover:text-[#4100F5] bg-black/[0.04] hover:bg-black/[0.08] border border-black/10 px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full backdrop-blur-md transition-all duration-300 group shadow-sm"
           >
             <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 transition-transform group-hover:-translate-x-1" />
-            Back to Selected Work
+            Back to All Work
           </Link>
 
           <div className="hidden sm:flex items-center gap-3">
@@ -308,7 +308,7 @@ export function PortfolioCategoryPage() {
         {/* ── Category Switcher Footer ──────────────────────────── */}
         <div className="pt-10 border-t border-black/[0.08] flex flex-col sm:flex-row items-center justify-between gap-6">
           <Link
-            to={`/portfolio/${prevCategory.slug}`}
+            to={`/works/${prevCategory.slug}`}
             className="flex items-center gap-3 text-slate-600 hover:text-[#4100F5] transition-colors group"
           >
             <div className="w-10 h-10 rounded-full border border-black/15 flex items-center justify-center group-hover:border-[#4100F5] transition-colors text-[#030412] group-hover:text-[#4100F5]">
@@ -329,7 +329,7 @@ export function PortfolioCategoryPage() {
           </a>
 
           <Link
-            to={`/portfolio/${nextCategory.slug}`}
+            to={`/works/${nextCategory.slug}`}
             className="flex items-center gap-3 text-slate-600 hover:text-[#4100F5] transition-colors group text-right"
           >
             <div>

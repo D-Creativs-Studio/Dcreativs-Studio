@@ -7,13 +7,13 @@ export function Navbar() {
   const isSubPage = location.pathname !== "/";
 
   const [activeTab, setActiveTab] = useState(() => {
-    if (location.pathname.startsWith("/portfolio")) return "Portfolio";
+    if (location.pathname.startsWith("/portfolio") || location.pathname.startsWith("/works")) return "Portfolio";
     if (location.pathname.startsWith("/services")) return "Services";
     if (location.pathname.startsWith("/about")) return "About";
     return "Home";
   });
   const [isLightSection, setIsLightSection] = useState(
-    () => location.pathname.startsWith("/portfolio") || location.pathname.startsWith("/services") || location.pathname.startsWith("/about")
+    () => location.pathname.startsWith("/portfolio") || location.pathname.startsWith("/works") || location.pathname.startsWith("/services") || location.pathname.startsWith("/about")
   );
   const navigate = useNavigate();
 
@@ -87,8 +87,8 @@ export function Navbar() {
       const documentHeight = document.documentElement.scrollHeight;
       const isNearBottom = scrollPosition >= documentHeight - 120;
 
-      // When on portfolio sub-pages, retain Portfolio active tab and light mode
-      if (location.pathname.startsWith("/portfolio")) {
+      // When on portfolio/works sub-pages, retain Portfolio active tab and light mode
+      if (location.pathname.startsWith("/portfolio") || location.pathname.startsWith("/works")) {
         setIsLightSection(true);
         if (!isManualClickRef.current) {
           setActiveTab(isNearBottom ? "Contact" : "Portfolio");

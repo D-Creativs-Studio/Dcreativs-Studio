@@ -147,7 +147,7 @@ export function Portfolio() {
           {/* ── Single Semantic Link with Custom Magnetic Follower Cursor ── */}
           <Link
             ref={cardAreaRef}
-            to="/portfolio"
+            to="/works"
             aria-label="Explore Full Portfolio Index"
             onMouseEnter={(e) => {
               setIsHovered(true);
