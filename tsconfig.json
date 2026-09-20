@@ -20,5 +20,14 @@
       "@/*": ["./frontend/src/*"]
     }
   },
-  "include": ["frontend/src"]
+  "include": ["frontend/src/**/*"],
+  "exclude": [
+    "node_modules",
+    "frontend/node_modules",
+    "frontend/dist",
+    "dist",
+    "backend",
+    "venv",
+    ".agents"
+  ]
 }
