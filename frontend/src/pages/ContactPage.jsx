@@ -19,6 +19,7 @@ const servicesList = [
   { id: "brand", label: "Brand Identity & Strategy", desc: "Logos, visual systems, guidelines, brand worlds" },
   { id: "web", label: "Web & Platform Engineering", desc: "Flagship websites, web apps, headless platforms" },
   { id: "uiux", label: "UI/UX & Product Design", desc: "Design systems, mobile & desktop app interfaces" },
+  { id: "ai", label: "AI & Automations", desc: "Custom AI tools, intelligent workflows, smart systems" },
   { id: "motion", label: "3D Motion & Visual Graphics", desc: "Cinema-grade 3D, animation, motion graphics" },
   { id: "mobile", label: "Mobile App Development", desc: "iOS, Android, cross-platform applications" },
   { id: "direction", label: "Creative Direction & Advisory", desc: "Art direction, campaign concepts, digital strategy" },
