@@ -11,6 +11,7 @@ import {
   CheckCircle2,
   ShieldCheck,
   CornerDownLeft,
+  ChevronsUpDown,
 } from "lucide-react";
 
 // Available services to multi-select
@@ -330,20 +331,20 @@ export function ContactPage() {
       {/* ── Gaussian Blur Layer Beneath The Form (Mobile Only, 5px blur) ────────── */}
       {/* On mobile the 3D model sits behind the form, so soft diffusion is applied */}
       <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden flex items-center justify-center lg:hidden">
-        <div className="w-[94vw] max-w-5xl h-[620px] rounded-[44px] backdrop-blur-[5px] bg-[#000422]/35 shadow-[0_0_60px_30px_rgba(0,4,34,0.65)] border border-white/[0.03]" />
+        <div className="w-[94vw] max-w-5xl h-[480px] sm:h-[540px] rounded-[44px] backdrop-blur-[5px] bg-[#000422]/35 shadow-[0_0_60px_30px_rgba(0,4,34,0.65)] border border-white/[0.03]" />
       </div>
 
       {/* ── Film Grain Overlay ──────────────────────────────────── */}
       <div className="absolute inset-0 bg-grain pointer-events-none z-15 opacity-25" />
 
       {/* ── Center Stage: Split Screen on Desktop (Spacious 3D Logo on Left, Wide Form on Right) ── */}
-      <main className="relative z-20 flex-1 flex items-center px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 pt-20 lg:pt-24 pb-8 lg:pb-12 w-full max-w-7xl 2xl:max-w-[1560px] mx-auto">
+      <main className="relative z-20 flex-1 flex items-center px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 pt-16 sm:pt-20 lg:pt-20 pb-6 sm:pb-8 w-full max-w-7xl 2xl:max-w-[1560px] mx-auto">
         <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 xl:gap-12 items-center">
           {/* Left Column Spacer on Desktop: Leaves the left 4 columns open for the 3D rotating logo */}
           <div className="hidden lg:block lg:col-span-4 xl:col-span-4 pointer-events-none" aria-hidden="true" />
 
-          {/* Right Column on Desktop (8 columns) / Centered on Mobile: Spacious Form Console */}
-          <div className="col-span-1 lg:col-span-8 xl:col-span-8 w-full rounded-3xl sm:rounded-[36px] bg-[#000422]/60 sm:bg-[#000422]/50 backdrop-blur-xl sm:backdrop-blur-2xl border border-white/[0.08] shadow-[0_24px_80px_-12px_rgba(0,0,0,0.7),0_0_40px_rgba(65,0,245,0.06)] p-6 sm:p-8 lg:p-10 xl:p-12 overflow-hidden">
+          {/* Right Column on Desktop (8 columns) / Centered on Mobile: Compact & Sleek Form Console */}
+          <div className="col-span-1 lg:col-span-8 xl:col-span-8 w-full rounded-2xl sm:rounded-3xl bg-[#000422]/60 sm:bg-[#000422]/50 backdrop-blur-xl sm:backdrop-blur-2xl border border-white/[0.08] shadow-[0_24px_80px_-12px_rgba(0,0,0,0.7),0_0_40px_rgba(65,0,245,0.06)] p-4 sm:p-6 lg:p-7 xl:p-8 overflow-hidden">
           <AnimatePresence mode="wait" custom={direction}>
             {!isSubmitted ? (
               <motion.div
@@ -353,22 +354,22 @@ export function ContactPage() {
                 initial="enter"
                 animate="center"
                 exit="exit"
-                className="space-y-8 select-text"
+                className="space-y-4 sm:space-y-5 select-text"
               >
                 {/* ════════════════ STEP 1: NAME ════════════════ */}
                 {currentStep === 1 && (
-                  <div className="space-y-6 max-w-3xl">
+                  <div className="space-y-4 sm:space-y-5 max-w-3xl">
                     <span className="text-[#885FFF] font-mono text-xs font-semibold tracking-wider block">
                       01 — INTRODUCTION
                     </span>
-                    <h1 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight text-white">
+                    <h1 className="font-heading text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight tracking-tight text-white">
                       Let&apos;s start with your name.
-                      <span className="block text-slate-400 text-sm sm:text-base md:text-lg font-light mt-2">
+                      <span className="block text-slate-400 text-xs sm:text-sm md:text-base font-light mt-1.5">
                         Who are we speaking with?
                       </span>
                     </h1>
 
-                    <div className="pt-2">
+                    <div className="pt-1">
                       <input
                         ref={inputRef}
                         type="text"
@@ -376,7 +377,7 @@ export function ContactPage() {
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         onKeyDown={handleKeyDown}
                         placeholder="Your full name"
-                        className="w-full bg-transparent border-b-2 border-white/20 focus:border-[#885FFF] pb-3 text-xl sm:text-2xl md:text-3xl font-heading font-medium text-white placeholder-slate-600 outline-none transition-colors"
+                        className="w-full bg-transparent border-b-2 border-white/20 focus:border-[#885FFF] pb-2 sm:pb-3 text-lg sm:text-xl md:text-2xl font-heading font-medium text-white placeholder-slate-600 outline-none transition-colors"
                       />
                     </div>
                   </div>
@@ -384,18 +385,18 @@ export function ContactPage() {
 
                 {/* ════════════════ STEP 2: COMPANY ════════════════ */}
                 {currentStep === 2 && (
-                  <div className="space-y-6 max-w-3xl">
+                  <div className="space-y-4 sm:space-y-5 max-w-3xl">
                     <span className="text-[#885FFF] font-mono text-xs font-semibold tracking-wider block">
                       02 — YOUR BRAND
                     </span>
-                    <h1 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight text-white">
+                    <h1 className="font-heading text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight tracking-tight text-white">
                       Great to meet you, {formData.name.split(" ")[0] || "friend"}.
-                      <span className="block text-slate-400 text-sm sm:text-base md:text-lg font-light mt-2">
+                      <span className="block text-slate-400 text-xs sm:text-sm md:text-base font-light mt-1.5">
                         What is your company, brand, or project called?
                       </span>
                     </h1>
 
-                    <div className="pt-2">
+                    <div className="pt-1">
                       <input
                         ref={inputRef}
                         type="text"
@@ -403,7 +404,7 @@ export function ContactPage() {
                         onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                         onKeyDown={handleKeyDown}
                         placeholder="Company or project name (optional)"
-                        className="w-full bg-transparent border-b-2 border-white/20 focus:border-[#885FFF] pb-3 text-xl sm:text-2xl md:text-3xl font-heading font-medium text-white placeholder-slate-600 outline-none transition-colors"
+                        className="w-full bg-transparent border-b-2 border-white/20 focus:border-[#885FFF] pb-2 sm:pb-3 text-lg sm:text-xl md:text-2xl font-heading font-medium text-white placeholder-slate-600 outline-none transition-colors"
                       />
                     </div>
                   </div>
@@ -411,20 +412,21 @@ export function ContactPage() {
 
                 {/* ════════════════ STEP 3: CAPABILITIES ════════════════ */}
                 {currentStep === 3 && (
-                  <div className="space-y-6">
+                  <div className="space-y-3.5 sm:space-y-4 w-full">
                     <div>
-                      <span className="text-[#885FFF] font-mono text-xs font-semibold tracking-wider block mb-1.5">
+                      <span className="text-[#885FFF] font-mono text-xs font-semibold tracking-wider block mb-1">
                         03 — CAPABILITIES
                       </span>
-                      <h1 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-white">
+                      <h1 className="font-heading text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight text-white">
                         What do you need built or designed?
                       </h1>
-                      <p className="text-slate-400 text-sm sm:text-base md:text-lg font-light mt-1.5">
+                      <p className="text-slate-400 text-xs sm:text-sm md:text-base font-light mt-1">
                         Select all disciplines that apply to this initiative.
                       </p>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4 pt-1">
+                    {/* Scrollable option cards container with hidden scrollbar, generous height, and uniform widths */}
+                    <div className="w-full max-h-[290px] sm:max-h-[330px] md:max-h-[360px] overflow-y-auto pr-1.5 sm:pr-2 pt-0.5 flex flex-col gap-3 sm:grid sm:grid-cols-2 sm:gap-3.5 no-scrollbar overscroll-contain">
                       {servicesList.map((service) => {
                         const isSelected = formData.selectedServices.includes(service.label);
                         return (
@@ -432,9 +434,9 @@ export function ContactPage() {
                             key={service.id}
                             type="button"
                             onClick={() => handleServiceToggle(service.label)}
-                            className={`text-left p-4 sm:p-5 rounded-2xl border transition-all duration-200 cursor-pointer flex flex-col justify-between gap-3 overflow-hidden ${
+                            className={`w-full shrink-0 min-h-[76px] sm:min-h-[82px] text-left p-4 sm:p-4.5 rounded-2xl border transition-all duration-200 cursor-pointer flex flex-col justify-between gap-2.5 overflow-hidden ${
                               isSelected
-                                ? "bg-[#4100F5]/20 border-[#885FFF] shadow-[0_0_20px_rgba(65,0,245,0.3)] scale-[1.01]"
+                                ? "bg-[#4100F5]/20 border-[#885FFF] shadow-[0_0_20px_rgba(65,0,245,0.3)]"
                                 : "bg-white/[0.03] border-white/10 hover:bg-white/[0.06] hover:border-white/20"
                             }`}
                           >
@@ -452,32 +454,46 @@ export function ContactPage() {
                                 {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
                               </div>
                             </div>
-                            <span className="font-body text-xs text-slate-400 leading-relaxed">
+                            <span className="font-body text-xs sm:text-xs text-slate-400 leading-relaxed">
                               {service.desc}
                             </span>
                           </button>
                         );
                       })}
                     </div>
+
+                    {/* Subtle scroll notice */}
+                    <div className="flex items-center justify-between pt-0.5 px-0.5 text-xs text-slate-400">
+                      <span className="text-[11px] font-mono text-slate-500">
+                        {formData.selectedServices.length > 0
+                          ? `${formData.selectedServices.length} selected`
+                          : "Select one or more"}
+                      </span>
+                      <span className="inline-flex items-center gap-1.5 text-[11px] font-mono text-slate-400">
+                        <ChevronsUpDown className="w-3.5 h-3.5 text-[#885FFF]" />
+                        <span>Scroll to see more options</span>
+                      </span>
+                    </div>
                   </div>
                 )}
 
                 {/* ════════════════ STEP 4: BUDGET ════════════════ */}
                 {currentStep === 4 && (
-                  <div className="space-y-6">
+                  <div className="space-y-3.5 sm:space-y-4 w-full">
                     <div>
-                      <span className="text-[#885FFF] font-mono text-xs font-semibold tracking-wider block mb-1.5">
+                      <span className="text-[#885FFF] font-mono text-xs font-semibold tracking-wider block mb-1">
                         04 — INVESTMENT
                       </span>
-                      <h1 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-white">
+                      <h1 className="font-heading text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight text-white">
                         What is your estimated budget?
                       </h1>
-                      <p className="text-slate-400 text-sm sm:text-base md:text-lg font-light mt-1.5">
+                      <p className="text-slate-400 text-xs sm:text-sm md:text-base font-light mt-1">
                         This helps us tailor scope, milestones, and resource allocation.
                       </p>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4 pt-1">
+                    {/* Scrollable option cards container with hidden scrollbar, generous height, and uniform widths */}
+                    <div className="w-full max-h-[290px] sm:max-h-[330px] md:max-h-[360px] overflow-y-auto pr-1.5 sm:pr-2 pt-0.5 flex flex-col gap-3 sm:grid sm:grid-cols-2 sm:gap-3.5 no-scrollbar overscroll-contain">
                       {budgetTiers.map((tier) => {
                         const isSelected = formData.budget === tier.value;
                         const isFullWidth = tier.value === "Flexible / Undecided";
@@ -486,11 +502,11 @@ export function ContactPage() {
                             key={tier.value}
                             type="button"
                             onClick={() => handleBudgetSelect(tier.value)}
-                            className={`text-left p-4 sm:p-5 rounded-2xl border transition-all duration-200 cursor-pointer flex flex-col justify-between gap-2.5 overflow-hidden ${
+                            className={`w-full shrink-0 min-h-[70px] sm:min-h-[76px] text-left p-4 sm:p-4.5 rounded-2xl border transition-all duration-200 cursor-pointer flex flex-col justify-between gap-2 overflow-hidden ${
                               isFullWidth ? "sm:col-span-2" : ""
                             } ${
                               isSelected
-                                ? "bg-[#4100F5]/25 border-[#885FFF] shadow-[0_0_20px_rgba(65,0,245,0.35)] scale-[1.01]"
+                                ? "bg-[#4100F5]/25 border-[#885FFF] shadow-[0_0_20px_rgba(65,0,245,0.35)]"
                                 : "bg-white/[0.03] border-white/10 hover:bg-white/[0.06] hover:border-white/20"
                             }`}
                           >
@@ -515,25 +531,34 @@ export function ContactPage() {
                         );
                       })}
                     </div>
+
+                    {/* Subtle scroll notice */}
+                    <div className="flex items-center justify-end pt-0.5 px-0.5">
+                      <span className="inline-flex items-center gap-1.5 text-[11px] font-mono text-slate-400">
+                        <ChevronsUpDown className="w-3.5 h-3.5 text-[#885FFF]" />
+                        <span>Scroll to see more options</span>
+                      </span>
+                    </div>
                   </div>
                 )}
 
                 {/* ════════════════ STEP 5: TIMELINE ════════════════ */}
                 {currentStep === 5 && (
-                  <div className="space-y-6">
+                  <div className="space-y-3.5 sm:space-y-4 w-full">
                     <div>
-                      <span className="text-[#885FFF] font-mono text-xs font-semibold tracking-wider block mb-1.5">
+                      <span className="text-[#885FFF] font-mono text-xs font-semibold tracking-wider block mb-1">
                         05 — SCHEDULE
                       </span>
-                      <h1 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-white">
+                      <h1 className="font-heading text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight text-white">
                         When do you aim to launch?
                       </h1>
-                      <p className="text-slate-400 text-sm sm:text-base md:text-lg font-light mt-1.5">
+                      <p className="text-slate-400 text-xs sm:text-sm md:text-base font-light mt-1">
                         Tell us your anticipated delivery timeframe.
                       </p>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4 pt-1">
+                    {/* Scrollable option cards container with hidden scrollbar, generous height, and uniform widths */}
+                    <div className="w-full max-h-[290px] sm:max-h-[330px] md:max-h-[360px] overflow-y-auto pr-1.5 sm:pr-2 pt-0.5 flex flex-col gap-3 sm:grid sm:grid-cols-2 sm:gap-3.5 no-scrollbar overscroll-contain">
                       {timelineOptions.map((opt) => {
                         const isSelected = formData.timeline === opt.value;
                         return (
@@ -541,9 +566,9 @@ export function ContactPage() {
                             key={opt.value}
                             type="button"
                             onClick={() => handleTimelineSelect(opt.value)}
-                            className={`text-left p-4 sm:p-5 rounded-2xl border transition-all duration-200 cursor-pointer flex flex-col justify-between gap-2.5 overflow-hidden ${
+                            className={`w-full shrink-0 min-h-[70px] sm:min-h-[76px] text-left p-4 sm:p-4.5 rounded-2xl border transition-all duration-200 cursor-pointer flex flex-col justify-between gap-2 overflow-hidden ${
                               isSelected
-                                ? "bg-[#4100F5]/25 border-[#885FFF] shadow-[0_0_20px_rgba(65,0,245,0.35)] scale-[1.01]"
+                                ? "bg-[#4100F5]/25 border-[#885FFF] shadow-[0_0_20px_rgba(65,0,245,0.35)]"
                                 : "bg-white/[0.03] border-white/10 hover:bg-white/[0.06] hover:border-white/20"
                             }`}
                           >
@@ -568,20 +593,28 @@ export function ContactPage() {
                         );
                       })}
                     </div>
+
+                    {/* Subtle scroll notice */}
+                    <div className="flex items-center justify-end pt-0.5 px-0.5">
+                      <span className="inline-flex items-center gap-1.5 text-[11px] font-mono text-slate-400">
+                        <ChevronsUpDown className="w-3.5 h-3.5 text-[#885FFF]" />
+                        <span>Scroll to see more options</span>
+                      </span>
+                    </div>
                   </div>
                 )}
 
                 {/* ════════════════ STEP 6: PROJECT DETAILS ════════════════ */}
                 {currentStep === 6 && (
-                  <div className="space-y-6 max-w-4xl">
+                  <div className="space-y-3 sm:space-y-4 max-w-4xl">
                     <div>
-                      <span className="text-[#885FFF] font-mono text-xs font-semibold tracking-wider block mb-1.5">
+                      <span className="text-[#885FFF] font-mono text-xs font-semibold tracking-wider block mb-1">
                         06 — THE VISION
                       </span>
-                      <h1 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-white">
+                      <h1 className="font-heading text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight text-white">
                         Tell us about the project.
                       </h1>
-                      <p className="text-slate-400 text-sm sm:text-base md:text-lg font-light mt-1.5">
+                      <p className="text-slate-400 text-xs sm:text-sm md:text-base font-light mt-1">
                         Share your goals, scope, and any benchmark references you admire.
                       </p>
                     </div>
@@ -589,12 +622,12 @@ export function ContactPage() {
                     <div className="pt-1">
                       <textarea
                         ref={inputRef}
-                        rows={4}
+                        rows={3}
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                         onKeyDown={handleKeyDown}
                         placeholder="What are you building, what problem does it solve, and what is your ambition?"
-                        className="w-full bg-white/[0.04] border border-white/15 focus:border-[#885FFF] focus:bg-white/[0.07] rounded-2xl p-4 sm:p-5 text-sm sm:text-base font-body text-white placeholder-slate-500 outline-none transition-all resize-none shadow-inner min-h-[160px] sm:min-h-[190px]"
+                        className="w-full bg-white/[0.04] border border-white/15 focus:border-[#885FFF] focus:bg-white/[0.07] rounded-xl sm:rounded-2xl p-3.5 sm:p-4 text-sm sm:text-base font-body text-white placeholder-slate-500 outline-none transition-all resize-none shadow-inner min-h-[130px] sm:min-h-[150px]"
                       />
                     </div>
                   </div>
@@ -602,22 +635,22 @@ export function ContactPage() {
 
                 {/* ════════════════ STEP 7: CONTACT DETAILS ════════════════ */}
                 {currentStep === 7 && (
-                  <div className="space-y-6 max-w-3xl">
+                  <div className="space-y-3 sm:space-y-4 max-w-3xl">
                     <div>
-                      <span className="text-[#885FFF] font-mono text-xs font-semibold tracking-wider block mb-1.5">
+                      <span className="text-[#885FFF] font-mono text-xs font-semibold tracking-wider block mb-1">
                         07 — WHERE TO REACH YOU
                       </span>
-                      <h1 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-white">
+                      <h1 className="font-heading text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight text-white">
                         Where should we send the proposal?
                       </h1>
-                      <p className="text-slate-400 text-sm sm:text-base md:text-lg font-light mt-1.5">
+                      <p className="text-slate-400 text-xs sm:text-sm md:text-base font-light mt-1">
                         We review briefs within 24 hours.
                       </p>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">
                       <div>
-                        <label className="block text-xs font-mono uppercase tracking-wider text-slate-400 mb-2">
+                        <label className="block text-xs font-mono uppercase tracking-wider text-slate-400 mb-1.5">
                           Work Email *
                         </label>
                         <input
@@ -628,12 +661,12 @@ export function ContactPage() {
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                           onKeyDown={handleKeyDown}
                           placeholder="name@company.com"
-                          className="w-full bg-white/[0.04] border border-white/15 focus:border-[#885FFF] focus:bg-white/[0.07] rounded-xl p-3.5 sm:p-4 text-sm sm:text-base font-body text-white placeholder-slate-500 outline-none transition-all"
+                          className="w-full bg-white/[0.04] border border-white/15 focus:border-[#885FFF] focus:bg-white/[0.07] rounded-xl p-3 sm:p-3.5 text-sm sm:text-base font-body text-white placeholder-slate-500 outline-none transition-all"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-xs font-mono uppercase tracking-wider text-slate-400 mb-2">
+                        <label className="block text-xs font-mono uppercase tracking-wider text-slate-400 mb-1.5">
                           Phone / WhatsApp (Optional)
                         </label>
                         <input
@@ -642,7 +675,7 @@ export function ContactPage() {
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                           onKeyDown={handleKeyDown}
                           placeholder="+1 (555) 000-0000"
-                          className="w-full bg-white/[0.04] border border-white/15 focus:border-[#885FFF] focus:bg-white/[0.07] rounded-xl p-3.5 sm:p-4 text-sm sm:text-base font-body text-white placeholder-slate-500 outline-none transition-all"
+                          className="w-full bg-white/[0.04] border border-white/15 focus:border-[#885FFF] focus:bg-white/[0.07] rounded-xl p-3 sm:p-3.5 text-sm sm:text-base font-body text-white placeholder-slate-500 outline-none transition-all"
                         />
                       </div>
                     </div>
@@ -666,12 +699,12 @@ export function ContactPage() {
                 )}
 
                 {/* ── Navigation Actions: Back & Continue ─────────────────── */}
-                <div className="pt-4 flex items-center justify-between gap-4 border-t border-white/10">
+                <div className="pt-3 sm:pt-4 flex items-center justify-between gap-4 border-t border-white/10">
                   {currentStep > 1 ? (
                     <button
                       type="button"
                       onClick={handlePrev}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 sm:py-3 rounded-full bg-white/05 hover:bg-white/10 text-slate-300 hover:text-white font-heading text-xs sm:text-sm font-semibold transition-colors cursor-pointer border border-white/10"
+                      className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-white/05 hover:bg-white/10 text-slate-300 hover:text-white font-heading text-xs sm:text-sm font-semibold transition-colors cursor-pointer border border-white/10"
                     >
                       <ArrowLeft className="w-3.5 h-3.5" />
                       <span>Back</span>
@@ -685,7 +718,7 @@ export function ContactPage() {
                       type="button"
                       disabled={isSubmitting}
                       onClick={handleNext}
-                      className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-gradient-to-r from-[#4100F5] to-[#885FFF] hover:from-[#5212FF] hover:to-[#9F7DFF] text-white font-heading font-semibold text-xs sm:text-sm transition-all duration-300 shadow-[0_4px_20px_rgba(65,0,245,0.4)] hover:shadow-[0_6px_25px_rgba(65,0,245,0.6)] cursor-pointer disabled:opacity-60 hover:-translate-y-0.5 active:translate-y-0"
+                      className="inline-flex items-center gap-2 px-5 sm:px-7 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-[#4100F5] to-[#885FFF] hover:from-[#5212FF] hover:to-[#9F7DFF] text-white font-heading font-semibold text-xs sm:text-sm transition-all duration-300 shadow-[0_4px_20px_rgba(65,0,245,0.4)] hover:shadow-[0_6px_25px_rgba(65,0,245,0.6)] cursor-pointer disabled:opacity-60 hover:-translate-y-0.5 active:translate-y-0"
                     >
                       {isSubmitting ? (
                         <>

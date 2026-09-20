@@ -369,45 +369,7 @@ export function WorksPage() {
             opacity: 0.14,
           }}
         >
-          <span>WORK</span>
-          <span className="relative inline-flex items-center justify-center ml-[0.01em]">
-            {/* The S aperture */}
-            <span className="inline-block overflow-hidden pb-1 -mb-1">
-              <motion.span
-                className="inline-block will-change-transform"
-                animate={{
-                  y: ["0%", "0%", "102%", "102%", "0%", "0%"],
-                  opacity: [1, 1, 0, 0, 1, 1],
-                }}
-                transition={{
-                  duration: 0.45,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  times: [0, 0.35, 0.5, 0.7, 0.85, 1],
-                }}
-              >
-                S
-              </motion.span>
-            </span>
-
-            {/* Terminal Block under the S */}
-            <motion.span
-              className="absolute -bottom-1.5 sm:-bottom-3 left-1/2 -translate-x-1/2 w-[85%] rounded-sm bg-[#885FFF] will-change-transform"
-              style={{
-                height: "clamp(5px, 0.9vw, 15px)",
-              }}
-              animate={{
-                opacity: [0.65, 0.65, 1, 1, 0.65, 0.65],
-                scaleX: [1, 1, 1.12, 1.12, 1, 1],
-              }}
-              transition={{
-                duration: 0.45,
-                repeat: Infinity,
-                ease: "easeInOut",
-                times: [0, 0.35, 0.5, 0.7, 0.85, 1],
-              }}
-            />
-          </span>
+          <span>WORKS</span>
         </h1>
         <p
           className="mt-1 sm:mt-3 text-xs sm:text-sm font-body font-medium tracking-[0.3em] uppercase"
