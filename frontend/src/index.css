@@ -267,7 +267,7 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 340px;
+  height: 520px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -277,34 +277,34 @@ body {
 
 #horizon .glow {
   width: 100%;
-  height: 240px;
+  height: 380px;
   background: radial-gradient(
-    ellipse 85% 100% at 50% 100%,
-    rgba(65, 0, 245, 0.6) 0%,
-    rgba(136, 95, 255, 0.3) 45%,
+    ellipse 85% 70% at 50% 100%,
+    rgba(65, 0, 245, 0.55) 0%,
+    rgba(136, 95, 255, 0.28) 45%,
     transparent 80%
   );
 }
 
 #earth {
   position: absolute;
-  bottom: -880px;
+  bottom: -2020px;
   left: 50%;
   transform: translateX(-50%);
-  width: 1750px;
-  height: 1750px;
+  width: 2500px;
+  height: 2500px;
   border-radius: 50%;
   background: radial-gradient(
     circle at 50% 5%,
-    rgba(65, 0, 245, 0.45) 0%,
-    rgba(15, 23, 42, 0.95) 45%,
+    rgba(65, 0, 245, 0.4) 0%,
+    rgba(15, 23, 42, 0.96) 35%,
     #000422 100%
   );
-  border: 1.5px solid rgba(136, 95, 255, 0.4);
+  border: 1.5px solid rgba(136, 95, 255, 0.45);
   box-shadow:
-    0 -35px 120px rgba(65, 0, 245, 0.5),
-    0 -12px 50px rgba(136, 95, 255, 0.35),
-    inset 0 35px 70px rgba(136, 95, 255, 0.18);
+    0 -25px 80px rgba(65, 0, 245, 0.45),
+    0 -8px 35px rgba(136, 95, 255, 0.35),
+    inset 0 30px 60px rgba(136, 95, 255, 0.15);
   pointer-events: none;
   z-index: 2;
 }

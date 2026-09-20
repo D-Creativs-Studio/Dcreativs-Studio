@@ -10,6 +10,7 @@ export function Navbar() {
     if (location.pathname.startsWith("/portfolio") || location.pathname.startsWith("/works")) return "Portfolio";
     if (location.pathname.startsWith("/services")) return "Services";
     if (location.pathname.startsWith("/about")) return "About";
+    if (location.pathname.startsWith("/contact")) return "Contact";
     return "Home";
   });
   const [isLightSection, setIsLightSection] = useState(
@@ -114,6 +115,15 @@ export function Navbar() {
         return;
       }
 
+      // When on contact page, retain Contact active tab and dark mode
+      if (location.pathname.startsWith("/contact")) {
+        setIsLightSection(false);
+        if (!isManualClickRef.current) {
+          setActiveTab("Contact");
+        }
+        return;
+      }
+
       // Homepage scroll spy logic
       const sections = navItems.map((item) => item.href.replace("#", ""));
       const triggerPoint = 180; // distance from top of viewport
@@ -180,7 +190,7 @@ export function Navbar() {
               key={item.name}
               href={item.href}
               onClick={(e) => handleNavClick(e, item)}
-              className={`relative flex items-center justify-center px-2 min-[375px]:px-2.5 min-[390px]:px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 text-[11px] min-[375px]:text-[11.5px] min-[390px]:text-xs sm:text-sm md:text-sm font-semibold font-heading leading-none rounded-full transition-colors duration-200 whitespace-nowrap cursor-pointer select-none ${
+              className={`relative flex items-center justify-center px-1.5 min-[360px]:px-2 min-[390px]:px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 text-[10.5px] min-[360px]:text-[11px] min-[390px]:text-xs sm:text-sm md:text-sm font-semibold font-heading leading-none rounded-full transition-colors duration-200 whitespace-nowrap cursor-pointer select-none ${
                 isLightSection
                   ? isActive
                     ? "text-white"

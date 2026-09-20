@@ -6,7 +6,6 @@ import {
   Palette,
   Code2,
   TrendingUp,
-  GraduationCap,
   CheckCircle2,
   Compass,
   Zap,
@@ -71,17 +70,6 @@ export function AboutPage() {
       badge: "Growth & Content",
       color: "#fb923c",
       glow: "rgba(251, 146, 60, 0.15)",
-    },
-    {
-      id: "04",
-      icon: GraduationCap,
-      title: "Academy",
-      tagline: "Next-Gen Builders",
-      description:
-        "Beyond client work, D'Creativs runs training programs and workshops teaching practical design, code, and marketing skills to future builders.",
-      badge: "Empowerment",
-      color: "#2dd4bf",
-      glow: "rgba(45, 212, 191, 0.15)",
     },
   ];
 
@@ -240,7 +228,7 @@ export function AboutPage() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
             {pillars.map((pillar, i) => {
               const Icon = pillar.icon;
               return (

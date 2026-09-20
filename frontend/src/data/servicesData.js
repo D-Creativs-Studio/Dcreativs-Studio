@@ -295,57 +295,6 @@ export const servicesData = [
     ],
   },
   {
-    slug: 'academy-training',
-    src: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=75',
-    text: 'Academy / Training',
-    subtitle: 'We teach what we build.',
-    tags: ['Bootcamps', 'Webinars', 'Partner Trainings'],
-    heroTitle: 'Industry-Grade Design & Code Training for Teams & Creators.',
-    overview:
-      'We believe in empowering creators and internal creative teams with production-grade skills. Our bootcamps, workshops, and 1-on-1 training programs cover modern web development, UI/UX design systems, 3D modeling, and motion graphics.',
-    deliverables: [
-      {
-        title: 'Corporate & Team Workshops',
-        desc: 'Tailored upskilling sessions for design and engineering teams on modern workflows.',
-      },
-      {
-        title: 'Interactive Bootcamps',
-        desc: 'Structured intensive tracks in React, TailwindCSS, GSAP animations, and 3D web design.',
-      },
-      {
-        title: '1-on-1 Technical Mentorship',
-        desc: 'Personalized code reviews, portfolio polish, and direct career guidance from senior creators.',
-      },
-      {
-        title: 'Curriculum & Learning Guides',
-        desc: 'Reusable code repositories, design templates, and recorded video lecture archives.',
-      },
-    ],
-    tools: ['VS Code', 'Figma', 'GitHub', 'Zoom', 'Notion'],
-    process: [
-      {
-        step: '01',
-        title: 'Skill Gap Assessment',
-        desc: 'Evaluating current proficiency and defining target learning outcomes.',
-      },
-      {
-        step: '02',
-        title: 'Custom Curriculum Setup',
-        desc: 'Building hands-on project modules around real-world industry challenges.',
-      },
-      {
-        step: '03',
-        title: 'Live Interactive Sessions',
-        desc: 'Conducting live coding, design critiques, and practical exercises.',
-      },
-      {
-        step: '04',
-        title: 'Certification & Support',
-        desc: 'Ongoing Q&A access, project feedback, and course completion recognition.',
-      },
-    ],
-  },
-  {
     slug: 'ai-automations',
     src: 'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?auto=format&fit=crop&w=800&q=75',
     text: 'AI & Automations',

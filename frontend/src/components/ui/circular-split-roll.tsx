@@ -96,10 +96,10 @@ export function CircularSplitRoll({ services }: CircularSplitRollProps) {
         image: IMAGES[4],
       },
       {
-        id: "academy",
-        title: "Academy / Training",
-        subtitle: "We teach what we build.",
-        tags: ["Bootcamps", "Webinars", "Partner Trainings"],
+        id: "ai-automations",
+        title: "AI & Automations",
+        subtitle: "Smarter workflows. Less manual work.",
+        tags: ["AI Integration", "Workflow Automation", "Chatbots"],
         image: IMAGES[5],
       },
     ];

@@ -75,13 +75,6 @@ const DEFAULT_IMAGES = [
     slug: "social-marketing",
   },
   {
-    src: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1200&q=80",
-    text: "Academy / Training",
-    subtitle: "We teach what we build.",
-    tags: ["Bootcamps", "Webinars", "Partner Trainings"],
-    slug: "academy-training",
-  },
-  {
     src: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?auto=format&fit=crop&w=1200&q=80",
     text: "AI & Automations",
     subtitle: "Smarter workflows. Less manual work. More scale.",

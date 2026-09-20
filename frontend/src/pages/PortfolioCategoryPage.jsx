@@ -320,13 +320,13 @@ export function PortfolioCategoryPage() {
             </div>
           </Link>
 
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-gradient-to-r from-[#4100F5] to-[#885FFF] hover:from-[#5212FF] hover:to-[#9f7dff] text-white font-heading font-semibold text-sm transition-all duration-300 shadow-[0_8px_25px_rgba(65,0,245,0.25)] hover:scale-105"
+          <Link
+            to="/#contact"
+            className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-7 py-3.5 rounded-full bg-gradient-to-r from-[#4100F5] to-[#885FFF] hover:from-[#5212FF] hover:to-[#9f7dff] text-white font-heading font-semibold text-sm transition-all duration-300 shadow-[0_8px_25px_rgba(65,0,245,0.25)] hover:scale-105"
           >
             <Send className="w-4 h-4" />
             <span>Commission a Project</span>
-          </a>
+          </Link>
 
           <Link
             to={`/works/${nextCategory.slug}`}
@@ -394,14 +394,14 @@ export function PortfolioCategoryPage() {
                   </h3>
                 </div>
 
-                <a
-                  href="#contact"
+                <Link
+                  to="/#contact"
                   onClick={() => setSelectedCaseStudy(null)}
                   className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#4100F5] hover:bg-[#5212FF] text-white text-sm font-semibold transition-transform hover:scale-105 self-start sm:self-auto shadow-md"
                 >
                   <span>Inquire Similar</span>
                   <ArrowUpRight className="w-4 h-4" />
-                </a>
+                </Link>
               </div>
 
               <p className="font-body text-slate-700 text-base sm:text-lg leading-relaxed mb-6 font-normal">

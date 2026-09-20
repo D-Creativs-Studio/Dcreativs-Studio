@@ -41,9 +41,9 @@ function Model() {
   );
 }
 
-export function LogoModelBackground() {
+export function LogoModelBackground({ className = "opacity-75" }) {
   return (
-    <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-75">
+    <div className={`absolute inset-0 pointer-events-none z-0 overflow-hidden ${className}`}>
       <Canvas
         camera={{ position: [0, 0, 6], fov: 45 }}
         gl={{ alpha: true, antialias: true }}

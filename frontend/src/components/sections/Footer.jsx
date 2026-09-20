@@ -106,7 +106,7 @@ export function Footer() {
 
   return (
     <footer
-      id="contact"
+      id="footer"
       className="relative w-full bg-[#000422] text-white overflow-hidden"
     >
       {/* ── Cosmic parallax hero section (Desktop & Tablet only) ── */}

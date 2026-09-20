@@ -5,12 +5,14 @@ import { AboutPage } from "@/pages/AboutPage";
 import { ServiceDetailPage } from "@/pages/ServiceDetailPage";
 import { WorksPage } from "@/pages/WorksPage";
 import { PortfolioCategoryPage } from "@/pages/PortfolioCategoryPage";
+import { ContactPage } from "@/pages/ContactPage";
 import { ScrollToTop } from "@/components/utils/ScrollToTop";
 import { Footer } from "@/components/sections/Footer";
 
 function AppContent() {
   const location = useLocation();
   const isWorksCanvas = location.pathname === "/works";
+  const isContactPage = location.pathname === "/contact";
 
   return (
     <main className="min-h-screen bg-[#030412] text-white font-body selection:bg-[#4100F5] selection:text-white">
@@ -21,8 +23,9 @@ function AppContent() {
         <Route path="/services/:serviceId" element={<ServiceDetailPage />} />
         <Route path="/works" element={<WorksPage />} />
         <Route path="/works/:categoryId" element={<PortfolioCategoryPage />} />
+        <Route path="/contact" element={<ContactPage />} />
       </Routes>
-      {!isWorksCanvas && <Footer />}
+      {!isWorksCanvas && !isContactPage && <Footer />}
     </main>
   );
 }

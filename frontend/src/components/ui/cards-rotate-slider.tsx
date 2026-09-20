@@ -76,12 +76,6 @@ const DEFAULT_IMAGES: CardsRotateSliderImage[] = [
     subtitle: "Built to be seen, not just posted.",
     tags: ["Content Strategy", "Social Management", "Ad Campaigns"],
   },
-  {
-    src: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1200&q=80",
-    text: "Academy / Training",
-    subtitle: "We teach what we build.",
-    tags: ["Bootcamps", "Webinars", "Partner Trainings"],
-  },
 ];
 
 export interface CardsRotateSliderProps {

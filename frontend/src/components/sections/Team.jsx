@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { teamMembers } from "@/data/teamData";
-import { ArrowUpRight, Plus, X } from "lucide-react";
+import { Plus, X } from "lucide-react";
 
 // Clean inline social icons
 const LinkedInIcon = () => (
@@ -88,76 +88,19 @@ export function Team() {
   // spotlightId tracks which member is displayed on the sticky picture side
   const [spotlightId, setSpotlightId] = useState(teamMembers[0].id);
 
-  const memberRowRefs = useRef({});
-  const isClickingRef = useRef(false);
-  const clickTimerRef = useRef(null);
-
   const activeMember =
     teamMembers.find((m) => m.id === spotlightId) || teamMembers[0];
 
-  // Hovering over a team name updates the spotlight image immediately
-  const handleNameHover = (id) => {
-    setSpotlightId(id);
-  };
-
   // Clicking on a team name updates the spotlight image
   const handleNameClick = (id) => {
-    isClickingRef.current = true;
     setSpotlightId(id);
-
-    if (clickTimerRef.current) clearTimeout(clickTimerRef.current);
-    clickTimerRef.current = setTimeout(() => {
-      isClickingRef.current = false;
-    }, 600);
   };
 
-  // Clicking specifically on the (+) / (×) button toggles the accordion expansion
+  // Clicking specifically on the (+) / (×) button toggles the accordion expansion & syncs image
   const handleToggleAccordion = (id) => {
-    isClickingRef.current = true;
     setSpotlightId(id);
     setExpandedId((prev) => (prev === id ? null : id));
-
-    if (clickTimerRef.current) clearTimeout(clickTimerRef.current);
-    clickTimerRef.current = setTimeout(() => {
-      isClickingRef.current = false;
-    }, 600);
   };
-
-  // Scroll synchronization: when user scrolls through the member roster, the sticky picture side responds
-  useEffect(() => {
-    const handleScrollSync = () => {
-      if (isClickingRef.current) return;
-
-      const viewportMiddle = window.innerHeight * 0.45;
-      let closestId = null;
-      let minDistance = Infinity;
-
-      teamMembers.forEach((member) => {
-        const el = memberRowRefs.current[member.id];
-        if (!el) return;
-        const rect = el.getBoundingClientRect();
-        const elementCenter = rect.top + rect.height * 0.35;
-        const distance = Math.abs(elementCenter - viewportMiddle);
-
-        if (rect.bottom > 80 && rect.top < window.innerHeight - 80) {
-          if (distance < minDistance) {
-            minDistance = distance;
-            closestId = member.id;
-          }
-        }
-      });
-
-      if (closestId && closestId !== spotlightId) {
-        setSpotlightId(closestId);
-      }
-    };
-
-    window.addEventListener("scroll", handleScrollSync, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", handleScrollSync);
-      if (clickTimerRef.current) clearTimeout(clickTimerRef.current);
-    };
-  }, [spotlightId]);
 
   return (
     <section
@@ -269,31 +212,27 @@ export function Team() {
               return (
                 <div
                   key={member.id}
-                  ref={(el) => {
-                    memberRowRefs.current[member.id] = el;
-                  }}
                   className={`relative transition-all duration-300 border-b border-white/10 ${
                     isExpanded
                       ? "bg-[#4100F5] text-white"
                       : isSpotlight
-                      ? "bg-white/[0.04] text-white"
+                      ? "bg-white/[0.05] text-white"
                       : "text-white hover:bg-white/[0.02]"
                   }`}
                 >
-                  {/* Row Header: Hover or click name to change photo; click (+) to see details */}
+                  {/* Row Header: Click name to change photo; click (+) to see details */}
                   <div
-                    onMouseEnter={() => handleNameHover(member.id)}
-                    className={`w-full flex items-start justify-between gap-6 select-none group transition-all duration-200 ${
+                    className={`w-full flex items-start justify-between gap-6 select-none transition-all duration-200 ${
                       isExpanded
-                        ? "px-6 pt-6 pb-2 sm:px-10 sm:pt-8 sm:pb-3 lg:px-12 lg:pt-9 lg:pb-3"
-                        : "px-6 py-5 sm:px-10 sm:py-6 lg:px-12 lg:py-7 items-center"
+                        ? "px-4 pt-5 pb-2 min-[390px]:px-6 min-[390px]:pt-6 sm:px-10 sm:pt-8 sm:pb-3 lg:px-12 lg:pt-9 lg:pb-3"
+                        : "px-4 py-4 min-[390px]:px-6 min-[390px]:py-5 sm:px-10 sm:py-6 lg:px-12 lg:py-7 items-center"
                     }`}
                   >
-                    {/* Team Name Area: Hovering or clicking changes the spotlight image */}
+                    {/* Team Name Area: Clicking changes the spotlight image */}
                     <button
                       type="button"
                       onClick={() => handleNameClick(member.id)}
-                      className="flex-1 pr-4 text-left cursor-pointer focus:outline-none"
+                      className="flex-1 pr-4 text-left cursor-pointer focus:outline-none group/name"
                       aria-label={`View photo of ${member.name}`}
                     >
                       {/* Chunky First Name */}
@@ -303,15 +242,15 @@ export function Team() {
                             ? "text-white"
                             : isSpotlight
                             ? "text-white"
-                            : "text-white/90 group-hover:text-[#885FFF]"
+                            : "text-white/80 group-hover/name:text-[#885FFF]"
                         }`}
                       >
                         {member.firstName}
                       </h3>
 
-                      {/* Subtitle with Full Name */}
+                      {/* Subtitle with Full Name & Role */}
                       <p
-                        className={`text-xs sm:text-sm md:text-base transition-colors mt-1.5 ${
+                        className={`text-xs sm:text-sm md:text-base transition-colors mt-1.5 flex items-center flex-wrap gap-x-2 ${
                           isExpanded
                             ? "text-white/90 font-medium"
                             : isSpotlight
@@ -319,7 +258,13 @@ export function Team() {
                             : "text-slate-300 font-normal"
                         }`}
                       >
-                        {member.name}
+                        <span>{member.name}</span>
+                        {member.role && (
+                          <>
+                            <span className="opacity-40">•</span>
+                            <span className="opacity-80 font-light">{member.role}</span>
+                          </>
+                        )}
                       </p>
                     </button>
 
@@ -428,36 +373,6 @@ export function Team() {
         </div>
       </div>
 
-      {/* ── Bottom Callout Banner (Contained in max-w-7xl) ────────── */}
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-20 z-20">
-        <div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="rounded-3xl border border-white/10 bg-gradient-to-r from-white/[0.04] via-white/[0.02] to-white/[0.04] backdrop-blur-md p-6 sm:p-10 flex flex-col sm:flex-row items-center justify-between gap-6"
-          >
-            <div className="space-y-1.5 text-center sm:text-left">
-              <h4 className="font-heading font-extrabold text-lg sm:text-xl text-white">
-                Ready to work with our creative collective?
-              </h4>
-              <p className="font-body text-xs sm:text-sm text-slate-400 max-w-xl font-light">
-                From end-to-end brand flagships to production web applications and 3D
-                experiences, we bring cross-functional firepower to every build.
-              </p>
-            </div>
-
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 bg-[#4100F5] hover:bg-[#5212FF] text-white font-heading font-bold text-xs sm:text-sm px-6 py-3 rounded-full transition-all duration-300 shadow-[0_4px_20px_rgba(65,0,245,0.4)] hover:shadow-[0_8px_30px_rgba(65,0,245,0.6)] hover:-translate-y-0.5 shrink-0"
-            >
-              <span>Start a Project</span>
-              <ArrowUpRight className="w-4 h-4" />
-            </a>
-          </motion.div>
-        </div>
-      </div>
     </section>
   );
 }

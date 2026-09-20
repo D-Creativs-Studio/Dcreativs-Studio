@@ -112,7 +112,7 @@ const CosmicParallaxBg = ({
   return (
     <div className={`cosmic-parallax-container ${className}`}>
       {/* ── Top gradient blend overlay ── */}
-      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#030412] via-[#030412]/60 to-transparent z-20 pointer-events-none" />
+      <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-[#000422] via-[#000422]/80 to-transparent z-20 pointer-events-none" />
 
       {/* Starfield layers */}
       <div
