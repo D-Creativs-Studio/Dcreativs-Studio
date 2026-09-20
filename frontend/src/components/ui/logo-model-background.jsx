@@ -3,7 +3,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { useGLTF, Float, Center } from "@react-three/drei";
 import * as THREE from "three";
 
-function Model() {
+function Model({ scale = 4.2 }) {
   const { scene } = useGLTF("/models/logo.glb");
   const modelRef = useRef();
 
@@ -34,14 +34,14 @@ function Model() {
       <primitive
         ref={modelRef}
         object={scene}
-        scale={4.2}
+        scale={scale}
         position={[0, 0, 0]}
       />
     </Center>
   );
 }
 
-export function LogoModelBackground({ className = "opacity-75" }) {
+export function LogoModelBackground({ className = "opacity-75", scale = 4.2 }) {
   return (
     <div className={`absolute inset-0 pointer-events-none z-0 overflow-hidden ${className}`}>
       <Canvas
@@ -54,7 +54,7 @@ export function LogoModelBackground({ className = "opacity-75" }) {
         <pointLight position={[0, 2, 4]} intensity={2.5} color="#ffffff" />
         <Suspense fallback={null}>
           <Float speed={2.5} rotationIntensity={1.5} floatIntensity={2}>
-            <Model />
+            <Model scale={scale} />
           </Float>
         </Suspense>
       </Canvas>

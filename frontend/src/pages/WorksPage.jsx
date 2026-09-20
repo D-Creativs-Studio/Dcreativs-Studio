@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { portfolioCategories } from "@/data/portfolioData";
 import { SEO } from "@/components/common/SEO";
-import { ArrowUpRight, ArrowRight } from "lucide-react";
+import { ArrowUpRight, ArrowRight, Move } from "lucide-react";
 
 /* ─────────────────────────────────────────────────────────────────
    Responsive Canvas & Card Configuration
@@ -563,8 +563,8 @@ export function WorksPage() {
         className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none sm:hidden"
       >
         <div className="px-4 py-2 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-white text-xs font-heading font-semibold tracking-wide flex items-center gap-2">
-          <span className="inline-block animate-pulse">👆</span>
-          Drag to explore
+          <Move className="w-3.5 h-3.5 text-[#885FFF]" />
+          <span>Drag to explore</span>
         </div>
       </motion.div>
     </div>

@@ -131,7 +131,7 @@ export function Portfolio() {
   return (
     <section
       id="portfolio"
-      className="relative bg-[#F7F7F9] text-[#0A0A0A] pt-24 sm:pt-20 md:pt-28 pb-16 sm:pb-0 min-h-[680px] sm:min-h-0 overflow-hidden select-none transition-colors duration-500 flex flex-col justify-center"
+      className="relative bg-[#F7F7F9] text-[#0A0A0A] h-screen min-h-[100vh] overflow-hidden select-none transition-colors duration-500 flex flex-col justify-center pt-16 sm:pt-20 pb-0"
     >
       {/* ── Soft Atmospheric Ambient Lighting ────────────────── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">

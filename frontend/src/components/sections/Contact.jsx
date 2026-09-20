@@ -75,7 +75,7 @@ export function Contact() {
             brand identity, or interactive web experience. We reply within 24 hours.
           </motion.p>
 
-          {/* ── Primary Action: Enter Form Button ────────────────── */}
+          {/* ── Primary Action: Contact Us Button ────────────────── */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -83,12 +83,12 @@ export function Contact() {
             transition={{ duration: 0.7, delay: 0.4 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5"
           >
-            {/* The "Enter Form" Button -> Navigates to /contact */}
+            {/* The "Contact Us" Button -> Navigates to /contact */}
             <Link
               to="/contact"
               className="group relative inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-4 sm:py-5 rounded-full bg-gradient-to-r from-[#4100F5] via-[#5C1BF6] to-[#885FFF] hover:from-[#5212FF] hover:to-[#9F7DFF] text-white font-heading font-bold text-sm sm:text-base md:text-lg transition-all duration-300 shadow-[0_8px_32px_rgba(65,0,245,0.5)] hover:shadow-[0_12px_45px_rgba(136,95,255,0.65)] hover:-translate-y-0.5 active:translate-y-0 cursor-pointer border border-[#C4B5FD]/40 w-full sm:w-auto"
             >
-              <span>Enter Form</span>
+              <span>Contact Us</span>
               <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-1">
                 <ArrowRight className="w-4 h-4 text-white" />
               </div>

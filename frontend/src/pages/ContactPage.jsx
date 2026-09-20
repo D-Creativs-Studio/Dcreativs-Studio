@@ -40,6 +40,72 @@ const timelineOptions = [
   { value: "Exploratory stage", hint: "Early scoping & feasibility" },
 ];
 
+// Shooting star component - streaks downward diagonally across the deep space canvas
+const ShootingStar = ({ delay, top, left, duration = 2.5, size = 190, angle = 40 }) => (
+  <div
+    className="absolute pointer-events-none z-0 overflow-visible"
+    style={{
+      top: `${top}%`,
+      left: `${left}%`,
+      transform: `rotate(${angle}deg)`,
+    }}
+  >
+    <motion.div
+      initial={{ x: -100, opacity: 0, scaleX: 0 }}
+      animate={{
+        x: [0, 1500],
+        opacity: [0, 0.95, 0.7, 0],
+        scaleX: [0, 1, 0.7, 0],
+      }}
+      transition={{
+        duration: duration,
+        delay: delay,
+        repeat: Infinity,
+        ease: "easeOut",
+      }}
+      className="h-[1.5px] rounded-full bg-gradient-to-r from-transparent via-[#C4B5FD] to-white"
+      style={{
+        width: `${size}px`,
+        boxShadow: "0 0 10px 1px rgba(255, 255, 255, 0.9), 0 0 20px 2px rgba(136, 95, 255, 0.5)",
+      }}
+    />
+  </div>
+);
+
+// Subtle static galaxy starfield coordinates for deterministic celestial rendering
+const galaxyStars = [
+  { top: 6, left: 12, size: 1.5, opacity: 0.6, delay: 0.3, dur: 3.2 },
+  { top: 12, left: 28, size: 2, opacity: 0.8, delay: 1.1, dur: 4.1 },
+  { top: 20, left: 8, size: 1, opacity: 0.5, delay: 2.4, dur: 2.8 },
+  { top: 16, left: 45, size: 1.5, opacity: 0.7, delay: 0.8, dur: 3.5 },
+  { top: 28, left: 82, size: 2, opacity: 0.75, delay: 1.9, dur: 4.5 },
+  { top: 34, left: 22, size: 1, opacity: 0.45, delay: 3.1, dur: 3.0 },
+  { top: 40, left: 91, size: 1.5, opacity: 0.65, delay: 0.5, dur: 3.8 },
+  { top: 10, left: 74, size: 1.5, opacity: 0.7, delay: 2.1, dur: 4.2 },
+  { top: 48, left: 14, size: 2, opacity: 0.8, delay: 1.4, dur: 3.6 },
+  { top: 54, left: 85, size: 1, opacity: 0.5, delay: 0.2, dur: 2.9 },
+  { top: 62, left: 30, size: 1.5, opacity: 0.6, delay: 2.7, dur: 4.0 },
+  { top: 68, left: 78, size: 2, opacity: 0.75, delay: 1.6, dur: 3.4 },
+  { top: 74, left: 18, size: 1, opacity: 0.4, delay: 3.3, dur: 2.7 },
+  { top: 82, left: 64, size: 1.5, opacity: 0.7, delay: 0.9, dur: 4.3 },
+  { top: 88, left: 26, size: 2, opacity: 0.85, delay: 2.2, dur: 3.7 },
+  { top: 92, left: 88, size: 1, opacity: 0.5, delay: 1.3, dur: 3.1 },
+  { top: 5, left: 52, size: 1.5, opacity: 0.65, delay: 2.9, dur: 4.4 },
+  { top: 24, left: 63, size: 1, opacity: 0.45, delay: 0.7, dur: 2.8 },
+  { top: 38, left: 5, size: 2, opacity: 0.8, delay: 1.8, dur: 3.9 },
+  { top: 52, left: 48, size: 1.5, opacity: 0.7, delay: 3.0, dur: 4.1 },
+  { top: 66, left: 95, size: 1, opacity: 0.5, delay: 0.4, dur: 3.3 },
+  { top: 78, left: 42, size: 2, opacity: 0.85, delay: 2.5, dur: 3.8 },
+  { top: 86, left: 7, size: 1.5, opacity: 0.6, delay: 1.2, dur: 4.0 },
+  { top: 94, left: 51, size: 1, opacity: 0.4, delay: 3.4, dur: 2.6 },
+  { top: 15, left: 96, size: 1.5, opacity: 0.75, delay: 2.0, dur: 3.6 },
+  { top: 32, left: 39, size: 2, opacity: 0.7, delay: 0.6, dur: 4.2 },
+  { top: 46, left: 72, size: 1, opacity: 0.5, delay: 1.7, dur: 3.1 },
+  { top: 58, left: 24, size: 1.5, opacity: 0.65, delay: 2.8, dur: 3.7 },
+  { top: 72, left: 88, size: 2, opacity: 0.8, delay: 0.1, dur: 4.5 },
+  { top: 84, left: 36, size: 1, opacity: 0.45, delay: 1.5, dur: 2.9 },
+];
+
 export function ContactPage() {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
@@ -220,17 +286,64 @@ export function ContactPage() {
         description="Initiate an interactive project inquiry with D'Creativs Studio. Tell us about your brand, technical requirements, and vision."
       />
 
-      {/* ── Background Elements ─────────────────────────────────── */}
-      <div className="absolute inset-0 bg-grain pointer-events-none z-10 opacity-25" />
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] lg:w-[1100px] h-[700px] bg-[#4100F5]/16 rounded-full blur-[200px] pointer-events-none z-0" />
-      <div className="absolute bottom-10 right-10 w-[550px] h-[550px] bg-[#885FFF]/12 rounded-full blur-[180px] pointer-events-none z-0" />
-      
-      {/* ── 3D Floating Logo Model Canvas ───────────────────────── */}
-      <LogoModelBackground className="opacity-55 sm:opacity-70" />
+      {/* ── Background: Subtle Galaxy & Nebula Clouds ─────────────── */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden select-none">
+        {/* Deep cosmic nebula gradients */}
+        <div className="absolute -top-32 -left-32 w-[700px] lg:w-[950px] h-[700px] lg:h-[950px] bg-gradient-to-br from-[#4100F5]/22 via-[#240090]/15 to-transparent rounded-full blur-[160px]" />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] lg:w-[1200px] h-[700px] bg-[#4100F5]/18 rounded-full blur-[200px]" />
+        <div className="absolute -bottom-24 -right-24 w-[600px] lg:w-[850px] h-[600px] lg:h-[850px] bg-gradient-to-tl from-[#885FFF]/16 via-[#4100F5]/12 to-transparent rounded-full blur-[170px]" />
+        <div className="absolute top-1/4 right-1/4 w-[450px] h-[450px] bg-cyan-500/[0.04] rounded-full blur-[130px]" />
 
-      {/* ── Center Stage: One Question at a Time (Positioned below fixed Navbar) ── */}
-      <main className="relative z-20 flex-1 flex items-center justify-center px-4 sm:px-8 lg:px-16 pt-24 sm:pt-32 pb-12 sm:pb-16">
-        <div className="w-full max-w-5xl lg:max-w-6xl xl:max-w-7xl mx-auto">
+        {/* Twinkling Galaxy Starfield */}
+        {galaxyStars.map((star, idx) => (
+          <div
+            key={idx}
+            className="absolute rounded-full bg-white animate-pulse"
+            style={{
+              top: `${star.top}%`,
+              left: `${star.left}%`,
+              width: `${star.size}px`,
+              height: `${star.size}px`,
+              opacity: star.opacity,
+              boxShadow: star.size >= 2 ? "0 0 6px 1px rgba(255,255,255,0.8)" : "none",
+              animationDuration: `${star.dur}s`,
+              animationDelay: `${star.delay}s`,
+            }}
+          />
+        ))}
+
+        {/* Shooting Stars (streaking downward diagonally) */}
+        <ShootingStar top={-5} left={8} delay={0.5} duration={2.4} size={220} angle={39} />
+        <ShootingStar top={6} left={-8} delay={2.7} duration={3.0} size={180} angle={42} />
+        <ShootingStar top={-7} left={36} delay={5.0} duration={2.2} size={240} angle={40} />
+        <ShootingStar top={14} left={15} delay={7.3} duration={2.8} size={190} angle={41} />
+        <ShootingStar top={-3} left={58} delay={9.6} duration={3.2} size={200} angle={38} />
+        <ShootingStar top={22} left={6} delay={12.0} duration={2.5} size={210} angle={43} />
+      </div>
+
+      {/* ── 3D Floating Logo Model Canvas (Left on Desktop, Full Background on Mobile) ── */}
+      <LogoModelBackground
+        className="opacity-60 sm:opacity-75 lg:opacity-100 lg:w-[35%] lg:right-auto lg:left-0 transition-opacity duration-500"
+        scale={3.5}
+      />
+
+      {/* ── Gaussian Blur Layer Beneath The Form (Mobile Only, 5px blur) ────────── */}
+      {/* On mobile the 3D model sits behind the form, so soft diffusion is applied */}
+      <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden flex items-center justify-center lg:hidden">
+        <div className="w-[94vw] max-w-5xl h-[620px] rounded-[44px] backdrop-blur-[5px] bg-[#000422]/35 shadow-[0_0_60px_30px_rgba(0,4,34,0.65)] border border-white/[0.03]" />
+      </div>
+
+      {/* ── Film Grain Overlay ──────────────────────────────────── */}
+      <div className="absolute inset-0 bg-grain pointer-events-none z-15 opacity-25" />
+
+      {/* ── Center Stage: Split Screen on Desktop (Spacious 3D Logo on Left, Wide Form on Right) ── */}
+      <main className="relative z-20 flex-1 flex items-center px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 pt-20 lg:pt-24 pb-8 lg:pb-12 w-full max-w-7xl 2xl:max-w-[1560px] mx-auto">
+        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 xl:gap-12 items-center">
+          {/* Left Column Spacer on Desktop: Leaves the left 4 columns open for the 3D rotating logo */}
+          <div className="hidden lg:block lg:col-span-4 xl:col-span-4 pointer-events-none" aria-hidden="true" />
+
+          {/* Right Column on Desktop (8 columns) / Centered on Mobile: Spacious Form Console */}
+          <div className="col-span-1 lg:col-span-8 xl:col-span-8 w-full rounded-3xl sm:rounded-[36px] bg-[#000422]/60 sm:bg-[#000422]/50 backdrop-blur-xl sm:backdrop-blur-2xl border border-white/[0.08] shadow-[0_24px_80px_-12px_rgba(0,0,0,0.7),0_0_40px_rgba(65,0,245,0.06)] p-6 sm:p-8 lg:p-10 xl:p-12 overflow-hidden">
           <AnimatePresence mode="wait" custom={direction}>
             {!isSubmitted ? (
               <motion.div
@@ -311,7 +424,7 @@ export function ContactPage() {
                       </p>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4 lg:gap-5 pt-1">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4 pt-1">
                       {servicesList.map((service) => {
                         const isSelected = formData.selectedServices.includes(service.label);
                         return (
@@ -319,14 +432,14 @@ export function ContactPage() {
                             key={service.id}
                             type="button"
                             onClick={() => handleServiceToggle(service.label)}
-                            className={`text-left p-4 sm:p-5 lg:p-6 rounded-2xl border transition-all duration-200 cursor-pointer flex flex-col justify-between gap-3 ${
+                            className={`text-left p-4 sm:p-5 rounded-2xl border transition-all duration-200 cursor-pointer flex flex-col justify-between gap-3 overflow-hidden ${
                               isSelected
                                 ? "bg-[#4100F5]/20 border-[#885FFF] shadow-[0_0_20px_rgba(65,0,245,0.3)] scale-[1.01]"
                                 : "bg-white/[0.03] border-white/10 hover:bg-white/[0.06] hover:border-white/20"
                             }`}
                           >
-                            <div className="flex items-start justify-between gap-2.5 w-full">
-                              <span className="font-heading font-bold text-sm sm:text-base text-white">
+                            <div className="flex items-start justify-between gap-3 w-full">
+                              <span className="font-heading font-bold text-sm sm:text-base text-white min-w-0 flex-1 pr-1">
                                 {service.label}
                               </span>
                               <div
@@ -364,35 +477,38 @@ export function ContactPage() {
                       </p>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3.5 sm:gap-4 pt-1">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4 pt-1">
                       {budgetTiers.map((tier) => {
                         const isSelected = formData.budget === tier.value;
+                        const isFullWidth = tier.value === "Flexible / Undecided";
                         return (
                           <button
                             key={tier.value}
                             type="button"
                             onClick={() => handleBudgetSelect(tier.value)}
-                            className={`text-left p-4 sm:p-5 rounded-2xl border transition-all duration-200 cursor-pointer flex flex-col justify-between gap-2.5 ${
+                            className={`text-left p-4 sm:p-5 rounded-2xl border transition-all duration-200 cursor-pointer flex flex-col justify-between gap-2.5 overflow-hidden ${
+                              isFullWidth ? "sm:col-span-2" : ""
+                            } ${
                               isSelected
                                 ? "bg-[#4100F5]/25 border-[#885FFF] shadow-[0_0_20px_rgba(65,0,245,0.35)] scale-[1.01]"
                                 : "bg-white/[0.03] border-white/10 hover:bg-white/[0.06] hover:border-white/20"
                             }`}
                           >
-                            <div className="flex items-center justify-between gap-2 w-full">
-                              <span className="font-heading font-bold text-sm sm:text-base text-white">
+                            <div className="flex items-center justify-between gap-3 w-full">
+                              <span className="font-heading font-bold text-sm sm:text-base text-white min-w-0 flex-1 pr-1">
                                 {tier.value}
                               </span>
                               <div
-                                className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 transition-colors ${
+                                className={`w-5 h-5 rounded-full border flex items-center justify-center shrink-0 transition-colors ${
                                   isSelected
                                     ? "bg-[#885FFF] border-[#885FFF] text-white"
                                     : "border-white/30"
                                 }`}
                               >
-                                {isSelected && <Check className="w-2.5 h-2.5 stroke-[3]" />}
+                                {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
                               </div>
                             </div>
-                            <span className="font-body text-[11px] sm:text-xs text-slate-400 leading-relaxed">
+                            <span className="font-body text-xs text-slate-400 leading-relaxed">
                               {tier.hint}
                             </span>
                           </button>
@@ -417,7 +533,7 @@ export function ContactPage() {
                       </p>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4 pt-1">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4 pt-1">
                       {timelineOptions.map((opt) => {
                         const isSelected = formData.timeline === opt.value;
                         return (
@@ -425,27 +541,27 @@ export function ContactPage() {
                             key={opt.value}
                             type="button"
                             onClick={() => handleTimelineSelect(opt.value)}
-                            className={`text-left p-4 sm:p-5 rounded-2xl border transition-all duration-200 cursor-pointer flex flex-col justify-between gap-2.5 ${
+                            className={`text-left p-4 sm:p-5 rounded-2xl border transition-all duration-200 cursor-pointer flex flex-col justify-between gap-2.5 overflow-hidden ${
                               isSelected
                                 ? "bg-[#4100F5]/25 border-[#885FFF] shadow-[0_0_20px_rgba(65,0,245,0.35)] scale-[1.01]"
                                 : "bg-white/[0.03] border-white/10 hover:bg-white/[0.06] hover:border-white/20"
                             }`}
                           >
-                            <div className="flex items-center justify-between gap-2 w-full">
-                              <span className="font-heading font-bold text-sm sm:text-base text-white">
+                            <div className="flex items-center justify-between gap-3 w-full">
+                              <span className="font-heading font-bold text-sm sm:text-base text-white min-w-0 flex-1 pr-1">
                                 {opt.value}
                               </span>
                               <div
-                                className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 transition-colors ${
+                                className={`w-5 h-5 rounded-full border flex items-center justify-center shrink-0 transition-colors ${
                                   isSelected
                                     ? "bg-[#885FFF] border-[#885FFF] text-white"
                                     : "border-white/30"
                                 }`}
                               >
-                                {isSelected && <Check className="w-2.5 h-2.5 stroke-[3]" />}
+                                {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
                               </div>
                             </div>
-                            <span className="font-body text-[11px] sm:text-xs text-slate-400 leading-relaxed">
+                            <span className="font-body text-xs text-slate-400 leading-relaxed">
                               {opt.hint}
                             </span>
                           </button>
@@ -612,7 +728,7 @@ export function ContactPage() {
 
                 <div className="space-y-2 max-w-md mx-auto">
                   <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl font-extrabold text-white">
-                    Brief Transmitted! 🚀
+                    Brief Transmitted
                   </h2>
                   <p className="font-body text-slate-300 text-sm sm:text-base leading-relaxed">
                     Thank you, <span className="text-white font-semibold">{formData.name}</span>.
@@ -662,6 +778,7 @@ export function ContactPage() {
               </motion.div>
             )}
           </AnimatePresence>
+          </div>
         </div>
       </main>
 
