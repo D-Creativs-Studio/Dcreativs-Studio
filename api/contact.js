@@ -351,31 +351,56 @@ export default async function handler(req, res) {
     const fromEmail = process.env.FROM_EMAIL || "D'Creativs Studio <onboarding@resend.dev>";
 
     if (resendApiKey) {
-      // Live Email Dispatch via Resend
-      await Promise.all([
-        // 1. Send Internal Studio Notification
-        sendViaResend({
+      let studioSuccess = false;
+      let clientSuccess = false;
+      let studioError = null;
+      let clientError = null;
+
+      // 1. Send Internal Studio Notification to dcreativs.studio@gmail.com
+      try {
+        await sendViaResend({
           apiKey: resendApiKey,
           from: fromEmail,
           to: studioEmail,
           subject: `New Project Inquiry: ${inquiryData.name} (${inquiryData.company || 'Independent'})`,
           html: studioHtml,
           reply_to: inquiryData.email,
-        }),
-        // 2. Send Client Confirmation Email
-        sendViaResend({
+        });
+        studioSuccess = true;
+      } catch (err) {
+        console.error('Failed to send studio notification email:', err);
+        studioError = err.message;
+      }
+
+      // 2. Send Client Confirmation Email
+      try {
+        await sendViaResend({
           apiKey: resendApiKey,
           from: fromEmail,
           to: inquiryData.email,
           subject: "Brief Transmitted — D'Creativs Studio",
           html: clientHtml,
           reply_to: studioEmail,
-        }),
-      ]);
+        });
+        clientSuccess = true;
+      } catch (err) {
+        console.warn('Failed to send client confirmation email:', err);
+        clientError = err.message;
+      }
 
-      return res.status(200).json({
-        success: true,
-        message: 'Project brief securely transmitted. Confirmation email dispatched.',
+      // If at least one succeeded (or studio notification succeeded)
+      if (studioSuccess) {
+        return res.status(200).json({
+          success: true,
+          message: 'Project brief securely transmitted.',
+          clientConfirmation: clientSuccess ? 'sent' : 'skipped',
+          clientNotice: clientError ? `Client auto-reply notice: ${clientError}` : null,
+        });
+      }
+
+      // If studio notification failed, return informative error
+      return res.status(500).json({
+        error: `Email delivery failed: ${studioError || clientError || 'Unknown error'}. Please verify your RESEND_API_KEY and verified domain at resend.com.`,
       });
     } else {
       // Dev / Simulated Mode when RESEND_API_KEY is not yet added in .env
