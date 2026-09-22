@@ -234,18 +234,10 @@ export function Portfolio() {
           </Link>
 
           {/* ── Giant Base Typography: "PORTFOLIO" Directly Under The Stacked Cards ── */}
-          <div className="relative mt-6 sm:-mt-24 md:-mt-28 pointer-events-none select-none z-0 w-full overflow-hidden leading-none px-3 sm:px-4 md:px-6 lg:px-8">
-            <div className="flex items-baseline justify-between w-full font-heading font-black text-[13vw] sm:text-[15.5vw] md:text-[17vw] lg:text-[18.2vw] text-[#885FFF] leading-none tracking-tighter">
-              <span>P</span>
-              <span>O</span>
-              <span>R</span>
-              <span>T</span>
-              <span>F</span>
-              <span>O</span>
-              <span>L</span>
-              <span>I</span>
-              <span>O</span>
-            </div>
+          <div className="relative mt-6 sm:-mt-24 md:-mt-28 pointer-events-none select-none z-0 w-full leading-none">
+            <h2 className="flex items-baseline justify-center w-full font-heading font-black text-[14vw] sm:text-[15vw] md:text-[16vw] lg:text-[17vw] text-[#885FFF] leading-none tracking-[-0.06em]" aria-hidden="true">
+              PORTFOLIO
+            </h2>
           </div>
         </div>
 

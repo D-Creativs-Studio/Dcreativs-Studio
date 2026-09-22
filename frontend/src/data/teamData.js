@@ -148,7 +148,7 @@ export const teamMembers = [
     socials: {
       linkedin: "https://linkedin.com",
       twitter: "https://x.com",
-      email: "hello@dcreativs.com",
+      email: "dcreativs.studio@gmail.com",
     },
   },
 ];

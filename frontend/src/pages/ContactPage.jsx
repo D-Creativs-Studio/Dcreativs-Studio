@@ -128,6 +128,7 @@ export function ContactPage() {
     message: "",
     email: "",
     phone: "",
+    website_trap: "",
   });
 
   const totalSteps = 7;
@@ -253,14 +254,39 @@ export function ContactPage() {
     }, 200);
   };
 
-  const handleFinalSubmit = () => {
+  const handleFinalSubmit = async () => {
     if (!validateCurrentStep()) return;
 
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
+    setErrorMsg("");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(
+          data.error || "Unable to transmit your brief. Please verify your details and try again."
+        );
+      }
+
       setIsSubmitted(true);
-    }, 1200);
+    } catch (err) {
+      console.error("Transmission error:", err);
+      setErrorMsg(
+        err.message ||
+          "Failed to transmit brief. Please verify your connection or email dcreativs.studio@gmail.com directly."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   // Animation variants
@@ -680,6 +706,18 @@ export function ContactPage() {
                         />
                       </div>
                     </div>
+
+                    {/* Invisible bot honeypot */}
+                    <input
+                      type="text"
+                      name="website_trap"
+                      value={formData.website_trap || ""}
+                      onChange={(e) => setFormData({ ...formData, website_trap: e.target.value })}
+                      tabIndex={-1}
+                      autoComplete="off"
+                      className="hidden"
+                      aria-hidden="true"
+                    />
 
                     <div className="flex items-center gap-2 text-xs font-body text-slate-400 pt-1">
                       <ShieldCheck className="w-4 h-4 text-[#885FFF]" />
