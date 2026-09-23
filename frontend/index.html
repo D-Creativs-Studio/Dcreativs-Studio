@@ -62,7 +62,7 @@
     <meta name="twitter:image" content="https://dcreativs.com/og-image.png" />
     <meta name="twitter:image:alt" content="D'Creativs Studio — Digital Experience &amp; Brand Innovation" />
 
-    <!-- Schema.org JSON-LD Structured Data -->
+    <!-- Schema.org JSON-LD Structured Data & Knowledge Graph -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -71,6 +71,7 @@
             "@type": "Organization",
             "@id": "https://dcreativs.com/#organization",
             "name": "D'Creativs Studio",
+            "legalName": "D'Creativs Technologies",
             "url": "https://dcreativs.com/",
             "logo": {
               "@type": "ImageObject",
@@ -79,14 +80,94 @@
               "height": 512
             },
             "image": "https://dcreativs.com/og-image.png",
-            "description": "Creative technology studio combining product design, full-stack development, 3D motion, and brand marketing under one roof.",
+            "description": "Creative technology agency combining product design, full-stack engineering, 3D motion graphics, brand identity, and AI automations under one roof.",
             "email": "dcreativs.studio@gmail.com",
+            "foundingDate": "2024",
+            "founder": {
+              "@type": "Person",
+              "name": "Pleasant Johnson",
+              "alternateName": "Xant",
+              "jobTitle": "Founder & Developer",
+              "url": "https://dcreativs.com/#team",
+              "sameAs": [
+                "https://x.com",
+                "https://linkedin.com",
+                "https://github.com"
+              ]
+            },
+            "employee": [
+              {
+                "@type": "Person",
+                "name": "Pleasant Johnson",
+                "jobTitle": "Founder & Developer",
+                "knowsAbout": ["Django & React", "PostgreSQL", "Tailwind CSS", "Full-Stack Architecture"]
+              },
+              {
+                "@type": "Person",
+                "name": "Chioma Nwosu",
+                "jobTitle": "Head of Product Design",
+                "knowsAbout": ["Design Systems", "UI/UX Design", "Interactive Prototyping", "Design Tokens"]
+              },
+              {
+                "@type": "Person",
+                "name": "Tunde Bakare",
+                "jobTitle": "3D & CGI Motion Lead",
+                "knowsAbout": ["Cinema 4D", "Blender", "Three.js", "WebGL", "Physics Simulation"]
+              },
+              {
+                "@type": "Person",
+                "name": "Zainab Aliyu",
+                "jobTitle": "Brand Strategist & Identity",
+                "knowsAbout": ["Brand Strategy", "Tone of Voice", "Narrative Architecture", "Visual Identity"]
+              },
+              {
+                "@type": "Person",
+                "name": "Kelechi Okafor",
+                "jobTitle": "Creative Developer & WebGL",
+                "knowsAbout": ["Three.js", "GLSL Shaders", "GSAP & ScrollTrigger", "Performance Optimization"]
+              },
+              {
+                "@type": "Person",
+                "name": "Fatima Bello",
+                "jobTitle": "Growth Marketing & Content",
+                "knowsAbout": ["Growth Loops", "Content Strategy", "SEO Architecture", "Omnichannel Launch"]
+              },
+              {
+                "@type": "Person",
+                "name": "David Olatunji",
+                "jobTitle": "AI & Automation Architect",
+                "knowsAbout": ["LLM Orchestration", "Python & PyTorch", "Workflow Automation", "API Integration"]
+              },
+              {
+                "@type": "Person",
+                "name": "Grace Eze",
+                "jobTitle": "Operations & Delivery Lead",
+                "knowsAbout": ["Agile Delivery", "Client Strategy", "Resource Scaling", "Quality Assurance"]
+              }
+            ],
+            "knowsAbout": [
+              "Creative Technology Agency",
+              "Full-Stack Web & App Development",
+              "UI/UX Design Systems",
+              "3D Motion & CGI Visual FX",
+              "Brand Strategy & Visual Identity",
+              "AI & Workflow Automations",
+              "React 19 & Next.js 15",
+              "Three.js & Interactive WebGL",
+              "High-Performance Web Platforms"
+            ],
             "sameAs": [
               "https://twitter.com/dcreativs",
               "https://linkedin.com/company/dcreativs",
               "https://instagram.com/dcreativs.studio",
               "https://github.com/dcreativs"
-            ]
+            ],
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "email": "dcreativs.studio@gmail.com",
+              "contactType": "customer service",
+              "availableLanguage": ["English"]
+            }
           },
           {
             "@type": "WebSite",
@@ -148,6 +229,68 @@
                 }
               ]
             }
+          },
+          {
+            "@type": "ItemList",
+            "@id": "https://dcreativs.com/#portfolio",
+            "name": "Featured Portfolio & Case Studies",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "item": {
+                  "@type": "CreativeWork",
+                  "name": "Nexus Global Cloud Dashboard",
+                  "creator": { "@id": "https://dcreativs.com/#organization" },
+                  "description": "Enterprise analytics portal featuring sub-second real-time telemetry, live WebSockets, dynamic charts, and multi-tenant security architecture.",
+                  "genre": "Full-Stack Web Application"
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "item": {
+                  "@type": "CreativeWork",
+                  "name": "Monolith Architectural Studio Showcase",
+                  "creator": { "@id": "https://dcreativs.com/#organization" },
+                  "description": "Bespoke digital home for an international architectural studio with spatial 3D navigation, smooth page inertia, and custom typographic grids.",
+                  "genre": "WebGL & Interactive Editorial"
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "item": {
+                  "@type": "CreativeWork",
+                  "name": "Aura Niche Luxury Flagship Store",
+                  "creator": { "@id": "https://dcreativs.com/#organization" },
+                  "description": "Headless luxury e-commerce experience with sub-second page transitions, dynamic scent profiling engine, and editorial typography.",
+                  "genre": "Headless E-Commerce"
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 4,
+                "item": {
+                  "@type": "CreativeWork",
+                  "name": "Apex Horizon Next-Gen Fintech App",
+                  "creator": { "@id": "https://dcreativs.com/#organization" },
+                  "description": "Cross-border wealth management application built with biometric security, real-time FX rate streaming, and bespoke design systems.",
+                  "genre": "Mobile & Fintech Application"
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 5,
+                "item": {
+                  "@type": "CreativeWork",
+                  "name": "Chronos AI Generative Workflow Engine",
+                  "creator": { "@id": "https://dcreativs.com/#organization" },
+                  "description": "Autonomous lead enrichment, instant CRM scoring, customized email generation, and Slack alerting connecting 9 disparate tools.",
+                  "genre": "AI & Autonomous Automations"
+                }
+              }
+            ]
           }
         ]
       }

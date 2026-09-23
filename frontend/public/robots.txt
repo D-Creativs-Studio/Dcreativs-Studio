@@ -2,5 +2,21 @@
 User-agent: *
 Allow: /
 
+# Explicit AI Search & Knowledge Engine Access (ChatGPT, Perplexity, Claude, Gemini)
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
 # Sitemap
 Sitemap: https://dcreativs.com/sitemap.xml
