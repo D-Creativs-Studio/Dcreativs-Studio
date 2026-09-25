@@ -254,8 +254,14 @@ export function Team() {
                   <img
                     src={activeMember.image}
                     alt={activeMember.name}
-                    className="w-full h-full object-cover object-top"
+                    className="w-full h-full"
+                    style={{
+                      objectFit: activeMember.imageFit || "cover",
+                      objectPosition: activeMember.imagePosition || "center top",
+                      ...activeMember.imageStyle,
+                    }}
                     loading="eager"
+                    referrerPolicy="no-referrer"
                   />
                   {/* Subtle contrast gradient for depth */}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#000422]/60 via-transparent to-black/20 pointer-events-none" />
@@ -264,7 +270,7 @@ export function Team() {
 
               {/* Floating Top Right: Serial Tag (hidden on mobile) */}
               <div className="hidden sm:block absolute top-6 right-6 z-20 px-3 py-1 rounded-full bg-black/60 border border-white/15 backdrop-blur-md font-mono text-[11px] font-bold text-white/90">
-                <span className="text-[#885FFF]">// {activeMember.id}</span> / 08
+                <span className="text-[#885FFF]">// {activeMember.id}</span> / {String(teamMembers.length).padStart(2, "0")}
               </div>
             </div>
           </div>
