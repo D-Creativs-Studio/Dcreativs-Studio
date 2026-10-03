@@ -153,6 +153,16 @@ export function Team() {
     };
   }, []);
 
+  // ── PREFETCH TEAM IMAGES FOR ZERO-LATENCY INSTANT SWITCHING ────
+  useEffect(() => {
+    teamMembers.forEach((member) => {
+      if (member.image) {
+        const img = new Image();
+        img.src = member.image;
+      }
+    });
+  }, []);
+
   const activeMember =
     teamMembers.find((m) => m.id === spotlightId) || teamMembers[0];
 
@@ -248,7 +258,7 @@ export function Team() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.35, ease: "easeInOut" }}
+                  transition={{ duration: 0.25, ease: "easeInOut" }}
                   className="absolute inset-0 w-full h-full"
                 >
                   <img
@@ -261,7 +271,8 @@ export function Team() {
                       ...activeMember.imageStyle,
                     }}
                     loading="eager"
-                    referrerPolicy="no-referrer"
+                    decoding="async"
+                    fetchPriority="high"
                   />
                   {/* Subtle contrast gradient for depth */}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#000422]/60 via-transparent to-black/20 pointer-events-none" />
