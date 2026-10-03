@@ -2,7 +2,7 @@ export const teamMembers = [
   {
     id: "01",
     firstName: "Pleasant",
-    name: "Pleasant Johnson (\"Xant\")",
+    name: "Pleasant Johnson",
     role: "Founder & Developer",
     discipline: "Founder & Engineering",
     image: "/team/pleasant-johnson.jpg",
@@ -10,7 +10,7 @@ export const teamMembers = [
     accent: "#885FFF",
     darkAccent: "#1a0f3d",
     quote: "“Good code is invisible. Good business runs on it anyway.”",
-    bio: "Self-taught full-stack developer and creative director with a background spanning Django, React, PostgreSQL, and Tailwind. Pleasant founded D'Creativs alongside TechRise Cohort 2 peers and leads the agency's direction across development, design, and strategy. His independent projects, formerly run under XantSpace, are now part of D'Creativs following its incorporation.",
+    bio: "Self-taught full-stack developer and creative director with a background spanning Django, React, PostgreSQL, and Tailwind. Pleasant founded D'Creativs alongside TechRise Cohort 2 peers and leads the agency's direction across development, design, and strategy. His independent projects are now part of D'Creativs following its incorporation.",
     skills: ["Django & React", "PostgreSQL & Tailwind", "Full-Stack Architecture", "Creative Direction"],
     socials: {
       linkedin: "https://linkedin.com",
