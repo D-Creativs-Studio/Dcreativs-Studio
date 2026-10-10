@@ -252,13 +252,13 @@ export function Team() {
               />
 
               {/* Portrait Image (100% full bleed, object-cover) */}
-              <AnimatePresence mode="wait">
+              <AnimatePresence initial={false}>
                 <motion.div
                   key={activeMember.id}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.25, ease: "easeInOut" }}
+                  transition={{ duration: 0.18, ease: "easeOut" }}
                   className="absolute inset-0 w-full h-full"
                 >
                   <img
@@ -296,7 +296,7 @@ export function Team() {
                 <div
                   key={member.id}
                   ref={(el) => setRowRef(member.id, el)}
-                  className={`relative transition-all duration-300 border-b border-white/10 ${
+                  className={`relative transition-colors duration-200 border-b border-white/10 ${
                     isExpanded
                       ? "bg-[#4100F5] text-white"
                       : isSpotlight
@@ -306,7 +306,7 @@ export function Team() {
                 >
                   {/* Row Header: Click name to change photo; click (+) to see details */}
                   <div
-                    className={`w-full flex items-start justify-between gap-6 select-none transition-all duration-200 ${
+                    className={`w-full flex items-start justify-between gap-6 select-none transition-colors duration-200 ${
                       isExpanded
                         ? "px-4 pt-5 pb-2 min-[390px]:px-6 min-[390px]:pt-6 sm:px-10 sm:pt-8 sm:pb-3 lg:px-12 lg:pt-9 lg:pb-3"
                         : "px-4 py-4 min-[390px]:px-6 min-[390px]:py-5 sm:px-10 sm:py-6 lg:px-12 lg:py-7 items-center"
@@ -364,7 +364,7 @@ export function Team() {
                           ? `Hide ${member.name} details`
                           : `Show ${member.name} details`
                       }
-                      className={`w-11 h-11 sm:w-13 sm:h-13 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 cursor-pointer mt-0.5 ${
+                      className={`w-11 h-11 sm:w-13 sm:h-13 rounded-full flex items-center justify-center shrink-0 transition-all duration-200 cursor-pointer mt-0.5 ${
                         isExpanded
                           ? "border border-white/50 text-white bg-white/15 hover:bg-white/25 hover:scale-105 active:scale-95 shadow-md"
                           : "border border-white/25 text-white hover:border-white hover:bg-white/10 hover:scale-110 active:scale-95"
@@ -386,7 +386,7 @@ export function Team() {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.35, ease: [0.33, 1, 0.68, 1] }}
+                        transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
                         className="overflow-hidden"
                       >
                         <div className="px-6 pb-6 sm:px-10 sm:pb-8 lg:px-12 lg:pb-9 pt-0">

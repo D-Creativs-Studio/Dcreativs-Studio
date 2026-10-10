@@ -62,11 +62,17 @@ export default defineConfig({
   },
   build: {
     emptyOutDir: false,
-    chunkSizeWarningLimit: 1000,
+    chunkSizeWarningLimit: 8000,
     rollupOptions: {
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
+            if (id.includes('@babylonjs/loaders')) {
+              return 'vendor-babylon-loaders'
+            }
+            if (id.includes('@babylonjs')) {
+              return 'vendor-babylon-core'
+            }
             if (id.includes('three') || id.includes('@react-three')) {
               return 'vendor-three'
             }

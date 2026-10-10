@@ -92,7 +92,7 @@ export function Navbar() {
       if (location.pathname.startsWith("/portfolio") || location.pathname.startsWith("/works")) {
         setIsLightSection(true);
         if (!isManualClickRef.current) {
-          setActiveTab(isNearBottom ? "Contact" : "Portfolio");
+          setActiveTab("Portfolio");
         }
         return;
       }
@@ -101,7 +101,7 @@ export function Navbar() {
       if (location.pathname.startsWith("/services")) {
         setIsLightSection(true);
         if (!isManualClickRef.current) {
-          setActiveTab(isNearBottom ? "Contact" : "Services");
+          setActiveTab("Services");
         }
         return;
       }
@@ -110,7 +110,7 @@ export function Navbar() {
       if (location.pathname.startsWith("/about")) {
         setIsLightSection(true);
         if (!isManualClickRef.current) {
-          setActiveTab(isNearBottom ? "Contact" : "About");
+          setActiveTab("About");
         }
         return;
       }
@@ -124,26 +124,54 @@ export function Navbar() {
         return;
       }
 
-      // Homepage scroll spy logic
-      const sections = navItems.map((item) => item.href.replace("#", ""));
-      const triggerPoint = 180; // distance from top of viewport
+      // Homepage sections in document order (from bottom to top)
+      const pageSections = [
+        { id: "footer", tab: "Contact" },
+        { id: "contact", tab: "Contact" },
+        { id: "team", tab: "Portfolio" },
+        { id: "portfolio", tab: "Portfolio" },
+        { id: "services", tab: "Services" },
+        { id: "about", tab: "About" },
+      ];
 
-      let currentSection = "home";
-      let lightDetected = false;
+      const triggerPoint = 200; // distance from top of viewport
+      let detectedTab = "Home";
 
-      if (isNearBottom) {
-        currentSection = "contact";
-      } else {
-        for (const sectionId of sections) {
-          const element = document.getElementById(sectionId);
-          if (element) {
-            const rect = element.getBoundingClientRect();
-            if (rect.top <= triggerPoint && rect.bottom > triggerPoint) {
-              currentSection = sectionId;
-              if (lightSections.includes(sectionId)) {
-                lightDetected = true;
+      // If user is scrolled down, find the active section from bottom to top
+      if (window.scrollY > 80) {
+        // If the cosmic footer, contact section, or document bottom is reached, stay on Contact
+        const footerEl = document.getElementById("footer");
+        const contactEl = document.getElementById("contact");
+        const footerReached = footerEl && footerEl.getBoundingClientRect().top <= triggerPoint;
+        const contactReached = contactEl && contactEl.getBoundingClientRect().top <= triggerPoint;
+
+        if (footerReached || contactReached || isNearBottom) {
+          detectedTab = "Contact";
+        } else {
+          // Check preceding sections
+          for (const section of pageSections) {
+            const el = document.getElementById(section.id);
+            if (el) {
+              const rect = el.getBoundingClientRect();
+              if (rect.top <= triggerPoint) {
+                detectedTab = section.tab;
+                break;
               }
             }
+          }
+        }
+      }
+
+      // Check light section overlap with fixed navbar (top ~24px)
+      let lightDetected = false;
+      const lightSectionIds = ["about", "portfolio"];
+      for (const id of lightSectionIds) {
+        const el = document.getElementById(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 80 && rect.bottom >= 35) {
+            lightDetected = true;
+            break;
           }
         }
       }
@@ -151,11 +179,7 @@ export function Navbar() {
       setIsLightSection(lightDetected);
 
       if (!isManualClickRef.current) {
-        if (currentSection === "home") setActiveTab("Home");
-        else if (currentSection === "about") setActiveTab("About");
-        else if (currentSection === "services") setActiveTab("Services");
-        else if (currentSection === "portfolio") setActiveTab("Portfolio");
-        else if (currentSection === "contact") setActiveTab("Contact");
+        setActiveTab(detectedTab);
       }
     };
 

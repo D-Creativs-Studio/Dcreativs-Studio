@@ -45,17 +45,9 @@ export function ServiceDetailPage() {
       <div className="absolute top-1/2 right-10 w-[500px] h-[500px] bg-[#885FFF]/[0.05] rounded-full blur-[160px] pointer-events-none z-0" />
 
       <div className="max-w-6xl mx-auto relative z-10">
-        {/* Top Back Navigation Bar */}
-        <div className="mb-8 flex items-center justify-between border-b border-black/[0.08] pb-4 sm:pb-6">
-          <Link
-            to="/#services"
-            className="inline-flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-sm font-heading font-semibold text-[#030412] hover:text-[#4100F5] bg-black/[0.04] hover:bg-black/[0.08] border border-black/10 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full backdrop-blur-md transition-all duration-300 group shadow-sm"
-          >
-            <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 transition-transform group-hover:-translate-x-1" />
-            Back to All Services
-          </Link>
-
-          <span className="hidden sm:inline-block text-xs font-heading font-semibold tracking-widest text-slate-500 uppercase">
+        {/* Top Bar */}
+        <div className="mb-8 flex items-center justify-end border-b border-black/[0.08] pb-4 sm:pb-6">
+          <span className="text-xs font-heading font-semibold tracking-widest text-slate-500 uppercase">
             0{currentIndex + 1} / 0{servicesData.length}
           </span>
         </div>
@@ -130,17 +122,23 @@ export function ServiceDetailPage() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-2 gap-3 min-[390px]:gap-4 sm:gap-6">
             {service.deliverables.map((item, idx) => (
               <div
                 key={idx}
-                className="p-6 sm:p-8 rounded-2xl bg-white border border-black/[0.08] hover:border-[#4100F5]/40 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_15px_40px_rgba(65,0,245,0.08)] hover:-translate-y-1 group"
+                className="p-3.5 min-[390px]:p-4 sm:p-7 md:p-8 rounded-xl sm:rounded-2xl bg-white border border-black/[0.08] hover:border-[#4100F5]/40 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_15px_40px_rgba(65,0,245,0.08)] hover:-translate-y-1 group flex flex-col justify-between"
               >
-                <div className="w-10 h-10 rounded-xl bg-[#4100F5]/10 border border-[#4100F5]/20 flex items-center justify-center text-[#4100F5] mb-4 group-hover:scale-110 transition-transform">
-                  <CheckCircle2 className="w-5 h-5" />
+                <div>
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-[#4100F5]/10 border border-[#4100F5]/20 flex items-center justify-center text-[#4100F5] mb-2.5 sm:mb-4 group-hover:scale-110 transition-transform">
+                    <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5" />
+                  </div>
+                  <h3 className="text-sm min-[390px]:text-base sm:text-xl font-heading font-bold mb-1 sm:mb-2 text-[#030412] group-hover:text-[#4100F5] transition-colors leading-snug">
+                    {item.title}
+                  </h3>
+                  <p className="text-[11px] min-[390px]:text-xs sm:text-sm font-body text-slate-600 leading-snug sm:leading-relaxed font-normal">
+                    {item.desc}
+                  </p>
                 </div>
-                <h3 className="text-xl font-heading font-bold mb-2 text-[#030412] group-hover:text-[#4100F5] transition-colors">{item.title}</h3>
-                <p className="text-sm font-body text-slate-600 leading-relaxed font-normal">{item.desc}</p>
               </div>
             ))}
           </div>
