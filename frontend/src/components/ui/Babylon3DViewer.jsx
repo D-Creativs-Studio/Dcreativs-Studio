@@ -49,8 +49,8 @@ import {
 
 const ORBIT_SPEED = 0.007; // rad per pixel
 const STEP = Math.PI / 12; // 15 degrees
-const DEFAULT_ALPHA = -0.72; // Blender default 3/4 front-right view
-const DEFAULT_BETA = 1.08;
+export const DEFAULT_ALPHA = -0.72; // Blender default 3/4 front-right view
+export const DEFAULT_BETA = 1.08;
 
 // Blender axis -> Babylon world vector (Blender is Z-up, Babylon is Y-up)
 const GIZMO_AXES = [
@@ -72,7 +72,7 @@ const VIEW_ANGLES = {
 };
 
 /** World-space bounds of all visible geometry */
-function computeBounds(meshes) {
+export function computeBounds(meshes) {
   const min = new Vector3(Infinity, Infinity, Infinity);
   const max = new Vector3(-Infinity, -Infinity, -Infinity);
   meshes.forEach((m) => {
@@ -95,7 +95,7 @@ function computeBounds(meshes) {
 }
 
 /** Blender-style floor grid: minor + major lines, red X axis, green Y axis, radial fade */
-function buildBlenderGrid(scene, bounds) {
+export function buildBlenderGrid(scene, bounds) {
   const size = bounds.maxExtent;
   const minor = Math.pow(10, Math.floor(Math.log10(size / 3)));
   const major = minor * 10;

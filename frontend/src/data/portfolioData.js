@@ -243,7 +243,7 @@ export const portfolioCategories = [
     category: "Immersive CGI & Spatial Environments",
     discipline: "Photorealistic 3D • Automotive • WebGL Real-Time",
     year: "2024 — 2025",
-    image: "/projects/drift.jpg",
+    image: "/models/thumbs/m4-coupe.jpg",
     accent: "#2dd4bf",
     glowColor: "rgba(45, 212, 191, 0.35)",
     shortDescription: "Photorealistic 3D product models, surreal VFX simulations, automotive visualizations, and interactive real-time 3D web assets.",
@@ -266,7 +266,7 @@ export const portfolioCategories = [
         description: "Studio-lit exterior modeling and aerodynamic bodywork of a high-performance sports coupe with automotive clearcoat reflection shaders.",
         metrics: "60 FPS WebGL • 185k Poly Model",
         tags: ["Automotive CGI", "Three.js", "PBR Clearcoat", "Subdivision"],
-        image: "/projects/drift.jpg",
+        image: "/models/thumbs/m4-coupe.jpg",
         highlight: "Precision wheel assemblies and sculpted aero bodywork"
       },
       {
@@ -279,7 +279,7 @@ export const portfolioCategories = [
         description: "Atmospheric isometric creative studio sanctuary with multi-source interior illumination, desk props, and architectural spatial composition.",
         metrics: "Multi-Source Light Rig • 310k Poly Environment",
         tags: ["Spatial Interior", "Isometric CGI", "Global Illumination"],
-        image: "/projects/monolith.jpg",
+        image: "/models/thumbs/dream-room.jpg",
         highlight: "Isometric spatial balance and ambient lighting"
       },
       {
@@ -292,7 +292,7 @@ export const portfolioCategories = [
         description: "Multi-layered scientific flask featuring physical transmission, specular highlight dynamics, and volumetric depth.",
         metrics: "Crown Glass IOR 1.52 • Real-Time Fresnel",
         tags: ["Transmission PBR", "Volumetric Depth", "Product CGI"],
-        image: "/projects/aurora.jpg",
+        image: "/models/thumbs/flask-vessel.jpg",
         highlight: "Physical Fresnel transmission and specular dispersion"
       },
       {
@@ -305,7 +305,7 @@ export const portfolioCategories = [
         description: "Hand-sculpted Staunton chess figures featuring micro-surface textures, wood grain, and balanced center-stage studio lighting.",
         metrics: "4K Normal Maps • 128k Poly Geometry",
         tags: ["Prop Sculpting", "Surface Imperfections", "Studio Rims"],
-        image: "/projects/vantage.jpg",
+        image: "/models/thumbs/chess-set.jpg",
         highlight: "Knight, King, and Pawn faceted carvings"
       },
       {
@@ -318,7 +318,7 @@ export const portfolioCategories = [
         description: "Cinematic atmospheric weather simulation capturing wet surface specular sheen, umbrella canopy tension, and environmental mood.",
         metrics: "Precipitation Dynamics • Anisotropic Wet Sheen",
         tags: ["Atmospheric VFX", "Rain Shaders", "Cinematic"],
-        image: "/projects/ember.jpg",
+        image: "/models/thumbs/rain-umbrella.jpg",
         highlight: "Wet surface specular sheen and canopy tension"
       },
       {
@@ -331,7 +331,7 @@ export const portfolioCategories = [
         description: "Urban basketball backboard and hoop environment with industrial wire fencing, court markings, and weathered asphalt textures.",
         metrics: "1:1 Regulation Metrics • Weathered PBR",
         tags: ["Urban Environment", "Sports CGI", "PBR Asphalt"],
-        image: "/projects/pulse.jpg",
+        image: "/models/thumbs/street-basketball.jpg",
         highlight: "High-rebound backboard and weathered asphalt"
       }
     ]

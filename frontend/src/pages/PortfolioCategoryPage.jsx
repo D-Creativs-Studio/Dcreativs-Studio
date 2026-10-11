@@ -215,7 +215,7 @@ export function PortfolioCategoryPage() {
                 {category.slug === "3d-visual-fx" ? "Interactive 3D Production Portfolio" : "Selected Production Work"}
               </div>
               <h2 className="text-3xl sm:text-5xl font-heading font-extrabold tracking-tight text-[#030412]">
-                {category.slug === "3d-visual-fx" ? "Babylon.js 3D Asset Catalog" : "Featured Case Studies"}
+                {category.slug === "3d-visual-fx" ? "Interactive 3D Showroom" : "Featured Case Studies"}
               </h2>
             </div>
             {category.slug !== "3d-visual-fx" && (
@@ -230,7 +230,7 @@ export function PortfolioCategoryPage() {
               fallback={
                 <div className="w-full py-20 flex flex-col items-center justify-center gap-3 text-slate-500">
                   <RefreshCw className="w-6 h-6 animate-spin text-[#4100F5]" />
-                  <span className="text-xs font-mono tracking-widest uppercase">Loading 3D Portfolio Catalog...</span>
+                  <span className="text-xs font-mono tracking-widest uppercase">Loading 3D Showroom...</span>
                 </div>
               }
             >
