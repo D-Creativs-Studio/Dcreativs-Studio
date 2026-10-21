@@ -127,10 +127,10 @@ export function Flask3DViewer({ className = "" }) {
         <div className="backdrop-blur-xl bg-black/55 p-3.5 rounded-2xl border border-white/10 shadow-lg flex items-center justify-between gap-3">
           <div>
             <span className="text-[11px] font-heading font-bold text-[#885FFF] uppercase tracking-wider block">
-              Precision Glass Vessel
+              Drinking Flask
             </span>
             <p className="text-[11px] text-white/70 font-normal leading-tight">
-              Interactive PBR Shader & Volumetric Refraction Model
+              Interactive Bottle & Cap Product Study
             </p>
           </div>
           <div className="hidden sm:flex items-center gap-1.5 text-[10px] font-mono text-white/50 shrink-0">

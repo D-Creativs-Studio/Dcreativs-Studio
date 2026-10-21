@@ -1,8 +1,7 @@
-import { useState, useEffect, lazy, Suspense } from "react";
-import { createPortal } from "react-dom";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { lazy, Suspense } from "react";
+import { useParams, Link } from "react-router-dom";
 import { portfolioCategories, getPortfolioByCategory } from "@/data/portfolioData";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { SEO } from "@/components/common/SEO";
 import { 
   ArrowLeft, 
@@ -11,36 +10,15 @@ import {
   CheckCircle2, 
   Layers, 
   Send, 
-  X,
-  Rotate3d,
-  Box,
   RefreshCw
 } from "lucide-react";
-import { models3dCatalog } from "@/data/models3dData";
 
-const Babylon3DViewer = lazy(() => import("@/components/ui/Babylon3DViewer"));
+const MotionLink = motion.create(Link);
+
 const Babylon3DCardGrid = lazy(() => import("@/components/ui/Babylon3DCardGrid"));
 
 export function PortfolioCategoryPage() {
   const { categoryId } = useParams();
-  const navigate = useNavigate();
-  const [selectedCaseStudy, setSelectedCaseStudy] = useState(null);
-  const [viewportModelId, setViewportModelId] = useState(null);
-  const viewportModel = viewportModelId
-    ? models3dCatalog.find((m) => m.id === viewportModelId) || null
-    : null;
-
-  // Lock background body scroll when case study detail modal is open
-  useEffect(() => {
-    if (selectedCaseStudy) {
-      const originalOverflow = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.overflow = originalOverflow;
-      };
-    }
-  }, [selectedCaseStudy]);
-
   const category = getPortfolioByCategory(categoryId) || portfolioCategories[0];
 
   // Fallback if category not found
@@ -237,35 +215,36 @@ export function PortfolioCategoryPage() {
               <Babylon3DCardGrid />
             </Suspense>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className={`grid grid-cols-1 md:grid-cols-2 ${category.caseStudies.length > 2 ? "lg:grid-cols-3" : ""} gap-8`}>
               {category.caseStudies.map((study, idx) => (
-                <motion.div
+                <MotionLink
                   key={study.id}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  onClick={() => setSelectedCaseStudy(study)}
+                  to={`/works/${category.slug}/${study.id}`}
+                  aria-label={`View project: ${study.title}`}
                   className="group relative flex flex-col rounded-3xl bg-white border border-black/[0.08] hover:border-[#4100F5]/40 overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-1.5 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_45px_rgba(0,0,0,0.08)]"
                 >
                   {/* Image Showcase */}
                   <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-900">
                     <img
                       src={study.image}
-                      alt={study.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      alt={study.imageAlt || study.title}
+                      className={`w-full h-full ${study.imageFit === "contain" ? "object-contain" : "object-cover"} group-hover:scale-105 transition-transform duration-700`}
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80" />
+                    {study.imageFit !== "contain" && <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80" />}
 
                     {/* Top Badges */}
                     <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
                       <span className="px-3 py-1 rounded-full text-[11px] font-mono font-semibold uppercase tracking-wider bg-black/60 text-white backdrop-blur-md border border-white/10">
                         {study.type.split(" ")[0]}
                       </span>
-                      <span className="text-xs font-mono text-white/90 bg-black/50 px-2.5 py-1 rounded-full backdrop-blur-sm border border-white/10">
+                      {study.year && <span className="text-xs font-mono text-white/90 bg-black/50 px-2.5 py-1 rounded-full backdrop-blur-sm border border-white/10">
                         {study.year}
-                      </span>
+                      </span>}
                     </div>
 
                     {/* Corner Expand Button */}
@@ -278,7 +257,7 @@ export function PortfolioCategoryPage() {
                   <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between">
                     <div>
                       <span className="text-xs font-heading font-bold tracking-wider uppercase text-[#4100F5] block mb-1">
-                        {study.client}
+                        {study.audience || study.client}
                       </span>
                       <h3 className="font-heading text-xl font-bold text-[#030412] group-hover:text-[#4100F5] transition-colors mb-3">
                         {study.title}
@@ -312,7 +291,7 @@ export function PortfolioCategoryPage() {
                       </div>
                     </div>
                   </div>
-                </motion.div>
+                </MotionLink>
               ))}
             </div>
           )}
@@ -381,170 +360,6 @@ export function PortfolioCategoryPage() {
         </div>
       </div>
 
-      {/* ── Case Study Detail Modal ─────────────────────────────── */}
-      <AnimatePresence>
-        {selectedCaseStudy && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 min-[390px]:p-4 sm:p-6 md:p-10">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setSelectedCaseStudy(null)}
-              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-            />
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.92, y: 30 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              transition={{ type: "spring", damping: 26, stiffness: 300 }}
-              className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl bg-[#F8F8F6] text-[#030412] border border-black/15 p-4 min-[390px]:p-6 sm:p-8 md:p-10 shadow-2xl z-10"
-            >
-              <button
-                onClick={() => setSelectedCaseStudy(null)}
-                className="absolute top-6 right-6 w-10 h-10 rounded-full bg-black/5 hover:bg-black/10 text-[#030412] flex items-center justify-center transition-colors z-20 cursor-pointer"
-                aria-label="Close modal"
-              >
-                <X className="w-5 h-5" />
-              </button>
-
-              {selectedCaseStudy.modelId ? (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setViewportModelId(selectedCaseStudy.modelId);
-                    setSelectedCaseStudy(null);
-                  }}
-                  className="group relative block aspect-[16/10] w-full rounded-2xl overflow-hidden mb-8 border border-black/10 shadow-lg text-left"
-                >
-                  <img
-                    src={selectedCaseStudy.image}
-                    alt={selectedCaseStudy.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-[#030412] font-heading font-semibold text-sm shadow-xl group-hover:scale-105 transition-transform">
-                      <Rotate3d className="w-4 h-4 text-[#4100F5]" />
-                      Open in 3D Viewport
-                    </span>
-                  </div>
-                </button>
-              ) : (
-                <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden mb-8 border border-black/10 shadow-lg">
-                  <img
-                    src={selectedCaseStudy.image}
-                    alt={selectedCaseStudy.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-70" />
-                  <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase font-mono bg-black/60 text-white backdrop-blur-md border border-white/20">
-                      {selectedCaseStudy.type} • {selectedCaseStudy.year}
-                    </span>
-                  </div>
-                </div>
-              )}
-
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-                <div>
-                  <span className="text-xs font-heading font-bold tracking-wide uppercase text-[#4100F5] block mb-1">
-                    Client: {selectedCaseStudy.client}
-                  </span>
-                  <h3 className="font-heading text-2xl sm:text-3xl font-extrabold text-[#030412]">
-                    {selectedCaseStudy.title}
-                  </h3>
-                </div>
-
-                <div className="flex items-center gap-2 self-start sm:self-auto">
-                  {selectedCaseStudy.modelId && (
-                    <button
-                      onClick={() => {
-                        setViewportModelId(selectedCaseStudy.modelId);
-                        setSelectedCaseStudy(null);
-                      }}
-                      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-black/5 hover:bg-black/10 border border-black/10 text-xs font-heading font-semibold text-[#030412] transition-colors"
-                    >
-                      <Rotate3d className="w-3.5 h-3.5 text-[#4100F5]" />
-                      <span>Stage View</span>
-                    </button>
-                  )}
-
-                  <Link
-                    to="/#contact"
-                    onClick={() => setSelectedCaseStudy(null)}
-                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#4100F5] hover:bg-[#5212FF] text-white text-sm font-semibold transition-transform hover:scale-105 shadow-md"
-                  >
-                    <span>Inquire Similar</span>
-                    <ArrowUpRight className="w-4 h-4" />
-                  </Link>
-                </div>
-              </div>
-
-              <p className="font-body text-slate-700 text-base sm:text-lg leading-relaxed mb-6 font-normal">
-                {selectedCaseStudy.description}
-              </p>
-
-              {/* Key Highlight Banner */}
-              <div className="p-4 rounded-2xl border border-black/10 bg-white mb-6 flex items-center gap-3 shadow-sm">
-                <CheckCircle2 className="w-5 h-5 shrink-0 text-[#4100F5]" />
-                <span className="text-sm font-semibold text-[#030412]">
-                  {selectedCaseStudy.highlight}
-                </span>
-              </div>
-
-              {/* Scope & Tags */}
-              <div className="pt-6 border-t border-black/10">
-                <h5 className="font-heading text-xs uppercase tracking-widest text-slate-500 font-semibold mb-3 flex items-center gap-2">
-                  <Layers className="w-4 h-4" /> Tech & Deliverable Scope
-                </h5>
-                <div className="flex flex-wrap gap-2">
-                  {selectedCaseStudy.tags.map((tag, i) => (
-                    <span
-                      key={i}
-                      className="px-3 py-1.5 rounded-xl bg-white border border-black/10 text-xs text-slate-800 font-medium shadow-sm"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
-
-      {/* ── Full-screen 3D viewport (portalled above navbar & widgets) ── */}
-      {viewportModel &&
-        createPortal(
-          <div
-            style={{ zIndex: 2147483000 }}
-            className="fixed inset-0 w-screen h-[100dvh] bg-[#191A1E] overflow-hidden overscroll-none"
-          >
-            <Suspense
-              fallback={
-                <div className="w-full h-full flex flex-col items-center justify-center gap-3 text-white/60">
-                  <RefreshCw className="w-6 h-6 animate-spin text-[#885FFF]" />
-                  <span className="text-xs font-mono tracking-widest uppercase">Loading viewport...</span>
-                </div>
-              }
-            >
-              <Babylon3DViewer
-                key={viewportModel.id}
-                modelUrl={viewportModel.file}
-                modelName={viewportModel.name}
-                category={viewportModel.category}
-                polyCount={viewportModel.polyCount}
-                description={viewportModel.description}
-                specs={viewportModel.specs}
-                tags={viewportModel.tags}
-                className="w-full h-full"
-                onClose={() => setViewportModelId(null)}
-              />
-            </Suspense>
-          </div>,
-          document.body
-        )}
     </div>
   );
 }

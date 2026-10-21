@@ -48,6 +48,7 @@ export function Navbar() {
   };
 
   const handleNavClick = (e, item) => {
+    if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     e.preventDefault();
     const sectionId = item.href.replace("#", "");
 
@@ -63,11 +64,9 @@ export function Navbar() {
       isManualClickRef.current = false;
     }, 1100);
 
-    if (isSubPage) {
-      navigate("/");
-      setTimeout(() => {
-        scrollToTarget(sectionId);
-      }, 150);
+    const targetHash = sectionId === "home" ? "" : item.href;
+    if (isSubPage || location.hash !== targetHash) {
+      navigate(`/${targetHash}`);
     } else {
       scrollToTarget(sectionId);
     }
@@ -193,9 +192,12 @@ export function Navbar() {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("wheel", handleUserInteraction);
       window.removeEventListener("touchmove", handleUserInteraction);
-      if (clickTimeoutRef.current) clearTimeout(clickTimeoutRef.current);
     };
   }, [location.pathname]);
+
+  useEffect(() => () => {
+    if (clickTimeoutRef.current) clearTimeout(clickTimeoutRef.current);
+  }, []);
 
   return (
     <header className="fixed top-3.5 sm:top-6 left-1/2 -translate-x-1/2 z-50 w-max max-w-[calc(100vw-16px)] pointer-events-auto">
@@ -212,7 +214,7 @@ export function Navbar() {
           return (
             <a
               key={item.name}
-              href={item.href}
+              href={item.name === "Home" ? "/" : `/${item.href}`}
               onClick={(e) => handleNavClick(e, item)}
               className={`relative flex items-center justify-center px-1.5 min-[360px]:px-2 min-[390px]:px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 text-[10.5px] min-[360px]:text-[11px] min-[390px]:text-xs sm:text-sm md:text-sm font-semibold font-heading leading-none rounded-full transition-colors duration-200 whitespace-nowrap cursor-pointer select-none ${
                 isLightSection

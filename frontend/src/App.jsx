@@ -6,6 +6,7 @@ import { AboutPage } from "@/pages/AboutPage";
 import { ServiceDetailPage } from "@/pages/ServiceDetailPage";
 import { WorksPage } from "@/pages/WorksPage";
 import { PortfolioCategoryPage } from "@/pages/PortfolioCategoryPage";
+import { ProjectDetailPage } from "@/pages/ProjectDetailPage";
 import { ContactPage } from "@/pages/ContactPage";
 import { ComingSoonPage } from "@/pages/ComingSoonPage";
 import { ScrollToTop } from "@/components/utils/ScrollToTop";
@@ -95,6 +96,7 @@ function AppContent() {
         <Route path="/services/:serviceId" element={<ServiceDetailPage />} />
         <Route path="/works" element={<WorksPage />} />
         <Route path="/works/:categoryId" element={<PortfolioCategoryPage />} />
+        <Route path="/works/:categoryId/:projectId" element={<ProjectDetailPage />} />
         <Route path="/contact" element={<ContactPage />} />
       </Routes>
       {!isWorksCanvas && !isContactPage && <Footer />}
