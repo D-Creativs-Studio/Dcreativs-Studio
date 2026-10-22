@@ -13,18 +13,18 @@ export function Footer() {
 
   const navLinks = [
     { label: 'Home', href: '/' },
-    { label: 'About', href: '#about' },
-    { label: 'Services', href: '#services' },
-    { label: 'Contact', href: '#contact' },
+    { label: 'About', href: '/about' },
+    { label: 'Services', href: '/#services' },
+    { label: 'Contact', href: '/contact' },
   ];
 
   const services = [
-    'Brand Identity',
-    'UI/UX Design',
-    'Web Development',
-    'Motion & Animation',
-    'Social Media Strategy',
-    'Creative Direction',
+    { label: 'Brand Identity', href: '/services/brand-design' },
+    { label: 'UI/UX Design', href: '/services/web-app-development' },
+    { label: 'Web Development', href: '/services/web-app-development' },
+    { label: 'Motion & Animation', href: '/services/motion-video' },
+    { label: 'Social Media Strategy', href: '/services/social-marketing' },
+    { label: 'Creative Direction', href: '/services/brand-design' },
   ];
 
   const socials = [
@@ -181,11 +181,11 @@ export function Footer() {
                 Capabilities
               </h3>
               <ul className="space-y-3">
-                {services.map((service) => (
-                  <li key={service}>
-                    <span className="font-body text-sm text-slate-400 hover:text-slate-200 transition-colors duration-200">
-                      {service}
-                    </span>
+                {services.map(({ label, href }) => (
+                  <li key={label}>
+                    <a href={href} className="font-body text-sm text-slate-400 hover:text-slate-200 transition-colors duration-200">
+                      {label}
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -211,10 +211,10 @@ export function Footer() {
                     <path d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25H4.5a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5H4.5a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
                   </svg>
                   <a
-                    href="mailto:hello@dcreativs.studio"
+                    href="mailto:dcreativs.studio@gmail.com"
                     className="hover:text-white transition-colors duration-200"
                   >
-                    hello@dcreativs.studio
+                    dcreativs.studio@gmail.com
                   </a>
                 </li>
                 <li className="flex items-start gap-3 text-sm text-slate-400">
@@ -235,7 +235,7 @@ export function Footer() {
                 </li>
                 <li className="pt-2">
                   <a
-                    href="mailto:hello@dcreativs.studio"
+                    href="/contact"
                     id="footer-cta"
                     className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full text-sm font-semibold
                                bg-gradient-to-r from-[#4100F5] to-[#885FFF] text-white
