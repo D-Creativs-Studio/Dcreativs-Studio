@@ -42,9 +42,14 @@ export function ProjectDetailPage() {
           <h1 className="font-heading text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] mb-6">{project.title}</h1>
           <p className="text-slate-600 text-base sm:text-xl leading-relaxed max-w-3xl">{project.description}</p>
           <div className="flex flex-wrap gap-3 mt-8">
+            {project.presentationUrl && (
+              <a href={project.presentationUrl} target="_blank" rel="noopener noreferrer" aria-label={`View ${project.client} brand presentation PDF (opens in a new tab)`} className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-[#4100F5]/30 text-[#4100F5] hover:bg-[#4100F5]/5 text-sm font-semibold">
+                View Brand Presentation (PDF)<ArrowUpRight className="w-4 h-4" />
+              </a>
+            )}
             {project.previewUrl && (
-              <a href={project.previewUrl} target="_blank" rel="noopener noreferrer" aria-label={`Live Preview: ${project.title} (opens in a new tab)`} className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-[#4100F5]/30 text-[#4100F5] hover:bg-[#4100F5]/5 text-sm font-semibold">
-                Live Preview<ArrowUpRight className="w-4 h-4" />
+              <a href={project.previewUrl} target="_blank" rel="noopener noreferrer" aria-label={`${project.previewLabel || "Live Preview"}: ${project.title} (opens in a new tab)`} className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-[#4100F5]/30 text-[#4100F5] hover:bg-[#4100F5]/5 text-sm font-semibold">
+                {project.previewLabel || "Live Preview"}<ArrowUpRight className="w-4 h-4" />
               </a>
             )}
             <Link to="/#contact" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#4100F5] hover:bg-[#5212FF] text-white text-sm font-semibold">
@@ -53,7 +58,10 @@ export function ProjectDetailPage() {
           </div>
         </header>
 
-        <img src={project.image} alt={project.imageAlt || project.title} className="block w-full h-auto rounded-2xl sm:rounded-3xl border border-black/10 mb-12 sm:mb-16" />
+        <figure className="mb-12 sm:mb-16">
+          <img src={project.image} alt={project.imageAlt || project.title} className={`block w-full h-auto rounded-2xl sm:rounded-3xl border border-black/10 ${project.imageCaption ? "max-h-[680px] object-contain bg-white" : ""}`} />
+          {project.imageCaption && <figcaption className="mt-3 text-sm text-slate-500">{project.imageCaption}</figcaption>}
+        </figure>
 
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_280px] gap-10 lg:gap-16 items-start">
           <div className="min-w-0 space-y-10">
@@ -96,6 +104,15 @@ export function ProjectDetailPage() {
             {project.modelId && <Link to={`/works/${category.slug}#case-studies`} className="inline-flex items-center gap-2 text-[#4100F5] text-sm font-semibold">Explore the 3D showroom<ArrowUpRight className="w-4 h-4" /></Link>}
           </aside>
         </div>
+        {project.boardImage && (
+          <section className="mt-14 sm:mt-20" aria-label={`${project.client} brand presentation`}>
+            <h2 className="font-heading text-2xl sm:text-3xl font-bold mb-6">The Identity in Detail</h2>
+            <figure>
+              <img src={project.boardImage} alt={project.boardAlt} loading="lazy" decoding="async" className="block w-full h-auto rounded-2xl border border-black/10" />
+              {project.credit && <figcaption className="mt-4 text-sm text-slate-600">{project.credit}</figcaption>}
+            </figure>
+          </section>
+        )}
       </div>
     </article>
   );

@@ -153,6 +153,7 @@ export function buildBlenderGrid(scene, bounds) {
 export function Babylon3DViewer({
   modelUrl,
   modelName = "3D Asset",
+  framingExcludeMeshNames,
   category = "CGI Production",
   polyCount = "Optimized Tris",
   description = "",
@@ -505,7 +506,7 @@ export function Babylon3DViewer({
       .then((result) => {
         if (disposed) return;
         state.meshes = result.meshes || [];
-        state.bounds = computeBounds(state.meshes);
+        state.bounds = computeBounds(state.meshes.filter((mesh) => !framingExcludeMeshNames?.includes(mesh.name))) || computeBounds(state.meshes);
         materialsRef.current.originals = new Map(
           state.meshes.filter((m) => m.material).map((m) => [m, m.material])
         );
@@ -538,7 +539,7 @@ export function Babylon3DViewer({
       engine.dispose();
       sceneRef.current = null;
     };
-  }, [modelUrl, reloadKey]);
+  }, [modelUrl, reloadKey, framingExcludeMeshNames]);
 
   // ── Keyboard: Blender numpad map ────────────────────────────────
   useEffect(() => {

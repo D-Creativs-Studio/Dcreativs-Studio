@@ -159,6 +159,7 @@ export function Babylon3DCardGrid({ className = "", initialActiveModelId = null 
                   key={activeModel.id}
                   modelUrl={activeModel.file}
                   modelName={activeModel.name}
+                  framingExcludeMeshNames={activeModel.framingExcludeMeshNames}
                   category={activeModel.category}
                   polyCount={activeModel.polyCount}
                   description={activeModel.description}

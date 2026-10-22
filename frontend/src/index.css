@@ -311,6 +311,31 @@ body {
 
 /* ── Content Wrapper (Flex Column Layout) ─────────────────────── */
 
+/* Hold 1-0-1-0 for 2.5s, reveal the delayed pair over 1.5s,
+   then hold all four before the next slow cycle. Opacity keeps spacing stable. */
+@keyframes cosmic-subtitle-first {
+  0%, 65%, 100% { opacity: 1; transform: translateY(0); }
+  80%, 90% { opacity: 0; transform: translateY(6px); }
+}
+
+@keyframes cosmic-subtitle-delayed {
+  0%, 25%, 80%, 100% { opacity: 0; transform: translateY(6px); }
+  40%, 65% { opacity: 1; transform: translateY(0); }
+}
+
+.cosmic-subtitle-word {
+  animation-duration: 10s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.cosmic-subtitle-word-first { animation-name: cosmic-subtitle-first; }
+.cosmic-subtitle-word-delayed { animation-name: cosmic-subtitle-delayed; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cosmic-subtitle-word { animation: none; opacity: 1; transform: none; }
+}
+
 .cosmic-content-wrapper {
   position: relative;
   z-index: 10;

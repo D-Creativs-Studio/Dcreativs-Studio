@@ -198,7 +198,7 @@ export function PortfolioCategoryPage() {
             </div>
             {category.slug !== "3d-visual-fx" && (
               <p className="text-slate-600 text-sm sm:text-base max-w-md font-normal">
-                Click any project to inspect the architecture, metrics, and deliverable breakdown.
+                {category.slug === "brand-identity" ? "Explore each identity through its logos, colour palette, typography, and full presentation board." : "Click any project to inspect the architecture, metrics, and deliverable breakdown."}
               </p>
             )}
           </div>
@@ -215,7 +215,7 @@ export function PortfolioCategoryPage() {
               <Babylon3DCardGrid />
             </Suspense>
           ) : (
-            <div className={`grid grid-cols-1 md:grid-cols-2 ${category.caseStudies.length > 2 ? "lg:grid-cols-3" : ""} gap-8`}>
+            <div className={`grid grid-cols-1 md:grid-cols-2 ${category.slug === "web-development" ? "lg:grid-cols-4" : category.caseStudies.length > 2 ? "lg:grid-cols-3" : ""} gap-6`}>
               {category.caseStudies.map((study, idx) => (
                 <MotionLink
                   key={study.id}
@@ -305,7 +305,7 @@ export function PortfolioCategoryPage() {
                 Engineering & Creative Arsenal
               </span>
               <h4 className="font-heading text-xl sm:text-2xl font-bold text-[#030412]">
-                Technologies & Tools We Deploy for {category.name}
+                {category.technologiesTitle || `Technologies & Tools We Deploy for ${category.name}`}
               </h4>
             </div>
 

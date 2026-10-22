@@ -11,6 +11,7 @@ import { initialContactForm } from '../src/data/contactForm.js';
 // Render the real components without opening a browser or contacting the API.
 const server = await createServer({
   configFile: false,
+  cacheDir: 'node_modules/.vite-tests',
   root: fileURLToPath(new URL('../', import.meta.url)),
   plugins: [react()],
   resolve: {

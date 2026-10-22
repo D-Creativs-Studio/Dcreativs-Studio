@@ -4,6 +4,44 @@
  */
 export const models3dCatalog = [
   {
+    id: "kitchen",
+    name: "Kitchen Interior",
+    subtitle: "Cabinetry, Appliances & Interior Layout",
+    category: "Spatial Environment",
+    image: "/models/thumbs/kitchen.jpg",
+    file: "/models/Kitchen 3D.glb",
+    description: "A kitchen scene with cabinets, a sink, cooker, refrigerator, and countertop details arranged within a two-wall interior layout.",
+    tags: ["Interior Modeling", "Kitchen Design", "Appliance Modeling"],
+    polyCount: "23,740 Tris",
+    textureFormat: "glTF PBR Materials",
+    specs: [
+      { label: "Scene Triangles", value: "23,740" },
+      { label: "Embedded Images", value: "0" },
+      { label: "Animation Clips", value: "0" },
+      { label: "Format", value: "GLB / glTF 2.0" }
+    ]
+  },
+  {
+    id: "school-presentation-hall",
+    name: "School Presentation Hall",
+    subtitle: "Architectural Space & Presentation Equipment",
+    category: "Spatial Environment",
+    image: "/models/thumbs/school-presentation-hall.jpg",
+    file: "/models/school presentation hall.glb",
+    description: "A school presentation-hall scene with a podium, television, doors, windows, fans, and security-camera props. The GLB includes six animation clips.",
+    tags: ["Architecture", "Interior Modeling", "Presentation Space"],
+    polyCount: "269,206 Tris",
+    textureFormat: "glTF PBR Materials & Image Textures",
+    // An oversized camera source object sits outside the hall in the supplied file.
+    framingExcludeMeshNames: ["Object_4"],
+    specs: [
+      { label: "Scene Triangles", value: "269,206" },
+      { label: "Embedded Images", value: "2" },
+      { label: "Animation Clips", value: "6" },
+      { label: "Format", value: "GLB / glTF 2.0" }
+    ]
+  },
+  {
     id: "m4-rifle",
     name: "M4 Rifle",
     subtitle: "Hard-Surface Prop Study",

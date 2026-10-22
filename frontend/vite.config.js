@@ -55,6 +55,8 @@ function devApiPlugin() {
 
 // https://vite.dev/config/
 export default defineConfig({
+  // Keep browser dependencies separate from SSR test-server optimization.
+  cacheDir: 'node_modules/.vite-dev',
   plugins: [react(), tailwindcss(), devApiPlugin()],
   resolve: {
     alias: {
