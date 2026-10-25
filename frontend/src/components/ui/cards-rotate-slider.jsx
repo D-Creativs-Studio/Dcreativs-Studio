@@ -87,7 +87,7 @@ export default function CardsRotateSlider({
   images = DEFAULT_IMAGES,
   rotationAmount = 1,
   verticalDrift = 1,
-  scrollSmoothing = 0.5,
+  scrollSmoothing = 0.2,
   perspective = 1200,
   showCaptions = true,
   textColor = "#ffffff",
@@ -96,7 +96,101 @@ export default function CardsRotateSlider({
   const trackRef = useRef(null);
   const cardsRef = useRef([]);
   const wrappersRef = useRef([]);
+  const scrollTriggerRef = useRef(null);
+  const gestureRef = useRef(null);
+  const suppressClickRef = useRef(false);
+  const momentumRef = useRef(null);
   const reducedMotion = prefersReducedMotion();
+
+  const handlePointerDown = (event) => {
+    if (!event.isPrimary || event.button !== 0) return;
+
+    momentumRef.current?.kill();
+    suppressClickRef.current = false;
+    gestureRef.current = {
+      pointerId: event.pointerId,
+      x: event.clientX,
+      y: event.clientY,
+      scrollY: window.scrollY,
+      axis: null,
+      lastX: event.clientX,
+      lastTime: event.timeStamp,
+      velocity: 0,
+    };
+  };
+
+  const handlePointerMove = (event) => {
+    const gesture = gestureRef.current;
+    const trigger = scrollTriggerRef.current;
+    if (!gesture || gesture.pointerId !== event.pointerId || !trigger) return;
+
+    const dx = event.clientX - gesture.x;
+    const dy = event.clientY - gesture.y;
+
+    // Lock the gesture direction so vertical scrolling stays native.
+    if (!gesture.axis) {
+      if (Math.max(Math.abs(dx), Math.abs(dy)) < 8) return;
+      gesture.axis = Math.abs(dx) > Math.abs(dy) ? "x" : "y";
+      suppressClickRef.current = true;
+      if (gesture.axis === "x") {
+        event.currentTarget.setPointerCapture(event.pointerId);
+      }
+    }
+    if (gesture.axis !== "x") return;
+
+    event.preventDefault();
+    const elapsed = event.timeStamp - gesture.lastTime;
+    if (elapsed > 0) {
+      const velocity = (gesture.lastX - event.clientX) / elapsed;
+      gesture.velocity = elapsed > 100 ? velocity : gesture.velocity * 0.3 + velocity * 0.7;
+      gesture.lastX = event.clientX;
+      gesture.lastTime = event.timeStamp;
+    }
+    // Drive the existing scroll animation, keeping both input methods in sync.
+    const origin = gsap.utils.clamp(trigger.start, trigger.end, gesture.scrollY);
+    const top = gsap.utils.clamp(trigger.start, trigger.end, origin - dx);
+    window.scrollTo({ top, behavior: "instant" });
+    ScrollTrigger.update();
+  };
+
+  const handlePointerEnd = (event) => {
+    const gesture = gestureRef.current;
+    if (gesture?.pointerId !== event.pointerId) return;
+    gestureRef.current = null;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+
+    const trigger = scrollTriggerRef.current;
+    if (
+      event.type !== "pointerup" || gesture.axis !== "x" || !trigger ||
+      reducedMotion || event.timeStamp - gesture.lastTime > 100
+    ) return;
+
+    // Project the release velocity into a bounded, gradually slowing glide.
+    const distance = gsap.utils.clamp(-window.innerWidth, window.innerWidth, gesture.velocity * 240);
+    const destination = gsap.utils.clamp(trigger.start, trigger.end, window.scrollY + distance);
+    if (Math.abs(destination - window.scrollY) < 2) return;
+
+    const position = { y: window.scrollY };
+    momentumRef.current = gsap.to(position, {
+      y: destination,
+      duration: 0.65,
+      ease: "power3.out",
+      onUpdate: () => {
+        window.scrollTo({ top: position.y, behavior: "instant" });
+        ScrollTrigger.update();
+      },
+    });
+  };
+
+  const handleClickCapture = (event) => {
+    if (suppressClickRef.current && event.detail !== 0) {
+      event.preventDefault();
+      event.stopPropagation();
+      suppressClickRef.current = false;
+    }
+  };
 
   useEffect(() => {
     const outer = outerRef.current;
@@ -123,11 +217,19 @@ export default function CardsRotateSlider({
     };
 
     window.addEventListener("resize", onResize);
+    const stopMomentum = () => momentumRef.current?.kill();
+    window.addEventListener("wheel", stopMomentum, { passive: true });
+    window.addEventListener("pointerdown", stopMomentum, { passive: true });
+    window.addEventListener("keydown", stopMomentum);
 
     return () => {
+      stopMomentum();
       cancelAnimationFrame(rafId);
       clearTimeout(resizeTimer);
       window.removeEventListener("resize", onResize);
+      window.removeEventListener("wheel", stopMomentum);
+      window.removeEventListener("pointerdown", stopMomentum);
+      window.removeEventListener("keydown", stopMomentum);
     };
   }, [images]);
 
@@ -156,6 +258,7 @@ export default function CardsRotateSlider({
           anticipatePin: 1,
         },
       });
+      scrollTriggerRef.current = horizontalTween.scrollTrigger;
 
       cardsRef.current.forEach((card, index) => {
         const wrapper = wrappersRef.current[index];
@@ -224,14 +327,28 @@ export default function CardsRotateSlider({
       ScrollTrigger.refresh();
     });
 
-    return () => context.revert();
+    return () => {
+      gestureRef.current = null;
+      scrollTriggerRef.current = null;
+      context.revert();
+    };
   }, [images, rotationAmount, verticalDrift, scrollSmoothing]);
 
   return (
     <div ref={outerRef} className="relative bg-transparent" style={{ overflowX: "clip" }}>
       <div
         className="sticky top-0 flex h-screen items-center overflow-hidden"
-        style={{ perspective: reducedMotion ? REDUCED_PERSPECTIVE : `${perspective}px` }}
+        style={{
+          perspective: reducedMotion ? REDUCED_PERSPECTIVE : `${perspective}px`,
+          touchAction: "pan-y pinch-zoom",
+          userSelect: "none",
+        }}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerEnd}
+        onPointerCancel={handlePointerEnd}
+        onLostPointerCapture={handlePointerEnd}
+        onClickCapture={handleClickCapture}
       >
         <div
           ref={trackRef}
@@ -295,6 +412,7 @@ const RotationCard = forwardRef(({ src, index, total, text, subtitle, tags, slug
         <img
           src={src}
           alt={text || "slide"}
+          draggable={false}
           loading={index < 2 ? "eager" : "lazy"}
           decoding="async"
           className="absolute inset-0 h-full w-full object-cover opacity-40 group-hover:opacity-60"

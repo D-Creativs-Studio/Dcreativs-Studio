@@ -33,7 +33,8 @@ export function ScrollToTop() {
         };
       }
     } else {
-      window.scrollTo(0, 0);
+      // Override global smooth scrolling when entering a new page.
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     }
   }, [pathname, hash]);
 

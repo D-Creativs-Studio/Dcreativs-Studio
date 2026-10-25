@@ -49,17 +49,17 @@ export function Contact() {
           {/* Glowing Top Lip Highlight */}
           <div className="absolute inset-x-12 top-0 h-[1.5px] bg-gradient-to-r from-transparent via-[#885FFF] to-transparent" />
 
-          {/* Headline: "Ready to build something built to be noticed" */}
+          {/* Contact invitation */}
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="font-heading text-3xl min-[375px]:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.08] max-w-4xl mx-auto mb-6"
+            className="font-heading text-3xl min-[375px]:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.08] text-balance max-w-4xl mx-auto mb-6"
           >
             Ready to build something{" "}
-            <span className="block sm:inline bg-gradient-to-r from-white via-[#C4B5FD] to-[#885FFF] bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(136,95,255,0.4)]">
-              built to be noticed?
+            <span className="bg-gradient-to-r from-white via-[#C4B5FD] to-[#885FFF] bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(136,95,255,0.4)]">
+              that gets noticed?
             </span>
           </motion.h2>
 

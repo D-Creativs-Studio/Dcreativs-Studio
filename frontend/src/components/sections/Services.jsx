@@ -40,7 +40,7 @@ export function Services() {
           </span>
         </h2>
         <p className="font-body text-sm sm:text-base md:text-lg text-slate-400 font-normal mb-3 sm:mb-4">
-          Scroll down to pan through our 3D rotating capabilities track.
+          Scroll down or swipe left and right to explore our services.
         </p>
       </div>
 

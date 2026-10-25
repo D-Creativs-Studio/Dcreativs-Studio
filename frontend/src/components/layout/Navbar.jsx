@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
 
 export function Navbar() {
@@ -17,6 +17,34 @@ export function Navbar() {
     () => location.pathname.startsWith("/portfolio") || location.pathname.startsWith("/works") || location.pathname.startsWith("/services") || location.pathname.startsWith("/about")
   );
   const navigate = useNavigate();
+  const navRef = useRef(null);
+  const [indicator, setIndicator] = useState(null);
+  const reducedMotion = useReducedMotion();
+  // Resolve subpage selection during render, before scroll effects can run.
+  const routeTab = location.pathname.startsWith("/works") || location.pathname.startsWith("/portfolio")
+    ? "Portfolio"
+    : location.pathname.startsWith("/services") ? "Services"
+    : location.pathname.startsWith("/about") ? "About"
+    : location.pathname.startsWith("/contact") ? "Contact" : "Home";
+  const selectedTab = isSubPage ? routeTab : activeTab;
+  const lightNav = isSubPage ? ["Portfolio", "Services", "About"].includes(routeTab) : isLightSection;
+
+  useLayoutEffect(() => {
+    const nav = navRef.current;
+    if (!nav) return;
+    const measure = () => {
+      const link = nav.querySelector('[aria-current]');
+      if (!link) return;
+      // Parent-relative offsets never include the document's scroll position.
+      const next = { x: link.offsetLeft, top: link.offsetTop, width: link.offsetWidth, height: link.offsetHeight };
+      setIndicator(previous => previous && Object.keys(next).every(key => previous[key] === next[key]) ? previous : next);
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(nav);
+    nav.querySelectorAll('a').forEach(link => observer.observe(link));
+    return () => observer.disconnect();
+  }, [selectedTab]);
 
   // Lock to prevent scroll-spy from interrupting programmatic smooth scroll
   const isManualClickRef = useRef(false);
@@ -202,22 +230,44 @@ export function Navbar() {
   return (
     <header className="fixed top-3.5 sm:top-6 left-1/2 -translate-x-1/2 z-50 w-max max-w-[calc(100vw-16px)] pointer-events-auto">
       <nav
+        ref={navRef}
         aria-label="Main Navigation"
         className={`relative flex items-center justify-center gap-0.5 min-[390px]:gap-1 p-1 sm:p-1.5 rounded-full transition-all duration-500 ${
-          isLightSection
+          lightNav
             ? "bg-white/85 backdrop-blur-3xl backdrop-saturate-200 border border-[#030412]/15 shadow-[0_12px_40px_rgba(0,0,0,0.12),inset_0_1px_0_0_rgba(255,255,255,0.9)]"
             : "bg-[#000422]/80 backdrop-blur-3xl backdrop-saturate-200 border border-white/20 shadow-[0_15px_40px_rgba(0,0,0,0.6),inset_0_1px_0_0_rgba(255,255,255,0.4)]"
         }`}
       >
+        {indicator && (
+          <motion.div
+            aria-hidden="true"
+            initial={false}
+            animate={{ x: indicator.x, width: indicator.width }}
+            style={{ left: 0, top: indicator.top, height: indicator.height }}
+            className="absolute z-0 rounded-full overflow-hidden pointer-events-none"
+            transition={reducedMotion ? { duration: 0 } : { type: "spring", stiffness: 420, damping: 32, mass: 0.5 }}
+          >
+            {lightNav ? (
+              <div className="absolute inset-0 bg-gradient-to-r from-[#4100F5] to-[#885FFF] rounded-full shadow-[0_2px_10px_rgba(65,0,245,0.35)]" />
+            ) : (
+              <>
+                <div className="absolute inset-0 bg-white/[0.16] backdrop-blur-xl rounded-full border border-white/40 shadow-[inset_0_1.5px_3px_0_rgba(255,255,255,0.8),inset_0_-1.5px_3px_0_rgba(0,0,0,0.3)]" />
+                <div className="absolute inset-x-2 sm:inset-x-3 top-[1px] h-[1.5px] bg-gradient-to-r from-transparent via-white to-transparent rounded-full opacity-90" />
+                <div className="absolute inset-x-2.5 sm:inset-x-4 bottom-[1px] h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent rounded-full opacity-70" />
+              </>
+            )}
+          </motion.div>
+        )}
         {navItems.map((item) => {
-          const isActive = activeTab === item.name;
+          const isActive = selectedTab === item.name;
           return (
             <a
               key={item.name}
               href={item.name === "Home" ? "/" : `/${item.href}`}
               onClick={(e) => handleNavClick(e, item)}
-              className={`relative flex items-center justify-center px-1.5 min-[360px]:px-2 min-[390px]:px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 text-[10.5px] min-[360px]:text-[11px] min-[390px]:text-xs sm:text-sm md:text-sm font-semibold font-heading leading-none rounded-full transition-colors duration-200 whitespace-nowrap cursor-pointer select-none ${
-                isLightSection
+              aria-current={isActive ? (isSubPage ? "page" : "location") : undefined}
+              className={`relative z-10 flex items-center justify-center px-1.5 min-[360px]:px-2 min-[390px]:px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 text-[10.5px] min-[360px]:text-[11px] min-[390px]:text-xs sm:text-sm md:text-sm font-semibold font-heading leading-none rounded-full transition-colors duration-200 whitespace-nowrap cursor-pointer select-none ${
+                lightNav
                   ? isActive
                     ? "text-white"
                     : "text-slate-700 hover:text-[#030412] hover:bg-[#030412]/[0.05]"
@@ -226,31 +276,6 @@ export function Navbar() {
                   : "text-slate-300/80 hover:text-white hover:bg-white/[0.06]"
               }`}
             >
-              {isActive && (
-                <motion.div
-                  layoutId="activeNavTabWater"
-                  className="absolute inset-0 rounded-full -z-10 overflow-hidden pointer-events-none"
-                  transition={{
-                    type: "spring",
-                    stiffness: 420,
-                    damping: 32,
-                    mass: 0.5,
-                  }}
-                >
-                  {isLightSection ? (
-                    /* Light Section Active Pill — Premium Purple Accent */
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#4100F5] to-[#885FFF] rounded-full shadow-[0_2px_10px_rgba(65,0,245,0.35)]" />
-                  ) : (
-                    /* Dark Section Active Water Droplet */
-                    <>
-                      <div className="absolute inset-0 bg-white/[0.16] backdrop-blur-xl rounded-full border border-white/40 shadow-[inset_0_1.5px_3px_0_rgba(255,255,255,0.8),inset_0_-1.5px_3px_0_rgba(0,0,0,0.3)]" />
-                      <div className="absolute inset-x-2 sm:inset-x-3 top-[1px] h-[1.5px] bg-gradient-to-r from-transparent via-white to-transparent rounded-full opacity-90" />
-                      <div className="absolute inset-x-2.5 sm:inset-x-4 bottom-[1px] h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent rounded-full opacity-70" />
-                    </>
-                  )}
-                </motion.div>
-              )}
-
               <span className="relative z-10">{item.name}</span>
             </a>
           );
