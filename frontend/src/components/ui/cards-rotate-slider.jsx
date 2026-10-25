@@ -1,7 +1,7 @@
 "use client";
 
 import { forwardRef, useEffect, useLayoutEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -387,18 +387,11 @@ export default function CardsRotateSlider({
 }
 
 const RotationCard = forwardRef(({ src, index, total, text, subtitle, tags, slug, showCaptions, textColor }, ref) => {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    if (slug) {
-      navigate(`/services/${slug}`);
-    }
-  };
-
   return (
-    <div
+    <Link
       ref={ref}
-      onClick={handleClick}
+      to={slug ? `/services/${slug}` : "#services"}
+      draggable={false}
       className="absolute h-[50vh] w-[40vw] origin-right overflow-hidden rounded-3xl border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.8)] max-md:h-[60vh] max-md:w-[86vw] group bg-[#0A0C22] cursor-pointer hover:border-[#885FFF]/70 hover:shadow-[0_20px_50px_rgba(136,95,255,0.3)] will-change-transform transform-gpu"
       style={{
         transformStyle: "preserve-3d",
@@ -464,7 +457,7 @@ const RotationCard = forwardRef(({ src, index, total, text, subtitle, tags, slug
           )}
         </div>
       )}
-    </div>
+    </Link>
   );
 });
 

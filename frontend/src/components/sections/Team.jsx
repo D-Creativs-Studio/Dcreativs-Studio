@@ -181,7 +181,7 @@ export function Team() {
   return (
     <section
       id="team"
-      className="relative bg-[#000422] text-white pt-20 sm:pt-28 pb-24 sm:pb-32 select-none"
+      className="relative bg-[#000422] text-white pt-20 sm:pt-28 select-none"
     >
       {/* ── Film Grain Overlay ────────────────────────────────────── */}
       <div className="absolute inset-0 bg-grain pointer-events-none z-10 opacity-25 overflow-hidden" />
@@ -411,7 +411,7 @@ export function Team() {
       </div>
 
       {/* ── Crossing Marquee Capability Tapes (100% Full Bleed Edge-to-Edge, Zero Margins) ── */}
-      <div className="relative w-full my-20 sm:my-28 py-6 sm:py-8 overflow-hidden select-none pointer-events-none z-20">
+      <div className="relative w-full mt-20 sm:mt-28 py-6 sm:py-8 overflow-hidden select-none pointer-events-none z-20">
         {/* Tape 1: Slanted Right (Brand Purple #4100F5) */}
         <div className="rotate-[-2deg] w-[120vw] -ml-[10vw] bg-[#4100F5] text-white py-3 sm:py-4 shadow-2xl transform origin-center">
           <div className="flex items-center gap-6 whitespace-nowrap animate-marquee font-heading font-black text-xs sm:text-base md:text-lg tracking-wider uppercase">
@@ -445,7 +445,7 @@ export function Team() {
             <span>—</span>
             <span>DESIGN TOKENS & SYSTEMS</span>
             <span>—</span>
-            <span>AWARD-WINNING INTERFACES</span>
+            <span>THOUGHTFULLY CRAFTED INTERFACES</span>
             <span>—</span>
             <span>HIGH-PERFORMANCE FRONTENDS</span>
             <span>✦ DIGITAL PRODUCT DESIGN</span>

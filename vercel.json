@@ -5,6 +5,30 @@
       "destination": "/api/$1"
     },
     {
+      "source": "/about",
+      "destination": "/about/index.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact/index.html"
+    },
+    {
+      "source": "/works",
+      "destination": "/works/index.html"
+    },
+    {
+      "source": "/services/:serviceId",
+      "destination": "/services/:serviceId/index.html"
+    },
+    {
+      "source": "/works/:categoryId/:projectId",
+      "destination": "/works/:categoryId/:projectId/index.html"
+    },
+    {
+      "source": "/works/:categoryId",
+      "destination": "/works/:categoryId/index.html"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }

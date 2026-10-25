@@ -155,6 +155,7 @@ export function Navbar() {
       const pageSections = [
         { id: "footer", tab: "Contact" },
         { id: "contact", tab: "Contact" },
+        { id: "faq", tab: "Contact" },
         { id: "team", tab: "Portfolio" },
         { id: "portfolio", tab: "Portfolio" },
         { id: "services", tab: "Services" },

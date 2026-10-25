@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { getSeoPage, getStructuredData, normalizePath } from "@/data/seoData";
 
 const DEFAULT_TITLE = "D'Creativs Studio — Digital Experience & Brand Innovation";
 const DEFAULT_DESC =
@@ -27,12 +28,17 @@ export function SEO({
   description,
   image,
   type = "website",
+  noindex = false,
 }) {
   const location = useLocation();
-  const pageTitle = title ? `${title} | D'Creativs Studio` : DEFAULT_TITLE;
-  const pageDesc = description || DEFAULT_DESC;
-  const pageImage = image || DEFAULT_IMAGE;
-  const pageUrl = `${BASE_URL}${location.pathname}`;
+  const page = getSeoPage(location.pathname);
+  const resolvedTitle = page?.title || title;
+  const pageTitle = resolvedTitle ? `${resolvedTitle} | D'Creativs Studio` : DEFAULT_TITLE;
+  const pageDesc = page?.description || description || DEFAULT_DESC;
+  const pageImage = page?.image || image || DEFAULT_IMAGE;
+  const pageUrl = `${BASE_URL}${normalizePath(location.pathname)}`;
+  const excludeFromSearch = noindex || !page;
+  const structuredData = page && !excludeFromSearch ? JSON.stringify(getStructuredData(page)) : null;
 
   useEffect(() => {
     // 1. Title
@@ -40,6 +46,7 @@ export function SEO({
 
     // 2. Standard Description
     setMetaTag('meta[name="description"]', "content", pageDesc);
+    setMetaTag('meta[name="robots"]', "content", excludeFromSearch ? "noindex, follow" : "index, follow, max-image-preview:large");
 
     // 3. Open Graph (WhatsApp, Facebook, LinkedIn)
     setMetaTag('meta[property="og:title"]', "content", pageTitle);
@@ -55,13 +62,25 @@ export function SEO({
 
     // 5. Canonical Link
     let canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) {
+    if (!canonical && !excludeFromSearch) {
       canonical = document.createElement("link");
       canonical.setAttribute("rel", "canonical");
       document.head.appendChild(canonical);
     }
-    canonical.setAttribute("href", pageUrl);
-  }, [pageTitle, pageDesc, pageImage, pageUrl, type]);
+    if (excludeFromSearch) canonical?.remove();
+    else canonical.setAttribute("href", pageUrl);
+
+    let schema = document.getElementById("page-structured-data");
+    if (structuredData) {
+      if (!schema) {
+        schema = document.createElement("script");
+        schema.id = "page-structured-data";
+        schema.type = "application/ld+json";
+        document.head.appendChild(schema);
+      }
+      schema.textContent = structuredData;
+    } else schema?.remove();
+  }, [pageTitle, pageDesc, pageImage, pageUrl, type, excludeFromSearch, structuredData]);
 
   return null;
 }

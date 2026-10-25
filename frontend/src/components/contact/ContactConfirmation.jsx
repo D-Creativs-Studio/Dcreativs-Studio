@@ -9,15 +9,15 @@ export function ContactConfirmation({ data, simulated, headingRef }) {
         <span className="contact-receipt-check">
           <Check size={17} strokeWidth={1.8} aria-hidden="true" />
         </span>
-        <span>{simulated ? 'Brief preview' : 'Brief received'}</span>
+        <span>{simulated ? 'Enquiry preview' : 'Enquiry received'}</span>
       </div>
       <h2 ref={headingRef} tabIndex={-1}>
-        {simulated ? 'Your brief is ready.' : `Thanks, ${firstName}.`}
+        {simulated ? 'Your enquiry is ready.' : `Thanks, ${firstName}.`}
       </h2>
       <p className="contact-receipt-message">
         {simulated
           ? 'Here’s a summary of your project.'
-          : 'We have your project details. Our team will take it from here.'}
+          : 'We have your enquiry. Our team will follow up to discuss your goals.'}
       </p>
 
       <div className="contact-receipt">
@@ -35,11 +35,11 @@ export function ContactConfirmation({ data, simulated, headingRef }) {
         <dl className="contact-receipt-details">
           <div>
             <dt>Budget</dt>
-            <dd>{data.budget}</dd>
+            <dd>{data.budget || 'To discuss'}</dd>
           </div>
           <div>
             <dt>Timeline</dt>
-            <dd>{data.timeline}</dd>
+            <dd>{data.timeline || 'To discuss'}</dd>
           </div>
         </dl>
       </div>
@@ -55,8 +55,8 @@ export function ContactConfirmation({ data, simulated, headingRef }) {
               'No email has been sent.'
             ) : (
               <>
-                We’ll review your brief and reply within 24 hours to{' '}
-                <strong>{data.email.trim()}</strong>.
+                We’ll review your brief and follow up at{' '}
+                <strong>{data.email.trim()}</strong> to discuss the fit and next steps.
               </>
             )}
           </p>

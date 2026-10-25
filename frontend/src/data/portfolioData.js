@@ -20,9 +20,9 @@ export const portfolioCategories = [
     heroTitle: "UI/UX & Product Design Portfolio",
     heroSubtitle: "Transforming complex workflows into effortless, tactile, and visually breathtaking digital experiences.",
     stats: [
-      { label: "Prototypes Tested", value: "60+" },
-      { label: "App Store Avg.", value: "4.9 ★" },
-      { label: "Design Token Sets", value: "18" },
+      { label: "Featured Studies", value: "3" },
+      { label: "Platforms", value: "Web & Mobile" },
+      { label: "Design Tool", value: "Figma" },
     ],
     technologies: ["Figma", "Protopie", "Design Tokens", "React Native", "Tailwind CSS", "Linear"],
     caseStudies: [
@@ -33,7 +33,7 @@ export const portfolioCategories = [
         year: "2024",
         type: "Spatial Audio Mobile UI/UX",
         description: "Biometric audio tuning interface with fluid gesture physics, haptic feedback curves, and personalized soundscape visualization.",
-        metrics: "Apple App Store Best of Category",
+        metrics: "Spatial audio interface study",
         tags: ["iOS Design", "Spatial UI", "Micro-Interactions", "Figma"],
         image: "/projects/pulse.jpg",
         highlight: "Fluid gesture-based acoustic equalizer wheel"
@@ -45,7 +45,7 @@ export const portfolioCategories = [
         year: "2024",
         type: "Enterprise Fintech Web Application",
         description: "Dark-mode institutional trading interface designed for rapid order execution, configurable widget grids, and multi-monitor layouts.",
-        metrics: "Zero-latency UI feedback loop",
+        metrics: "Trading dashboard interface",
         tags: ["Fintech UI", "Design System", "Dark Mode UI", "Prototyping"],
         image: "/projects/vantage.jpg",
         highlight: "Multi-window configurable financial workspace"
@@ -56,8 +56,8 @@ export const portfolioCategories = [
         client: "Krypton Health",
         year: "2024",
         type: "Cross-Platform Design System",
-        description: "Unified design language supporting web, iOS, Android, and watchOS with automated token synchronization and WCAG AAA compliance.",
-        metrics: "-65% Dev Handoff Time across 40 engineers",
+        description: "A cross-platform design system study exploring shared components, design tokens, and accessibility patterns for web and mobile interfaces.",
+        metrics: "Shared components and design tokens",
         tags: ["Design Systems", "Figma Tokens", "Accessibility", "Design Ops"],
         image: "/projects/monolith.jpg",
         highlight: "Synchronized GitHub action token distribution"
@@ -79,9 +79,9 @@ export const portfolioCategories = [
     heroTitle: "Motion & Video Production Portfolio",
     heroSubtitle: "Content that moves. Dynamic 3D simulations, broadcast commercials, and kinetic typography that stop the scroll.",
     stats: [
-      { label: "Videos Produced", value: "85+" },
-      { label: "Social Impressions", value: "24M+" },
-      { label: "Avg. Retention Rate", value: "78%" },
+      { label: "Featured Studies", value: "3" },
+      { label: "Formats", value: "Ads & Explainers" },
+      { label: "Focus", value: "Motion Design" },
     ],
     technologies: ["After Effects", "Premiere Pro", "Cinema 4D", "DaVinci Resolve", "Blender", "Audition"],
     caseStudies: [
@@ -92,7 +92,7 @@ export const portfolioCategories = [
         year: "2024",
         type: "3D CGI Commercial Film",
         description: "Kinetic product teaser exploring thermal fluid dynamics, liquid gold simulations, and explosive macro lighting setups.",
-        metrics: "4.8M Organic Views across YouTube & Instagram",
+        metrics: "CGI product teaser",
         tags: ["3D Animation", "Cinema 4D", "Octane Render", "Sound Design"],
         image: "/projects/ember.jpg",
         highlight: "Hyper-realistic fluid metal explosion simulation"
@@ -104,7 +104,7 @@ export const portfolioCategories = [
         year: "2024",
         type: "Broadcast Ad & Kinetic Social Cuts",
         description: "Fast-paced broadcast spot blending real-world anamorphic footage with neon kinetic typography and custom audio master.",
-        metrics: "High-ROI Top Performer on Meta & TikTok Ads",
+        metrics: "Broadcast and social ad formats",
         tags: ["Commercial Video", "Motion Graphics", "VFX", "Sound Design"],
         image: "/projects/drift.jpg",
         highlight: "Anamorphic neon light trails & synced bass drops"
@@ -116,7 +116,7 @@ export const portfolioCategories = [
         year: "2023",
         type: "3D Product Explainer Video",
         description: "Smooth 3D product tour showing internal chip architecture, cloud synchronization, and modular hardware assembly.",
-        metrics: "+45% Enterprise Free-Trial Signups",
+        metrics: "3D product walkthrough",
         tags: ["3D Explainer", "After Effects", "Blender", "Voiceover"],
         image: "/projects/pulse.jpg",
         highlight: "Exploded 3D hardware assembly animation"

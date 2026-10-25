@@ -14,6 +14,7 @@ export function ServiceDetailPage() {
   if (!service) {
     return (
       <div className="min-h-screen bg-[#F8F8F6] text-[#030412] flex flex-col items-center justify-center p-6 text-center">
+        <SEO title="Service Not Found" description="The requested service could not be found." noindex />
         <h1 className="text-4xl font-heading font-extrabold mb-4 text-[#4100F5]">Service Not Found</h1>
         <p className="text-slate-600 mb-8 max-w-md font-light">
           The service you are looking for does not exist or has been relocated.
@@ -187,15 +188,16 @@ export function ServiceDetailPage() {
           <div className="relative z-10 max-w-2xl mx-auto space-y-4">
             <h3 className="text-2xl sm:text-4xl font-heading font-black text-[#030412]">Ready to elevate with {service.text}?</h3>
             <p className="text-slate-600 font-body text-sm sm:text-base font-normal">
-              Let's turn your vision into a remarkable reality. Reach out today for a consultation and custom project estimate.
+              Tell us what you want to achieve with {service.text.toLowerCase()}.
+              We’ll discuss the deliverables, timing, and budget before you decide to proceed.
             </p>
             <div className="pt-4 flex justify-center">
-              <a
-                href="mailto:contact@dcreativsstudio.com"
+              <Link
+                to="/contact"
                 className="inline-flex items-center gap-2 bg-gradient-to-r from-[#4100F5] to-[#885FFF] hover:from-[#5212FF] hover:to-[#9f7dff] text-white font-heading font-extrabold px-8 py-4 rounded-full transition-all duration-300 shadow-[0_8px_25px_rgba(65,0,245,0.25)] hover:scale-105"
               >
-                <Send className="w-4 h-4" /> Get in Touch
-              </a>
+                <Send className="w-4 h-4" /> Discuss Your Project
+              </Link>
             </div>
           </div>
         </div>

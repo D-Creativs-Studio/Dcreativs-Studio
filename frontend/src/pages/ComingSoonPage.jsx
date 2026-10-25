@@ -814,7 +814,7 @@ export function ComingSoonPage({ onUnlockPreview }) {
                   <Check className="w-6 h-6 text-emerald-400 mx-auto" />
                   <p className="font-heading font-bold text-white text-base">Inquiry Received</p>
                   <p className="text-xs text-zinc-400">
-                    Our lead developer and strategy team will review your brief and respond within 24 hours.
+                    Our team will review your brief and follow up to discuss the scope and next steps.
                   </p>
                 </div>
               )}

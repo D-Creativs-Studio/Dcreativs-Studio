@@ -1,11 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-
-const stats = [
-  { value: "8", label: "Founding Members" },
-  { value: "3+", label: "Years Building" },
-  { value: "50+", label: "Projects Shipped" },
-];
+import { workingTogether } from "@/data/workingTogether";
 
 const slideInLeft = {
   hidden: { opacity: 0, x: -50 },
@@ -110,7 +105,7 @@ export function About() {
             </motion.div>
           </div>
 
-          {/* ── Right Column: Stats card ── */}
+          {/* Working relationship: concrete commitments instead of unverified statistics. */}
           <motion.div
             variants={slideInRight}
             initial="hidden"
@@ -124,24 +119,25 @@ export function About() {
               {/* Inner purple accent glow */}
               <div className="absolute -top-10 -right-10 w-48 h-48 bg-[#4100F5]/10 rounded-full blur-[60px] pointer-events-none" />
 
-              {/* Stats grid */}
-              <div className="relative z-10 grid grid-cols-3 divide-x divide-[#030412]/10 mb-8 sm:mb-10">
-                {stats.map(({ value, label }, i) => (
+              <h3 className="relative z-10 mb-6 font-heading text-xl font-bold leading-snug text-[#030412] sm:text-2xl">
+                What working with us looks like
+              </h3>
+              <div className="relative z-10 mb-7 space-y-5">
+                {workingTogether.map(({ title, description }, i) => (
                   <motion.div
-                    key={label}
+                    key={title}
                     variants={slideInRight}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, amount: 0.3 }}
                     custom={i + 2}
-                    className="px-1.5 min-[390px]:px-3 sm:px-4 first:pl-0 last:pr-0 text-center"
+                    className="flex items-start gap-4"
                   >
-                    <p className="font-heading text-2xl min-[390px]:text-3xl sm:text-4xl font-extrabold bg-gradient-to-br from-[#4100F5] to-[#885FFF] bg-clip-text text-transparent">
-                      {value}
-                    </p>
-                    <p className="font-body text-[11px] min-[390px]:text-xs sm:text-sm text-slate-500 mt-1 leading-snug">
-                      {label}
-                    </p>
+                    <span aria-hidden="true" className="mt-0.5 font-mono text-xs text-[#4100F5]">0{i + 1}</span>
+                    <div>
+                      <h4 className="font-heading text-sm font-bold text-[#030412] sm:text-base">{title}</h4>
+                      <p className="mt-1 font-body text-sm leading-relaxed text-slate-600">{description}</p>
+                    </div>
                   </motion.div>
                 ))}
               </div>

@@ -258,7 +258,8 @@
   font-weight: 400;
 }
 .contact-field input,
-.contact-field textarea {
+.contact-field textarea,
+.contact-field select {
   width: 100%;
   min-width: 0;
   border: 1px solid #ffffff26;
@@ -292,6 +293,143 @@
 .contact-field textarea:focus {
   border-color: #b39af8;
   box-shadow: 0 0 0 3px #a784ff17;
+}
+.contact-field select:focus {
+  border-color: #b39af8;
+  box-shadow: 0 0 0 3px #a784ff17;
+}
+.contact-field select option {
+  background: #111120;
+  color: #f5f1ff;
+}
+.contact-page-enquiry .contact-layout {
+  align-items: start;
+}
+.contact-page-enquiry .contact-intro h1 {
+  font-size: clamp(36px, 3.8vw, 56px);
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+.contact-page-enquiry .contact-intro h1 > span {
+  display: block;
+}
+.contact-next-steps {
+  margin: 30px 0;
+  padding-top: 24px;
+  border-top: 1px solid #ffffff14;
+  color: #b0afc3;
+  font-size: 13px;
+  line-height: 1.75;
+}
+.contact-next-steps h2 {
+  color: #e3deef;
+  font-size: 14px;
+  font-weight: 600;
+}
+.contact-next-steps ol {
+  list-style: decimal;
+  padding-left: 20px;
+  margin: 14px 0 20px;
+}
+.contact-next-steps li + li { margin-top: 10px; }
+.contact-next-steps a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--contact-lilac);
+}
+.contact-enquiry-fields { display: grid; gap: 22px; }
+.contact-service-field {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+.contact-service-field legend {
+  margin-bottom: 12px;
+  color: #e3deef;
+  font-size: 12px;
+  font-weight: 600;
+}
+.contact-service-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.contact-service-choice {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 46px;
+  min-width: 0;
+  padding: 11px 12px;
+  border: 1px solid #ffffff26;
+  border-radius: 10px;
+  background: #090a1680;
+  color: #c8c3d7;
+  font-size: 12px;
+  line-height: 1.45;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+.contact-service-choice:hover { border-color: #b39af880; }
+.contact-service-choice:has(input:checked) {
+  border-color: #b39af8;
+  background: #a47bf11c;
+  color: #f5f1ff;
+}
+.contact-service-choice:has(input:focus-visible) {
+  outline: 2px solid #d0bcff;
+  outline-offset: 3px;
+}
+.contact-service-choice input {
+  flex: 0 0 auto;
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  accent-color: #b6a0ff;
+  cursor: pointer;
+}
+.contact-service-field[aria-invalid='true'] .contact-service-grid {
+  outline: 1px solid #fda4af;
+  outline-offset: 3px;
+  border-radius: 10px;
+}
+.contact-field-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.contact-field { min-width: 0; }
+.contact-field-error {
+  margin-top: 8px;
+  color: #fda4af;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.contact-extra-details {
+  border-top: 1px solid #ffffff14;
+  padding-top: 18px;
+}
+.contact-extra-details summary {
+  cursor: pointer;
+  color: #d8cbf7;
+  font-size: 13px;
+  padding: 5px 0;
+}
+.contact-extra-details summary .contact-optional { margin-left: 10px; }
+.contact-extra-details .contact-field-row { margin-top: 20px; }
+.contact-page-enquiry .contact-form-actions { margin-top: 20px; justify-content: flex-end; }
+@media (max-width: 1023px) {
+  .contact-page-enquiry .contact-intro > .contact-intro-copy { display: block; }
+  .contact-page-enquiry .contact-intro > .contact-direct { display: flex; }
+  .contact-page-enquiry .contact-next-steps { display: none; }
+}
+@media (max-width: 600px) {
+  .contact-page-enquiry .contact-intro h1 { font-size: clamp(30px, 8vw, 38px); }
+  .contact-field-row { grid-template-columns: minmax(0, 1fr); }
+  .contact-field select { font-size: 16px; padding: 14px; }
+  .contact-page-enquiry .contact-form-actions .contact-primary { width: 100%; justify-content: center; }
 }
 .contact-field [aria-invalid='true'] {
   border-color: #fda4af;

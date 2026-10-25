@@ -9,6 +9,7 @@ import { PortfolioCategoryPage } from "@/pages/PortfolioCategoryPage";
 import { ProjectDetailPage } from "@/pages/ProjectDetailPage";
 import { ContactPage } from "@/pages/ContactPage";
 import { ComingSoonPage } from "@/pages/ComingSoonPage";
+import { NotFoundPage } from "@/pages/NotFoundPage";
 import { ScrollToTop } from "@/components/utils/ScrollToTop";
 import { Footer } from "@/components/sections/Footer";
 import { Lock } from "lucide-react";
@@ -98,6 +99,7 @@ function AppContent() {
         <Route path="/works/:categoryId" element={<PortfolioCategoryPage />} />
         <Route path="/works/:categoryId/:projectId" element={<ProjectDetailPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
       {!isWorksCanvas && !isContactPage && <Footer />}
     </main>

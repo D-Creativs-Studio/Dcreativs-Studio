@@ -97,7 +97,7 @@ function buildClientConfirmationHtml({ name, company, services, budget, timeline
                 Hello <strong style="color: #FFFFFF;">${safeName}</strong>,
               </p>
               <p style="margin: 0 0 28px 0; font-size: 15px; line-height: 1.6; color: #94A3B8;">
-                Thank you for reaching out to D'Creativs Studio. We have safely received your project inquiry. Our strategy and engineering team is reviewing your requirements and will reply within 24 hours.
+                Thank you for reaching out to D'Creativs Studio. We have received your enquiry and will follow up to discuss your goals, the scope, and next steps. Sending an enquiry does not commit you to a project.
               </p>
 
               <!-- Brief Snapshot Card -->
@@ -320,7 +320,7 @@ export default async function handler(req, res) {
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email || !emailRegex.test(email.trim())) {
-      return res.status(400).json({ error: 'Please provide a valid work email address.' });
+      return res.status(400).json({ error: 'Please provide a valid email address.' });
     }
 
     if (!message || !message.trim()) {

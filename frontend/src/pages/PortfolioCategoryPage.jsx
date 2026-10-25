@@ -19,12 +19,13 @@ const Babylon3DCardGrid = lazy(() => import("@/components/ui/Babylon3DCardGrid")
 
 export function PortfolioCategoryPage() {
   const { categoryId } = useParams();
-  const category = getPortfolioByCategory(categoryId) || portfolioCategories[0];
+  const category = getPortfolioByCategory(categoryId);
 
   // Fallback if category not found
   if (!category) {
     return (
       <div className="min-h-screen bg-[#F8F8F6] text-[#030412] flex flex-col items-center justify-center p-6 text-center">
+        <SEO title="Portfolio Category Not Found" description="The requested portfolio category could not be found." noindex />
         <h1 className="text-4xl font-heading font-extrabold mb-4 text-[#4100F5]">Portfolio Category Not Found</h1>
         <p className="text-slate-600 mb-8 max-w-md font-light">
           The requested portfolio category does not exist or has been relocated.

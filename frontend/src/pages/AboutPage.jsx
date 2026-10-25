@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { SEO } from "@/components/common/SEO";
+import { workingTogether } from "@/data/workingTogether";
 import {
   ArrowRight,
   Palette,
@@ -8,35 +9,11 @@ import {
   TrendingUp,
   CheckCircle2,
   Compass,
-  Zap,
   Target,
   ShieldCheck,
 } from "lucide-react";
 
 export function AboutPage() {
-  const coreStats = [
-    {
-      value: "8",
-      label: "Founding Builders",
-      desc: "TechRise Cohort 2 team united under one vision",
-    },
-    {
-      value: "1 Roof",
-      label: "Design • Dev • Marketing",
-      desc: "Zero vendor juggling, complete end-to-end execution",
-    },
-    {
-      value: "50+",
-      label: "Projects Shipped",
-      desc: "Built to perform, scale, and earn customer trust",
-    },
-    {
-      value: "100%",
-      label: "Client Alignment",
-      desc: "Honest timelines, clear communication & lasting impact",
-    },
-  ];
-
   const pillars = [
     {
       id: "01",
@@ -73,26 +50,10 @@ export function AboutPage() {
     },
   ];
 
-  const workPrinciples = [
-    {
-      title: "Clear Communication & Honest Timelines",
-      description:
-        "No guesswork, zero vendor chaos. We keep communication open, direct, and transparent at every milestone.",
-      icon: Target,
-    },
-    {
-      title: "Built to Last, Not Just to Launch",
-      description:
-        "We engineer scalable architectures, clean design systems, and maintainable codebases that grow with your company.",
-      icon: ShieldCheck,
-    },
-    {
-      title: "Impact Over Fleeting Trends",
-      description:
-        "We don't chase trends for the sake of hype. We design and engineer what actually moves your bottom line forward.",
-      icon: Zap,
-    },
-  ];
+  const workPrinciples = workingTogether.map((principle, index) => ({
+    ...principle,
+    icon: [Target, Compass, ShieldCheck][index],
+  }));
 
   const teamCapabilities = [
     "Product Design",
@@ -144,31 +105,6 @@ export function AboutPage() {
             roof so brands can grow without juggling five different vendors.
           </motion.p>
         </div>
-
-        {/* Stats Row */}
-        <motion.div
-          initial={{ opacity: 0, y: 25 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-20 sm:mb-24"
-        >
-          {coreStats.map((stat, i) => (
-            <div
-              key={i}
-              className="bg-white/80 backdrop-blur-md rounded-2xl p-5 sm:p-6 border border-black/[0.08] shadow-[0_4px_24px_rgba(0,0,0,0.03)] hover:border-[#4100F5]/30 hover:shadow-[0_8px_30px_rgba(65,0,245,0.08)] transition-all duration-300 group"
-            >
-              <div className="text-2xl sm:text-3xl lg:text-4xl font-heading font-extrabold text-[#4100F5] mb-2 group-hover:scale-105 transition-transform duration-300 origin-left">
-                {stat.value}
-              </div>
-              <div className="text-xs sm:text-sm font-heading font-bold text-[#030412] mb-1">
-                {stat.label}
-              </div>
-              <div className="text-[11px] sm:text-xs text-slate-500 font-body leading-snug">
-                {stat.desc}
-              </div>
-            </div>
-          ))}
-        </motion.div>
 
         {/* Section: Who We Are */}
         <motion.div
@@ -287,12 +223,11 @@ export function AboutPage() {
         <div className="mb-20 sm:mb-24">
           <div className="max-w-2xl mb-10 sm:mb-12">
             <h2 className="text-3xl sm:text-5xl font-heading font-extrabold text-[#030412] tracking-tight mb-4">
-              We treat every brand like it&apos;s ours.
+              What working with us looks like.
             </h2>
             <p className="text-slate-600 font-body text-base sm:text-lg leading-relaxed">
-              That means clear communication, honest timelines, and work that&apos;s
-              built to last, not just to launch. We don&apos;t chase trends for the sake of it;
-              we build what actually moves a business forward.
+              Start with your goals. Agree on a scope. Review the work as it takes
+              shape. Here is how we keep the project clear from the first conversation to handover.
             </p>
           </div>
 
@@ -337,25 +272,24 @@ export function AboutPage() {
             </h2>
 
             <p className="text-slate-300 font-body text-base sm:text-xl leading-relaxed font-light max-w-2xl mx-auto">
-              Whether you&apos;re a startup finding your voice or an established
-              brand ready for a refresh, D&apos;Creativs gives you the creative
-              and technical firepower to stand out.
+              Tell us what you need your website, brand, or workflow to do.
+              We&apos;ll discuss the fit, deliverables, and next steps before you commit.
             </p>
 
             <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
               <Link
-                to="/#contact"
+                to="/contact"
                 className="inline-flex items-center gap-2 bg-[#4100F5] hover:bg-[#5212FF] text-white font-heading font-semibold text-sm sm:text-base px-7 py-3.5 rounded-full transition-all duration-300 shadow-[0_4px_24px_rgba(65,0,245,0.4)] hover:shadow-[0_8px_32px_rgba(65,0,245,0.6)] hover:-translate-y-0.5 active:scale-95"
               >
-                <span>Start a Project With Us</span>
+                <span>Discuss Your Project</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
 
               <Link
-                to="/#portfolio"
+                to="/works/web-development"
                 className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/15 text-white font-heading font-semibold text-sm sm:text-base px-7 py-3.5 rounded-full border border-white/15 transition-all duration-300 hover:-translate-y-0.5"
               >
-                <span>View Selected Work</span>
+                <span>Explore Website Projects</span>
               </Link>
             </div>
 

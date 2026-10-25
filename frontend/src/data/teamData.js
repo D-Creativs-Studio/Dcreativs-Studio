@@ -5,7 +5,7 @@ export const teamMembers = [
     name: "Pleasant Johnson",
     role: "Founder & CEO",
     discipline: "Founder & Executive",
-    image: "/team/pleasant-johnson.jpg",
+    image: "/team/pleasant-johnson.png",
     initials: "PJ",
     accent: "#885FFF",
     darkAccent: "#1a0f3d",
