@@ -14,7 +14,7 @@ import { Footer } from "@/components/sections/Footer";
 import { Lock } from "lucide-react";
 
 // Set to false when ready for permanent public unveil
-const COMING_SOON_ACTIVE = false;
+const COMING_SOON_ACTIVE = true;
 const STUDIO_AUTH_HASH = "f05fd3ba93ad2dab7e36a50f90b3ef4825ac5d5a0722db071bcc511fa7a1f3bf";
 
 async function verifyPasskeyHash(input) {
