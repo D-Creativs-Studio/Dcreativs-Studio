@@ -100,7 +100,7 @@ export const teamMembers = [
     name: "Nwaigwe Precious",
     role: "Content Strategist",
     discipline: "Content & AI Strategy",
-    image: "/team/precious-nwaigwe.jpg",
+    image: "/team/precious-nwaigwe.jpeg",
     imagePosition: "center 85%",
     initials: "NP",
     accent: "#4100F5",
