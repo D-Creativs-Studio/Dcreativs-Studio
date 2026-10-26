@@ -75,12 +75,6 @@ export function ContactPage() {
           <h1 id="contact-title">Let’s plan your next <span>website, brand, or automation.</span></h1>
           <p className="contact-intro-copy">Tell us what you want to achieve. We’ll discuss the fit, scope, and next steps before you commit.</p>
           <div className="contact-next-steps">
-            <h2>What happens next</h2>
-            <ol>
-              <li>We review your enquiry and follow up by email.</li>
-              <li>We discuss your goals and the right scope.</li>
-              <li>You review the proposal before deciding to proceed.</li>
-            </ol>
             <Link to="/works/web-development">Explore website projects <ArrowUpRight size={15} aria-hidden="true" /></Link>
           </div>
           <ContactDirectLink />

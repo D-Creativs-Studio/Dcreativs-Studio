@@ -6,6 +6,7 @@ import { Portfolio } from "@/components/sections/Portfolio";
 import { Team } from "@/components/sections/Team";
 import { Contact } from "@/components/sections/Contact";
 import { FAQ } from "@/components/sections/FAQ";
+import { Testimonials } from "@/components/sections/Testimonials";
 
 export function HomePage() {
   return (
@@ -27,6 +28,7 @@ export function HomePage() {
       <Services />
       <Portfolio />
       <Team />
+      <Testimonials />
       <FAQ />
       <Contact />
     </>

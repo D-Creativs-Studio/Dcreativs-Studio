@@ -71,8 +71,7 @@ export function Contact() {
             transition={{ duration: 0.7, delay: 0.3 }}
             className="font-body text-slate-300 text-sm sm:text-base md:text-lg lg:text-xl font-light leading-relaxed max-w-2xl mx-auto mb-10 sm:mb-12"
           >
-            Share a few words about your goals. Budget and timing can come later. We’ll discuss
-            whether we’re a fit and outline the scope and next steps before you decide to proceed.
+            Tell us your idea. We’ll work out the next steps together.
           </motion.p>
 
           {/* ── Primary Action: Contact Us Button ────────────────── */}

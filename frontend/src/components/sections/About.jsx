@@ -1,6 +1,8 @@
-import { motion } from "framer-motion";
+import { useLayoutEffect, useRef } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { workingTogether } from "@/data/workingTogether";
+import "./about-section.css";
 
 const slideInLeft = {
   hidden: { opacity: 0, x: -50 },
@@ -21,6 +23,28 @@ const slideInRight = {
 };
 
 export function About() {
+  const reducedMotion = useReducedMotion();
+  const sceneRef = useRef(null);
+  const progressRef = useRef(null);
+  const rightVariants = reducedMotion
+    ? { hidden: { opacity: 1, x: 0 }, visible: { opacity: 1, x: 0, transition: { duration: 0 } } }
+    : slideInRight;
+
+  useLayoutEffect(() => {
+    const scene = sceneRef.current;
+    const progress = progressRef.current;
+    if (!scene || !progress) return;
+    const alignMascots = () => {
+      const top = progress.getBoundingClientRect().top - scene.getBoundingClientRect().top;
+      scene.style.setProperty("--mascot-top", `${top}px`);
+    };
+    alignMascots();
+    const observer = new ResizeObserver(alignMascots);
+    observer.observe(scene.querySelector(".about-process-card"));
+    observer.observe(progress);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section
       id="about"
@@ -106,16 +130,16 @@ export function About() {
           </div>
 
           {/* Working relationship: concrete commitments instead of unverified statistics. */}
-          <motion.div
-            variants={slideInRight}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            custom={1}
-            className="relative"
-          >
+          <div ref={sceneRef} className="about-process-scene relative">
             {/* Card */}
-            <div className="relative rounded-3xl border border-[#030412]/08 bg-[#F7F7FF] shadow-[0_8px_40px_rgba(65,0,245,0.08)] p-5 min-[390px]:p-6 sm:p-10 overflow-hidden">
+            <motion.div
+              variants={rightVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              custom={1}
+              className="about-process-card relative rounded-3xl border border-[#030412]/08 bg-[#F7F7FF] shadow-[0_8px_40px_rgba(65,0,245,0.08)] p-5 min-[390px]:p-6 sm:p-10 overflow-hidden"
+            >
               {/* Inner purple accent glow */}
               <div className="absolute -top-10 -right-10 w-48 h-48 bg-[#4100F5]/10 rounded-full blur-[60px] pointer-events-none" />
 
@@ -126,7 +150,8 @@ export function About() {
                 {workingTogether.map(({ title, description }, i) => (
                   <motion.div
                     key={title}
-                    variants={slideInRight}
+                    ref={i === 1 ? progressRef : undefined}
+                    variants={rightVariants}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, amount: 0.3 }}
@@ -143,7 +168,7 @@ export function About() {
               </div>
 
               {/* Pill tags */}
-              <div className="relative z-10 flex flex-wrap gap-1.5 min-[390px]:gap-2">
+              <div className="about-process-tags relative z-10 flex flex-wrap gap-1.5 min-[390px]:gap-2">
                 {[
                   "Brand Identity",
                   "Web Development",
@@ -163,8 +188,23 @@ export function About() {
                   </span>
                 ))}
               </div>
+            </motion.div>
+            <div
+              aria-hidden="true"
+              className="about-process-mascots"
+            >
+                <img
+                  src="/Friendly%20Mascots%20Peeking%20In.png"
+                  alt=""
+                  width="1122"
+                  height="1402"
+                  loading="lazy"
+                  decoding="async"
+                  draggable={false}
+                  className="about-process-mascot-image"
+                />
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

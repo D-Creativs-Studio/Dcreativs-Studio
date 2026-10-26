@@ -1,42 +1,23 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
+import { startAnchorScroll } from "./anchorScroll";
 
 export function ScrollToTop() {
-  const { pathname, hash } = useLocation();
+  const { pathname, hash, key } = useLocation();
+  const previousPath = useRef(null);
 
   useEffect(() => {
+    const changedPage = previousPath.current !== pathname;
+    previousPath.current = pathname;
     if (hash) {
-      const id = hash.replace("#", "");
-      const scrollToHash = () => {
-        const el = document.getElementById(id);
-        if (el) {
-          const navOffset = 80;
-          const elementPosition = el.getBoundingClientRect().top + window.pageYOffset;
-          const offsetPosition = Math.max(0, elementPosition - navOffset);
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: "smooth",
-          });
-          return true;
-        }
-        return false;
-      };
-
-      // Try immediately
-      if (!scrollToHash()) {
-        // Retry shortly after DOM render
-        const t1 = setTimeout(scrollToHash, 100);
-        const t2 = setTimeout(scrollToHash, 300);
-        return () => {
-          clearTimeout(t1);
-          clearTimeout(t2);
-        };
-      }
+      // Cross-page navigation should land at the destination after layout
+      // settles; same-page section navigation can keep its smooth movement.
+      return startAnchorScroll(hash, changedPage ? "instant" : "smooth");
     } else {
       // Override global smooth scrolling when entering a new page.
       window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     }
-  }, [pathname, hash]);
+  }, [pathname, hash, key]);
 
   return null;
 }

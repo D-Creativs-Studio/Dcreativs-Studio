@@ -36,7 +36,7 @@ test('initial page shows one short form with all essentials and a direct email a
   for (const name of ['name', 'email', 'selectedServices', 'message']) assert.ok(html.includes(`name="${name}"`));
   assert.match(html, /Send enquiry/);
   assert.match(html, /href="mailto:dcreativs.studio@gmail.com"/);
-  assert.match(html, /What happens next/);
+  assert.doesNotMatch(html, /We review your enquiry and follow up by email/);
   assert.doesNotMatch(html, /Step <strong>|contact-progress-track|<canvas|\$3,000|contact-artwork|<select/);
 });
 

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { teamMembers } from "@/data/teamData";
 import { Plus, X } from "lucide-react";
@@ -83,75 +83,10 @@ const DribbbleIcon = () => (
 );
 
 export function Team() {
-  // expandedId tracks which accordion is open (or null if all closed)
-  const [expandedId, setExpandedId] = useState(teamMembers[0].id);
-  // spotlightId tracks which member is displayed on the sticky picture side
-  const [spotlightId, setSpotlightId] = useState(teamMembers[0].id);
-
-  // Ref map for each team member row (keyed by member.id)
-  const rowRefs = useRef({});
-  const setRowRef = useCallback((id, el) => {
-    if (el) rowRefs.current[id] = el;
-  }, []);
-
-  // ── MOBILE SCROLL-SYNC ──────────────────────────────────────────
-  // On mobile (< 1024px), listen for scroll events and check which
-  // team row is positioned just below the sticky 45vh photo card.
-  // Uses getBoundingClientRect for pixel-perfect accuracy with sticky.
-  useEffect(() => {
-    const LG_BREAKPOINT = 1024;
-    let rafId = null;
-    let active = false;
-
-    const onScroll = () => {
-      if (rafId) return; // throttle to 1 per frame
-      rafId = requestAnimationFrame(() => {
-        rafId = null;
-        if (!active) return;
-
-        // The sticky photo card occupies 45% of viewport height
-        const triggerLine = window.innerHeight * 0.45 + 20; // 20px buffer below sticky card
-        let closestId = null;
-        let closestDist = Infinity;
-
-        Object.entries(rowRefs.current).forEach(([id, el]) => {
-          if (!el) return;
-          const rect = el.getBoundingClientRect();
-          // We want the row whose top is closest to (but not far above) the trigger line
-          const dist = Math.abs(rect.top - triggerLine);
-          // Only consider rows that are at or below the trigger line, or just slightly above
-          if (rect.top < triggerLine + rect.height && rect.bottom > triggerLine) {
-            if (dist < closestDist) {
-              closestDist = dist;
-              closestId = id;
-            }
-          }
-        });
-
-        if (closestId) {
-          setSpotlightId(closestId);
-        }
-      });
-    };
-
-    const setup = () => {
-      active = window.innerWidth < LG_BREAKPOINT;
-    };
-
-    const handleResize = () => {
-      setup();
-    };
-
-    setup();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", handleResize);
-      if (rafId) cancelAnimationFrame(rafId);
-    };
-  }, []);
+  // One selected member drives the portrait and the expanded biography.
+  // Scrolling never switches the person while their details are being read.
+  const [selection, setSelection] = useState({ id: teamMembers[0].id, expanded: true });
+  const expandedId = selection.expanded ? selection.id : null;
 
   // ── PREFETCH TEAM IMAGES FOR ZERO-LATENCY INSTANT SWITCHING ────
   useEffect(() => {
@@ -164,18 +99,19 @@ export function Team() {
   }, []);
 
   const activeMember =
-    teamMembers.find((m) => m.id === spotlightId) || teamMembers[0];
+    teamMembers.find((m) => m.id === selection.id) || teamMembers[0];
 
   // Clicking on a team name updates the spotlight image AND opens their details
   const handleNameClick = (id) => {
-    setSpotlightId(id);
-    setExpandedId(id);
+    setSelection({ id, expanded: true });
   };
 
   // Clicking specifically on the (+) / (×) button toggles the accordion expansion & syncs image
   const handleToggleAccordion = (id) => {
-    setSpotlightId(id);
-    setExpandedId((prev) => (prev === id ? null : id));
+    setSelection(previous => ({
+      id,
+      expanded: previous.id === id ? !previous.expanded : true,
+    }));
   };
 
   return (
@@ -290,12 +226,11 @@ export function Team() {
           <div className="w-full flex flex-col border-t lg:border-t-0 lg:border-l border-white/10 bg-[#000422]">
             {teamMembers.map((member) => {
               const isExpanded = member.id === expandedId;
-              const isSpotlight = member.id === spotlightId;
+              const isSpotlight = member.id === selection.id;
 
               return (
                 <div
                   key={member.id}
-                  ref={(el) => setRowRef(member.id, el)}
                   className={`relative transition-colors duration-200 border-b border-white/10 ${
                     isExpanded
                       ? "bg-[#4100F5] text-white"

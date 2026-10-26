@@ -21,10 +21,10 @@ export const teamMembers = [
   {
     id: "02",
     firstName: "Morgan",
-    name: "Morgan Ugonna ThankGod (\"Coach Morgan\")",
+    name: "Morgan Ugonna ThankGod",
     role: "COO & AI Lead / Full-Stack Developer",
     discipline: "Operations & AI Systems",
-    image: "/team/morgan-ugonna.jpg",
+    image: "/team/morgan-ugonna.jpeg",
     initials: "MU",
     accent: "#4100F5",
     darkAccent: "#0a0624",

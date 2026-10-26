@@ -1,10 +1,22 @@
 import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
+import { startAnchorScroll } from "@/components/utils/anchorScroll";
+import { testimonials } from "@/data/testimonialsData";
 
 export function Navbar() {
   const location = useLocation();
   const isSubPage = location.pathname !== "/";
+  const [isDesktop, setIsDesktop] = useState(() => typeof window !== "undefined" && window.matchMedia("(min-width: 1024px)").matches);
+  const hasTestimonials = import.meta.env.DEV || testimonials.length > 0;
+
+  useEffect(() => {
+    const media = window.matchMedia("(min-width: 1024px)");
+    const update = () => setIsDesktop(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
 
   const [activeTab, setActiveTab] = useState(() => {
     if (location.pathname.startsWith("/portfolio") || location.pathname.startsWith("/works")) return "Portfolio";
@@ -26,7 +38,10 @@ export function Navbar() {
     : location.pathname.startsWith("/services") ? "Services"
     : location.pathname.startsWith("/about") ? "About"
     : location.pathname.startsWith("/contact") ? "Contact" : "Home";
-  const selectedTab = isSubPage ? routeTab : activeTab;
+  const currentTab = isSubPage ? routeTab : activeTab;
+  const selectedTab = !isDesktop && ["Team", "Testimonials", "FAQ"].includes(currentTab)
+    ? (currentTab === "FAQ" ? "Contact" : "Portfolio")
+    : currentTab;
   const lightNav = isSubPage ? ["Portfolio", "Services", "About"].includes(routeTab) : isLightSection;
 
   useLayoutEffect(() => {
@@ -49,30 +64,26 @@ export function Navbar() {
   // Lock to prevent scroll-spy from interrupting programmatic smooth scroll
   const isManualClickRef = useRef(false);
   const clickTimeoutRef = useRef(null);
+  const cancelAnchorScrollRef = useRef(null);
 
   const navItems = [
     { name: "Home", href: "#home" },
     { name: "About", href: "#about" },
     { name: "Services", href: "#services" },
     { name: "Portfolio", href: "#portfolio" },
+    { name: "Team", href: "#team", desktopOnly: true },
+    ...(hasTestimonials ? [{ name: "Testimonials", href: "#testimonials", desktopOnly: true }] : []),
+    { name: "FAQ", href: "#faq", desktopOnly: true },
     { name: "Contact", href: "#contact" },
   ];
 
   const scrollToTarget = (sectionId) => {
+    cancelAnchorScrollRef.current?.();
     if (sectionId === "home") {
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
-    const el = document.getElementById(sectionId);
-    if (el) {
-      const navOffset = 80;
-      const elementPosition = el.getBoundingClientRect().top + window.pageYOffset;
-      const offsetPosition = Math.max(0, elementPosition - navOffset);
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
-    }
+    cancelAnchorScrollRef.current = startAnchorScroll(`#${sectionId}`);
   };
 
   const handleNavClick = (e, item) => {
@@ -101,9 +112,6 @@ export function Navbar() {
   };
 
   useEffect(() => {
-    // List of section IDs that have light backgrounds
-    const lightSections = ["about", "nigeria-to-world", "portfolio"];
-
     // User manual wheel/touch immediately releases click lock
     const handleUserInteraction = () => {
       isManualClickRef.current = false;
@@ -155,8 +163,9 @@ export function Navbar() {
       const pageSections = [
         { id: "footer", tab: "Contact" },
         { id: "contact", tab: "Contact" },
-        { id: "faq", tab: "Contact" },
-        { id: "team", tab: "Portfolio" },
+        { id: "faq", tab: isDesktop ? "FAQ" : "Contact" },
+        { id: "testimonials", tab: isDesktop ? "Testimonials" : "Portfolio" },
+        { id: "team", tab: isDesktop ? "Team" : "Portfolio" },
         { id: "portfolio", tab: "Portfolio" },
         { id: "services", tab: "Services" },
         { id: "about", tab: "About" },
@@ -222,9 +231,10 @@ export function Navbar() {
       window.removeEventListener("wheel", handleUserInteraction);
       window.removeEventListener("touchmove", handleUserInteraction);
     };
-  }, [location.pathname]);
+  }, [location.pathname, isDesktop]);
 
   useEffect(() => () => {
+    cancelAnchorScrollRef.current?.();
     if (clickTimeoutRef.current) clearTimeout(clickTimeoutRef.current);
   }, []);
 
@@ -267,7 +277,7 @@ export function Navbar() {
               href={item.name === "Home" ? "/" : `/${item.href}`}
               onClick={(e) => handleNavClick(e, item)}
               aria-current={isActive ? (isSubPage ? "page" : "location") : undefined}
-              className={`relative z-10 flex items-center justify-center px-1.5 min-[360px]:px-2 min-[390px]:px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 text-[10.5px] min-[360px]:text-[11px] min-[390px]:text-xs sm:text-sm md:text-sm font-semibold font-heading leading-none rounded-full transition-colors duration-200 whitespace-nowrap cursor-pointer select-none ${
+              className={`${item.desktopOnly ? "hidden lg:flex" : "flex"} relative z-10 items-center justify-center px-1.5 min-[360px]:px-2 min-[390px]:px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 text-[10.5px] min-[360px]:text-[11px] min-[390px]:text-xs sm:text-sm md:text-sm font-semibold font-heading leading-none rounded-full transition-colors duration-200 whitespace-nowrap cursor-pointer select-none ${
                 lightNav
                   ? isActive
                     ? "text-white"

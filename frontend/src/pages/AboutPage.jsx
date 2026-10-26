@@ -1,303 +1,129 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { ArrowRight, ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { SEO } from "@/components/common/SEO";
 import { workingTogether } from "@/data/workingTogether";
-import {
-  ArrowRight,
-  Palette,
-  Code2,
-  TrendingUp,
-  CheckCircle2,
-  Compass,
-  Target,
-  ShieldCheck,
-} from "lucide-react";
+import { teamMembers } from "@/data/teamData";
+import { webDevelopmentCategory } from "@/data/webDevelopmentData";
+
+const featuredProject = webDevelopmentCategory.caseStudies.find(project => project.id === "web-2");
+const founders = teamMembers.filter(member => ["01", "02"].includes(member.id));
+const primaryButton = "inline-flex items-center justify-center gap-2 rounded-full bg-[#4100F5] px-6 py-3.5 font-heading text-sm font-semibold text-white transition-colors hover:bg-[#5212FF] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#885FFF]";
+const secondaryButton = "inline-flex items-center justify-center gap-2 rounded-full border border-[#030412]/15 px-6 py-3.5 font-heading text-sm font-semibold text-[#030412] transition-colors hover:bg-[#4100F5]/5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#885FFF]";
 
 export function AboutPage() {
-  const pillars = [
-    {
-      id: "01",
-      icon: Palette,
-      title: "Design",
-      tagline: "Instant Recognition",
-      description:
-        "Brand identity, UI/UX, and visual systems that make a business instantly recognizable and unforgettable.",
-      badge: "Visual Systems",
-      color: "#c084fc",
-      glow: "rgba(192, 132, 252, 0.15)",
-    },
-    {
-      id: "02",
-      icon: Code2,
-      title: "Development",
-      tagline: "Built for Performance",
-      description:
-        "Websites and web applications built for speed, responsiveness, and conversion — not just surface appearance.",
-      badge: "Full-Stack Tech",
-      color: "#38bdf8",
-      glow: "rgba(56, 189, 248, 0.15)",
-    },
-    {
-      id: "03",
-      icon: TrendingUp,
-      title: "Marketing",
-      tagline: "Visibility into Growth",
-      description:
-        "Content strategy, video editing, and brand positioning that commands attention and turns visibility into measurable growth.",
-      badge: "Growth & Content",
-      color: "#fb923c",
-      glow: "rgba(251, 146, 60, 0.15)",
-    },
-  ];
-
-  const workPrinciples = workingTogether.map((principle, index) => ({
-    ...principle,
-    icon: [Target, Compass, ShieldCheck][index],
-  }));
-
-  const teamCapabilities = [
-    "Product Design",
-    "Full-Stack Development",
-    "3D & Motion Graphics",
-    "Brand Strategy & Identity",
-    "Conversion Optimization",
-    "Interactive WebGL",
-  ];
-
   return (
-    <div className="min-h-screen bg-[#F8F8F6] text-[#030412] pt-28 sm:pt-36 pb-24 px-4 sm:px-6 lg:px-12 relative overflow-hidden selection:bg-[#4100F5] selection:text-white">
-      <SEO
-        title="About Us — The Creative Tech Studio"
-        description="Learn about D'Creativs Studio — a team of multidisciplinary builders combining UI/UX design, full-stack development, 3D motion, and brand strategy under one roof."
-      />
-      {/* Ambient background glows */}
-      <div className="absolute top-20 left-10 w-[600px] h-[600px] bg-[#4100F5]/[0.05] rounded-full blur-[180px] pointer-events-none z-0" />
-      <div className="absolute top-1/3 right-5 w-[500px] h-[500px] bg-[#885FFF]/[0.05] rounded-full blur-[160px] pointer-events-none z-0" />
-      <div className="absolute bottom-40 left-1/4 w-[600px] h-[600px] bg-[#38bdf8]/[0.04] rounded-full blur-[180px] pointer-events-none z-0" />
+    <div className="relative overflow-hidden bg-[#F8F8F6] px-4 pb-16 pt-28 text-[#030412] selection:bg-[#4100F5] selection:text-white sm:px-6 sm:pb-24 sm:pt-36 lg:px-12">
+      <SEO title="About Our Creative Technology Studio" description="Meet D'Creativs Studio, explore a website project, and see how we approach scope, feedback, and handover for your website or brand." />
+      <div aria-hidden="true" className="pointer-events-none absolute -right-40 top-16 h-[500px] w-[500px] rounded-full bg-[#885FFF]/[0.08] blur-[120px]" />
 
-      <div className="max-w-6xl mx-auto relative z-10">
-        {/* Hero Section */}
-        <div className="max-w-4xl mb-16 sm:mb-20">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl sm:text-6xl lg:text-7xl font-heading font-extrabold tracking-tight text-[#030412] leading-[1.08] mb-8"
-          >
-            We build things people{" "}
-            <span className="bg-gradient-to-r from-[#4100F5] via-[#6833FF] to-[#885FFF] bg-clip-text text-transparent">
-              actually stop for.
-            </span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-slate-600 font-body text-lg sm:text-2xl leading-relaxed font-normal"
-          >
-            D&apos;Creativs is a creative tech agency built by a team of eight,
-            brought together through the{" "}
-            <span className="font-semibold text-[#030412]">
-              TechRise Cohort 2
-            </span>{" "}
-            program. We combine design, development, and marketing under one
-            roof so brands can grow without juggling five different vendors.
-          </motion.p>
-        </div>
-
-        {/* Section: Who We Are */}
-        <motion.div
-          initial={{ opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.6 }}
-          className="rounded-3xl border border-black/[0.08] bg-white/90 backdrop-blur-sm p-6 sm:p-10 lg:p-14 mb-20 sm:mb-24 shadow-[0_8px_40px_rgba(0,0,0,0.03)]"
-        >
-          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            <div className="lg:col-span-7 space-y-6">
-              <h2 className="text-2xl sm:text-4xl font-heading font-extrabold text-[#030412] leading-tight">
-                No templates. No guesswork. Just builders who care.
-              </h2>
-
-              <p className="text-slate-600 font-body text-base sm:text-lg leading-relaxed">
-                We started as a group of builders who believed brands deserve
-                more than cookie-cutter templates and guesswork. Today,
-                D&apos;Creativs is a full-service creative tech studio helping
-                business owners and organizations show up online with clarity
-                and confidence.
-              </p>
-
-              <p className="text-slate-600 font-body text-base sm:text-lg leading-relaxed">
-                Our team spans product design, full-stack development, 3D and
-                motion, and brand marketing, giving every project the depth and
-                range it needs from initial concept to global launch.
-              </p>
-            </div>
-
-            <div className="lg:col-span-5 bg-[#F8F8F6] rounded-2xl p-6 sm:p-8 border border-black/[0.06] space-y-4">
-              <div className="flex items-center gap-2 text-xs font-heading font-bold uppercase tracking-wider text-[#4100F5]">
-                <Compass className="w-4 h-4" />
-                <span>Multidisciplinary Range</span>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2.5">
-                {teamCapabilities.map((capability, idx) => (
-                  <div
-                    key={idx}
-                    className="flex items-center gap-2.5 text-xs sm:text-sm font-heading font-semibold text-slate-800 bg-white px-3.5 py-2.5 rounded-xl border border-black/[0.06] shadow-sm"
-                  >
-                    <CheckCircle2 className="w-4 h-4 text-[#4100F5] shrink-0" />
-                    <span>{capability}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+      <div className="relative mx-auto max-w-6xl">
+        <header className="mb-14 max-w-4xl sm:mb-20">
+          <p className="mb-5 font-heading text-xs font-semibold uppercase tracking-[0.22em] text-[#4100F5]">About D’Creativs Studio</p>
+          <h1 className="mb-6 text-balance font-heading text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-6xl lg:text-7xl">
+            Help customers <span className="bg-gradient-to-r from-[#4100F5] to-[#885FFF] bg-clip-text text-transparent">understand your business.</span>
+          </h1>
+          <p className="max-w-2xl font-body text-base leading-relaxed text-slate-600 sm:text-xl">
+            We build websites and brand identities that explain your offer and make it easy for customers to enquire.
+            When repetitive work slows you down, we can also help connect your tools and automate the routine tasks.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link to="/contact" className={primaryButton}>Discuss your project <ArrowRight aria-hidden="true" className="h-4 w-4" /></Link>
+            <a href="#project-example" className={secondaryButton}>See a project example <ArrowUpRight aria-hidden="true" className="h-4 w-4" /></a>
           </div>
-        </motion.div>
+          <p className="mt-4 font-body text-xs leading-relaxed text-slate-500">A short enquiry starts the conversation. Scope and next steps come before a commitment.</p>
+        </header>
 
-        {/* Section: What We Do (4 Pillars) */}
-        <div className="mb-20 sm:mb-24">
-          <div className="max-w-2xl mb-10 sm:mb-12">
-            <h2 className="text-3xl sm:text-5xl font-heading font-extrabold text-[#030412] tracking-tight">
-              Everything your brand needs to scale.
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-            {pillars.map((pillar, i) => {
-              const Icon = pillar.icon;
-              return (
-                <motion.div
-                  key={pillar.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-7 border border-black/[0.08] shadow-[0_4px_24px_rgba(0,0,0,0.03)] hover:border-[#4100F5]/40 hover:shadow-[0_12px_36px_rgba(65,0,245,0.08)] transition-all duration-300 flex flex-col justify-between group"
-                >
-                  <div>
-                    <div className="flex items-center justify-between mb-3 sm:mb-6">
-                      <div
-                        className="w-8 h-8 min-[390px]:w-10 min-[390px]:h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
-                        style={{ backgroundColor: `${pillar.color}20` }}
-                      >
-                        <Icon
-                          className="w-4 h-4 min-[390px]:w-5 min-[390px]:h-5 sm:w-6 sm:h-6"
-                          style={{ color: pillar.color }}
-                        />
-                      </div>
-                      <span className="text-[10px] sm:text-[11px] font-mono font-bold text-slate-400">
-                        {pillar.id}
-                      </span>
-                    </div>
-
-                    <div className="text-[9px] min-[390px]:text-[10px] sm:text-xs font-heading font-bold uppercase tracking-wider text-slate-400 mb-0.5 sm:mb-1 line-clamp-1">
-                      {pillar.tagline}
-                    </div>
-
-                    <h3 className="text-base min-[390px]:text-lg sm:text-2xl font-heading font-extrabold text-[#030412] mb-1.5 sm:mb-3 group-hover:text-[#4100F5] transition-colors">
-                      {pillar.title}
-                    </h3>
-
-                    <p className="text-slate-600 font-body text-[11px] min-[390px]:text-xs sm:text-sm leading-relaxed mb-3 sm:mb-6">
-                      {pillar.description}
-                    </p>
-                  </div>
-
-                  <div className="pt-2.5 sm:pt-4 border-t border-black/[0.06] flex items-center justify-between">
-                    <span className="text-[10px] min-[390px]:text-[11px] sm:text-xs font-heading font-semibold text-slate-500">
-                      {pillar.badge}
-                    </span>
-                    <span className="text-[#4100F5] text-xs sm:text-sm opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300">
-                      →
-                    </span>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Section: How We Work */}
-        <div className="mb-20 sm:mb-24">
-          <div className="max-w-2xl mb-10 sm:mb-12">
-            <h2 className="text-3xl sm:text-5xl font-heading font-extrabold text-[#030412] tracking-tight mb-4">
-              What working with us looks like.
-            </h2>
-            <p className="text-slate-600 font-body text-base sm:text-lg leading-relaxed">
-              Start with your goals. Agree on a scope. Review the work as it takes
-              shape. Here is how we keep the project clear from the first conversation to handover.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {workPrinciples.map((principle, idx) => {
-              const Icon = principle.icon;
-              return (
-                <div
-                  key={idx}
-                  className="bg-white/80 backdrop-blur-sm rounded-3xl p-7 border border-black/[0.08] shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:border-[#4100F5]/30 transition-all duration-300"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-[#4100F5]/10 flex items-center justify-center mb-5 text-[#4100F5]">
-                    <Icon className="w-5 h-5" />
-                  </div>
-                  <h3 className="text-lg font-heading font-bold text-[#030412] mb-2.5">
-                    {principle.title}
-                  </h3>
-                  <p className="text-slate-600 font-body text-sm leading-relaxed">
-                    {principle.description}
-                  </p>
+        <section id="project-example" aria-labelledby="project-heading" className="mb-16 scroll-mt-28 overflow-hidden rounded-3xl border border-black/[0.08] bg-white sm:mb-24">
+          <div className="grid lg:grid-cols-2">
+            <figure className="flex flex-col bg-[#EEEDE9]">
+              <img src={featuredProject.image} alt={featuredProject.imageAlt} loading="lazy" decoding="async" className="aspect-[4/3] w-full object-cover lg:flex-1" />
+              <figcaption className="px-5 py-3 font-body text-xs text-slate-600 sm:px-8">Project imagery · {featuredProject.title}</figcaption>
+            </figure>
+            <div className="p-6 sm:p-9 lg:p-10">
+              <p className="mb-3 font-mono text-xs uppercase tracking-widest text-[#4100F5]">A closer look · Hospitality website</p>
+              <h2 id="project-heading" className="mb-6 font-heading text-3xl font-extrabold tracking-tight sm:text-4xl">{featuredProject.title}</h2>
+              <div className="space-y-5 font-body text-sm leading-relaxed text-slate-600 sm:text-base">
+                <div>
+                  <h3 className="mb-1 font-heading text-sm font-bold text-[#030412]">The problem</h3>
+                  <p>{featuredProject.sections.find(section => section.title === "The Problem").body}</p>
                 </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Section: Our Promise & Final Call to Action */}
-        <motion.div
-          initial={{ opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.6 }}
-          className="relative rounded-3xl bg-[#030412] text-white p-8 sm:p-12 lg:p-16 overflow-hidden shadow-[0_20px_60px_rgba(3,4,18,0.25)] text-center"
-        >
-          {/* Ambient inner glows */}
-          <div className="absolute -top-24 -left-24 w-96 h-96 bg-[#4100F5]/30 rounded-full blur-[100px] pointer-events-none" />
-          <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-[#885FFF]/25 rounded-full blur-[100px] pointer-events-none" />
-
-          <div className="relative z-10 max-w-3xl mx-auto space-y-6">
-            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-heading font-extrabold tracking-tight leading-tight">
-              Dare to be noticed.
-            </h2>
-
-            <p className="text-slate-300 font-body text-base sm:text-xl leading-relaxed font-light max-w-2xl mx-auto">
-              Tell us what you need your website, brand, or workflow to do.
-              We&apos;ll discuss the fit, deliverables, and next steps before you commit.
-            </p>
-
-            <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 bg-[#4100F5] hover:bg-[#5212FF] text-white font-heading font-semibold text-sm sm:text-base px-7 py-3.5 rounded-full transition-all duration-300 shadow-[0_4px_24px_rgba(65,0,245,0.4)] hover:shadow-[0_8px_32px_rgba(65,0,245,0.6)] hover:-translate-y-0.5 active:scale-95"
-              >
-                <span>Discuss Your Project</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-
-              <Link
-                to="/works/web-development"
-                className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/15 text-white font-heading font-semibold text-sm sm:text-base px-7 py-3.5 rounded-full border border-white/15 transition-all duration-300 hover:-translate-y-0.5"
-              >
-                <span>Explore Website Projects</span>
-              </Link>
-            </div>
-
-            <div className="pt-8 text-xs font-mono text-slate-500 uppercase tracking-widest border-t border-white/10">
-              D&apos;Creativs Technologies • Creative Tech Studio
+                <div>
+                  <h3 className="mb-1 font-heading text-sm font-bold text-[#030412]">The approach</h3>
+                  <p>Bring accommodation, lifestyle services, and dining into one website, with photography to help visitors explore the spaces and clear links to an enquiry form.</p>
+                </div>
+                <div>
+                  <h3 className="mb-2 font-heading text-sm font-bold text-[#030412]">What visitors can do</h3>
+                  <ul className="space-y-2">
+                    {["Explore accommodation and shared spaces.", "Find the available stays and services in one place.", "Send an enquiry about a stay."].map(item => (
+                      <li key={item} className="flex items-start gap-2"><CheckCircle2 aria-hidden="true" className="mt-1 h-4 w-4 shrink-0 text-[#4100F5]" /><span>{item}</span></li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              <div className="mt-7 flex flex-wrap gap-x-6 gap-y-3 border-t border-black/[0.08] pt-5 font-heading text-sm font-semibold text-[#4100F5]">
+                <Link to={"/works/web-development/" + featuredProject.id} className="inline-flex items-center gap-1.5 hover:underline">Read project notes <ArrowRight aria-hidden="true" className="h-4 w-4" /></Link>
+                <a href={featuredProject.previewUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 hover:underline">Visit website <ArrowUpRight aria-hidden="true" className="h-4 w-4" /><span className="sr-only"> (opens in a new tab)</span></a>
+              </div>
             </div>
           </div>
-        </motion.div>
+        </section>
+
+        <section aria-labelledby="people-heading" className="mb-16 sm:mb-24">
+          <div className="mb-8 grid gap-6 lg:grid-cols-2 lg:gap-12">
+            <div>
+              <p className="mb-3 font-heading text-xs font-semibold uppercase tracking-[0.2em] text-[#4100F5]">The people behind the work</p>
+              <h2 id="people-heading" className="text-balance font-heading text-3xl font-extrabold tracking-tight sm:text-5xl">Different skills. A shared starting point.</h2>
+            </div>
+            <div className="space-y-4 font-body text-sm leading-relaxed text-slate-600 sm:text-base">
+              <p>D’Creativs grew out of TechRise Cohort 2, where our founding team brought together skills in design, development, and marketing.</p>
+              <p>We work across those disciplines so your website, brand, and customer journey can be considered together. The project scope determines which skills are involved.</p>
+            </div>
+          </div>
+          <div className="grid gap-5 md:grid-cols-2">
+            {founders.map(member => (
+              <article key={member.id} className="rounded-3xl border border-black/[0.08] bg-white p-6 sm:p-8">
+                <div className="mb-5 flex items-center gap-4">
+                  <img src={member.image} alt={member.name} loading="lazy" decoding="async" width="88" height="88" className="h-20 w-20 shrink-0 rounded-2xl bg-[#F0EDF8] object-cover object-top sm:h-[88px] sm:w-[88px]" />
+                  <div className="min-w-0">
+                    <h3 className="font-heading text-lg font-bold leading-snug">{member.name}</h3>
+                    <p className="mt-1 font-body text-xs leading-relaxed text-[#4100F5]">{member.role}</p>
+                  </div>
+                </div>
+                <p className="font-body text-sm leading-relaxed text-slate-600">{member.bio}</p>
+              </article>
+            ))}
+          </div>
+          <Link to="/#team" className="mt-6 inline-flex items-center gap-2 rounded-md font-heading text-sm font-semibold text-[#4100F5] hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#885FFF]">Meet the rest of the team <ArrowRight aria-hidden="true" className="h-4 w-4" /></Link>
+        </section>
+
+        <section aria-labelledby="process-heading" className="mb-16 sm:mb-24">
+          <div className="mb-8 max-w-2xl">
+            <p className="mb-3 font-heading text-xs font-semibold uppercase tracking-[0.2em] text-[#4100F5]">From conversation to handover</p>
+            <h2 id="process-heading" className="mb-4 font-heading text-3xl font-extrabold tracking-tight sm:text-5xl">Know what happens next.</h2>
+            <p className="font-body text-sm leading-relaxed text-slate-600 sm:text-base">We agree on the work before it starts, make room for your feedback, and define what you receive at the end.</p>
+          </div>
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3">
+            {workingTogether.map((step, index) => (
+              <article key={step.title} className="min-w-0 rounded-2xl border border-black/[0.08] bg-white p-4 last:col-span-2 sm:rounded-3xl sm:p-6 md:last:col-span-1 lg:p-8">
+                <span aria-hidden="true" className="mb-4 inline-flex h-8 w-8 items-center justify-center rounded-xl bg-[#4100F5]/10 font-mono text-xs text-[#4100F5] sm:mb-5 sm:h-10 sm:w-10 sm:text-sm">0{index + 1}</span>
+                <h3 className="mb-2 font-heading text-sm font-bold leading-snug sm:text-lg">{step.title}</h3>
+                <p className="font-body text-[13px] leading-relaxed text-slate-600 sm:text-sm">{step.description}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section aria-labelledby="about-cta-heading" className="relative overflow-hidden rounded-3xl bg-[#030412] px-6 py-10 text-white sm:p-12 lg:p-16">
+          <div aria-hidden="true" className="pointer-events-none absolute -right-28 -top-28 h-80 w-80 rounded-full bg-[#4100F5]/25 blur-[90px]" />
+          <div className="relative max-w-2xl">
+            <h2 id="about-cta-heading" className="mb-5 text-balance font-heading text-3xl font-extrabold leading-tight tracking-tight sm:text-5xl">What does your business need to do next?</h2>
+            <p className="font-body text-sm leading-relaxed text-slate-300 sm:text-lg">Tell us what you want to build or improve. We’ll discuss whether we’re a fit and outline the scope and next steps before you decide to proceed.</p>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <Link to="/contact" className={primaryButton}>Discuss your project <ArrowRight aria-hidden="true" className="h-4 w-4" /></Link>
+              <Link to="/works/web-development" className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 px-6 py-3.5 font-heading text-sm font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C4B5FD]">Explore website projects</Link>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );

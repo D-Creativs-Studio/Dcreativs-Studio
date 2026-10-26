@@ -18,7 +18,7 @@ const serviceCopy = {
 
 export const seoPages = [
   { path: "/", title: "Web Development, Branding & Creative Design", description: "D'Creativs Studio is a creative tech agency in Nigeria offering web development, brand identity, UI/UX design, 3D visuals, and AI automation.", name: "Home" },
-  { path: "/about", title: "About Our Creative Technology Studio", description: "Meet the D'Creativs Studio team, combining web development, brand design, UI/UX, motion graphics, and AI automation to bring business ideas to life.", name: "About" },
+  { path: "/about", title: "About Our Creative Technology Studio", description: "Meet the people behind D'Creativs Studio, explore a website project, and see how we approach scope, feedback, and handover for your website or brand.", name: "About" },
   { path: "/works", title: "Web Design, Branding & 3D Portfolio", description: "Explore D'Creativs Studio's selected website, branding, UI/UX, motion graphics, 3D, and automation projects. Find inspiration for your next project.", name: "Portfolio" },
   { path: "/contact", title: "Discuss Your Website, Brand or Automation Project", description: "Send a short enquiry to D'Creativs Studio about your website, brand, or automation goals. Budget and timing are optional. Discuss the next steps before committing.", name: "Contact" },
   ...servicesData.map(service => ({

@@ -10,7 +10,7 @@ function page(t, { top = 2000, present = true, reducedMotion = false } = {}) {
   const calls = [];
   let sequence = 0;
   let now = 0;
-  const state = { top, present };
+  const state = { top, present, id: 'contact' };
   globalThis.window = {
     scrollY: 0,
     performance: { now: () => now },
@@ -23,7 +23,7 @@ function page(t, { top = 2000, present = true, reducedMotion = false } = {}) {
   };
   globalThis.document = {
     fonts: { status: 'loaded' },
-    getElementById(id) { return id === 'contact' && state.present ? { getBoundingClientRect: () => ({ top: state.top }) } : null; },
+    getElementById(id) { return id === state.id && state.present ? { getBoundingClientRect: () => ({ top: state.top }) } : null; },
   };
   t.after(() => { globalThis.window = originalWindow; globalThis.document = originalDocument; });
   return {
@@ -44,6 +44,19 @@ test('cross-page contact navigation waits for changing section geometry, then ju
   view.advance(5);
   assert.deepEqual(view.calls, [{ top: 6320, behavior: 'instant' }]);
   assert.equal(view.frames.size, 0);
+});
+
+test('About-to-team navigation uses the final team position after the services track expands', t => {
+  const view = page(t, { top: 1800 });
+  view.state.id = 'team';
+  startAnchorScroll('#team', 'instant');
+  view.frame();
+  view.state.top = 6200;
+  view.frame();
+  view.state.top = 6800;
+  view.advance(5);
+  assert.deepEqual(view.calls, [{ top: 6720, behavior: 'instant' }]);
+  assert.equal(view.events.size, 0);
 });
 
 test('finds a section that mounts after the old 300ms retry window', t => {
