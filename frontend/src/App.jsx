@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { Navbar } from "@/components/layout/Navbar";
 import { HomePage } from "@/pages/HomePage";
 import { AboutPage } from "@/pages/AboutPage";
+import { TeamPage } from "@/pages/TeamPage";
 import { ServiceDetailPage } from "@/pages/ServiceDetailPage";
 import { WorksPage } from "@/pages/WorksPage";
 import { PortfolioCategoryPage } from "@/pages/PortfolioCategoryPage";
@@ -15,7 +16,7 @@ import { Footer } from "@/components/sections/Footer";
 import { Lock } from "lucide-react";
 
 // Set to false when ready for permanent public unveil
-const COMING_SOON_ACTIVE = false;
+const COMING_SOON_ACTIVE = true;
 const STUDIO_AUTH_HASH = "f05fd3ba93ad2dab7e36a50f90b3ef4825ac5d5a0722db071bcc511fa7a1f3bf";
 
 async function verifyPasskeyHash(input) {
@@ -94,6 +95,7 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/team" element={<TeamPage />} />
         <Route path="/services/:serviceId" element={<ServiceDetailPage />} />
         <Route path="/works" element={<WorksPage />} />
         <Route path="/works/:categoryId" element={<PortfolioCategoryPage />} />

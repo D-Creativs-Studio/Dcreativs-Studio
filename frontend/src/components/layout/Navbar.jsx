@@ -36,7 +36,7 @@ export function Navbar() {
   const routeTab = location.pathname.startsWith("/works") || location.pathname.startsWith("/portfolio")
     ? "Portfolio"
     : location.pathname.startsWith("/services") ? "Services"
-    : location.pathname.startsWith("/about") ? "About"
+    : location.pathname.startsWith("/about") || location.pathname.startsWith("/team") ? "About"
     : location.pathname.startsWith("/contact") ? "Contact" : "Home";
   const currentTab = isSubPage ? routeTab : activeTab;
   const selectedTab = !isDesktop && ["Team", "Testimonials", "FAQ"].includes(currentTab)

@@ -86,6 +86,7 @@ export function Team() {
   // One selected member drives the portrait and the expanded biography.
   // Scrolling never switches the person while their details are being read.
   const [selection, setSelection] = useState({ id: teamMembers[0].id, expanded: true });
+  const [mobileExpandedId, setMobileExpandedId] = useState(null);
   const expandedId = selection.expanded ? selection.id : null;
 
   // ── PREFETCH TEAM IMAGES FOR ZERO-LATENCY INSTANT SWITCHING ────
@@ -172,7 +173,62 @@ export function Team() {
       {/* ══════════════════════════════════════════════════════════════
           50/50 FULL-BLEED SPLIT SECTION (Sticky Portrait Left + Accordion Right)
           ══════════════════════════════════════════════════════════════ */}
-      <div className="relative w-full border-y border-white/10 z-20">
+      <div className="relative z-20 border-y border-white/10 lg:hidden">
+        {teamMembers.map((member) => {
+          const isExpanded = mobileExpandedId === member.id;
+          const panelId = `mobile-team-panel-${member.id}`;
+          const triggerId = `mobile-team-trigger-${member.id}`;
+
+          return (
+            <article key={member.id} className={`border-b border-white/10 last:border-b-0 transition-colors duration-200 ${isExpanded ? "bg-[#4100F5]" : "bg-[#000422]"}`}>
+              <h3>
+                <button
+                  id={triggerId}
+                  type="button"
+                  aria-expanded={isExpanded}
+                  aria-controls={panelId}
+                  onClick={() => setMobileExpandedId(isExpanded ? null : member.id)}
+                  className="flex w-full items-center gap-4 px-4 py-5 text-left min-[390px]:px-6 sm:px-12 focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-white"
+                >
+                  <span className="min-w-0 flex-1">
+                    <span className="block font-heading text-2xl font-extrabold tracking-tight sm:text-3xl">{member.firstName}</span>
+                    <span className={`mt-1 block font-body text-sm leading-relaxed ${isExpanded ? "text-white/90" : "text-slate-300"}`}>
+                      {member.name}
+                      {member.role && <span className="mt-0.5 block text-white/70">{member.role}</span>}
+                    </span>
+                  </span>
+                  <span aria-hidden="true" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/30">
+                    {isExpanded ? <X className="h-5 w-5" /> : <Plus className="h-5 w-5" />}
+                  </span>
+                </button>
+              </h3>
+              <div id={panelId} role="region" aria-labelledby={triggerId} hidden={!isExpanded}>
+                {isExpanded && (
+                  <div className="px-4 pb-7 min-[390px]:px-6 sm:px-12">
+                    <div className="relative mb-5 h-64 overflow-hidden rounded-2xl bg-[#000422] sm:h-80">
+                      <img
+                        src={member.image}
+                        alt={member.name}
+                        className="h-full w-full"
+                        style={{
+                          objectFit: member.imageFit || "cover",
+                          objectPosition: member.imagePosition || "center top",
+                          ...member.imageStyle,
+                        }}
+                        decoding="async"
+                      />
+                    </div>
+                    <blockquote className="mb-3 max-w-xl font-serif text-lg italic leading-relaxed text-white/95">{member.quote}</blockquote>
+                    <p className="max-w-xl select-text font-body text-base font-normal leading-relaxed text-white/90">{member.bio}</p>
+                  </div>
+                )}
+              </div>
+            </article>
+          );
+        })}
+      </div>
+
+      <div className="relative hidden lg:block w-full border-y border-white/10 z-20">
         <div className="relative grid grid-cols-1 lg:grid-cols-2 items-start">
           
           {/* ── STICKY PICTURE DISPLAY STAGE (50vw) ────────────────────

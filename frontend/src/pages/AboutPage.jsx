@@ -1,12 +1,25 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { SEO } from "@/components/common/SEO";
-import { workingTogether } from "@/data/workingTogether";
 import { teamMembers } from "@/data/teamData";
 import { webDevelopmentCategory } from "@/data/webDevelopmentData";
 
 const featuredProject = webDevelopmentCategory.caseStudies.find(project => project.id === "web-2");
 const founders = teamMembers.filter(member => ["01", "02"].includes(member.id));
+const projectBenefits = [
+  {
+    title: "Put your budget behind a goal.",
+    description: "More enquiries? A clearer offer? Less manual work? We start with what your business needs to do, then agree on the work, cost, and timeline to match.",
+  },
+  {
+    title: "Make decisions while they matter.",
+    description: "You review the work at agreed checkpoints, so you can question the direction and give feedback before the next stage. You know what you are approving and why.",
+  },
+  {
+    title: "Leave ready to use what you paid for.",
+    description: "A finished project should be useful to your business. Your handover includes the files, access, and guidance agreed in your scope, with any ongoing help priced separately.",
+  },
+];
 const primaryButton = "inline-flex items-center justify-center gap-2 rounded-full bg-[#4100F5] px-6 py-3.5 font-heading text-sm font-semibold text-white transition-colors hover:bg-[#5212FF] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#885FFF]";
 const secondaryButton = "inline-flex items-center justify-center gap-2 rounded-full border border-[#030412]/15 px-6 py-3.5 font-heading text-sm font-semibold text-[#030412] transition-colors hover:bg-[#4100F5]/5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#885FFF]";
 
@@ -93,17 +106,17 @@ export function AboutPage() {
               </article>
             ))}
           </div>
-          <Link to="/#team" className="mt-6 inline-flex items-center gap-2 rounded-md font-heading text-sm font-semibold text-[#4100F5] hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#885FFF]">Meet the rest of the team <ArrowRight aria-hidden="true" className="h-4 w-4" /></Link>
+          <Link to="/team" className={`mt-6 ${secondaryButton}`}>View the Team <ArrowRight aria-hidden="true" className="h-4 w-4" /></Link>
         </section>
 
         <section aria-labelledby="process-heading" className="mb-16 sm:mb-24">
           <div className="mb-8 max-w-2xl">
-            <p className="mb-3 font-heading text-xs font-semibold uppercase tracking-[0.2em] text-[#4100F5]">From conversation to handover</p>
-            <h2 id="process-heading" className="mb-4 font-heading text-3xl font-extrabold tracking-tight sm:text-5xl">Know what happens next.</h2>
-            <p className="font-body text-sm leading-relaxed text-slate-600 sm:text-base">We agree on the work before it starts, make room for your feedback, and define what you receive at the end.</p>
+            <p className="mb-3 font-heading text-xs font-semibold uppercase tracking-[0.2em] text-[#4100F5]">Your investment. A clear purpose.</p>
+            <h2 id="process-heading" className="mb-4 font-heading text-3xl font-extrabold tracking-tight sm:text-5xl">Make every part of the project earn its place.</h2>
+            <p className="font-body text-sm leading-relaxed text-slate-600 sm:text-base">You are putting time and money into your business. You should know what the work is meant to achieve, have a say as it takes shape, and know how to use it when it is done.</p>
           </div>
           <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3">
-            {workingTogether.map((step, index) => (
+            {projectBenefits.map((step, index) => (
               <article key={step.title} className="min-w-0 rounded-2xl border border-black/[0.08] bg-white p-4 last:col-span-2 sm:rounded-3xl sm:p-6 md:last:col-span-1 lg:p-8">
                 <span aria-hidden="true" className="mb-4 inline-flex h-8 w-8 items-center justify-center rounded-xl bg-[#4100F5]/10 font-mono text-xs text-[#4100F5] sm:mb-5 sm:h-10 sm:w-10 sm:text-sm">0{index + 1}</span>
                 <h3 className="mb-2 font-heading text-sm font-bold leading-snug sm:text-lg">{step.title}</h3>

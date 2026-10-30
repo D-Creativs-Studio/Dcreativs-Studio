@@ -17,6 +17,7 @@ const serviceCopy = {
 };
 
 export const seoPages = [
+  { path: "/team", title: "Meet Our Team", description: "Meet the people behind D'Creativs Studio and explore their skills in design, development, AI, content, and marketing.", name: "Team", parent: "/about" },
   { path: "/", title: "Web Development, Branding & Creative Design", description: "D'Creativs Studio is a creative tech agency in Nigeria offering web development, brand identity, UI/UX design, 3D visuals, and AI automation.", name: "Home" },
   { path: "/about", title: "About Our Creative Technology Studio", description: "Meet the people behind D'Creativs Studio, explore a website project, and see how we approach scope, feedback, and handover for your website or brand.", name: "About" },
   { path: "/works", title: "Web Design, Branding & 3D Portfolio", description: "Explore D'Creativs Studio's selected website, branding, UI/UX, motion graphics, 3D, and automation projects. Find inspiration for your next project.", name: "Portfolio" },
