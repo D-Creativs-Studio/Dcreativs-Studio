@@ -37,14 +37,14 @@ export function Contact() {
         ))}
       </div>
 
-      <div className="relative max-w-6xl mx-auto px-4 min-[390px]:px-6 sm:px-10 lg:px-16 z-20">
+      <div className="site-container relative mx-auto px-[var(--page-gutter)] z-20">
         {/* ── Main CTA Card Container ────────────────────────────── */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="relative rounded-3xl sm:rounded-[2.5rem] bg-gradient-to-b from-white/[0.08] via-white/[0.04] to-white/[0.02] border border-white/15 p-8 sm:p-14 lg:p-20 backdrop-blur-2xl shadow-[0_30px_90px_rgba(0,0,0,0.65)] overflow-hidden text-center"
+          className="relative rounded-3xl sm:rounded-[2.5rem] bg-gradient-to-b from-white/[0.08] via-white/[0.04] to-white/[0.02] border border-white/15 p-8 sm:p-14 lg:p-20 backdrop-blur-2xl shadow-[0_30px_90px_rgba(0,0,0,0.65)] overflow-hidden text-left"
         >
           {/* Glowing Top Lip Highlight */}
           <div className="absolute inset-x-12 top-0 h-[1.5px] bg-gradient-to-r from-transparent via-[#885FFF] to-transparent" />
@@ -55,7 +55,7 @@ export function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="font-heading text-3xl min-[375px]:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.08] text-balance max-w-4xl mx-auto mb-6"
+            className="font-heading text-3xl min-[375px]:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.08] text-balance max-w-5xl mb-6"
           >
             Ready to build something{" "}
             <span className="bg-gradient-to-r from-white via-[#C4B5FD] to-[#885FFF] bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(136,95,255,0.4)]">
@@ -69,7 +69,7 @@ export function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.3 }}
-            className="font-body text-slate-300 text-sm sm:text-base md:text-lg lg:text-xl font-light leading-relaxed max-w-2xl mx-auto mb-10 sm:mb-12"
+            className="font-body text-slate-300 text-sm sm:text-base md:text-lg lg:text-xl font-light leading-relaxed max-w-2xl mb-10 sm:mb-12"
           >
             Tell us your idea. We’ll work out the next steps together.
           </motion.p>
@@ -80,7 +80,7 @@ export function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.4 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5"
+            className="flex flex-col items-start sm:flex-row sm:items-center justify-start gap-4 sm:gap-5"
           >
             {/* The "Contact Us" Button -> Navigates to /contact */}
             <Link

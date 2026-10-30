@@ -123,7 +123,7 @@ export function Footer() {
 
       {/* ── Footer content grid section ────────────────────────── */}
       <div className="relative z-20 bg-gradient-to-b from-[#000422] via-[#030626] to-[#000216] pt-12 sm:pt-16 pb-10 px-4 min-[390px]:px-6 sm:px-10 lg:px-16">
-        <div className="mx-auto max-w-7xl">
+        <div className="site-container mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-10">
             {/* Brand Column */}
             <div className="lg:col-span-1">

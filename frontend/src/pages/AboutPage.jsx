@@ -25,11 +25,11 @@ const secondaryButton = "inline-flex items-center justify-center gap-2 rounded-f
 
 export function AboutPage() {
   return (
-    <div className="relative overflow-hidden bg-[#F8F8F6] px-4 pb-16 pt-28 text-[#030412] selection:bg-[#4100F5] selection:text-white sm:px-6 sm:pb-24 sm:pt-36 lg:px-12">
+    <div className="relative overflow-hidden bg-[#F8F8F6] px-[clamp(1rem,4vw,5rem)] pb-16 pt-28 text-[#030412] selection:bg-[#4100F5] selection:text-white sm:pb-24 sm:pt-36">
       <SEO title="About Our Creative Technology Studio" description="Meet D'Creativs Studio, explore a website project, and see how we approach scope, feedback, and handover for your website or brand." />
       <div aria-hidden="true" className="pointer-events-none absolute -right-40 top-16 h-[500px] w-[500px] rounded-full bg-[#885FFF]/[0.08] blur-[120px]" />
 
-      <div className="relative mx-auto max-w-6xl">
+      <div className="site-container relative mx-auto">
         <header className="mb-14 max-w-4xl sm:mb-20">
           <p className="mb-5 font-heading text-xs font-semibold uppercase tracking-[0.22em] text-[#4100F5]">About D’Creativs Studio</p>
           <h1 className="mb-6 text-balance font-heading text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-6xl lg:text-7xl">

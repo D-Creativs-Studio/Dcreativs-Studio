@@ -21,7 +21,7 @@
     radial-gradient(ellipse at 92% 5%, #5522a31a, transparent 38%);
 }
 .contact-layout {
-  width: min(1280px, calc(100% - 112px));
+  width: min(100rem, calc(100% - 2 * var(--page-gutter)));
   margin: auto;
   padding: 144px 0 64px;
   display: grid;

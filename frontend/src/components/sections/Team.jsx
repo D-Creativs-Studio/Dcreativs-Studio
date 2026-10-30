@@ -130,7 +130,7 @@ export function Team() {
         <div className="absolute top-2/3 left-10 w-[450px] h-[450px] bg-[#4100F5]/15 rounded-full blur-[160px]" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 min-[390px]:px-6 sm:px-12 lg:px-20 z-20">
+      <div className="site-container relative mx-auto px-[var(--page-gutter)] z-20">
         {/* ── Section Title & Editorial Intro ──────────────────────── */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-10 sm:mb-16 gap-6">
           <div>

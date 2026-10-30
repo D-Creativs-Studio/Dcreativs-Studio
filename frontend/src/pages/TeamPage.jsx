@@ -8,7 +8,7 @@ export function TeamPage() {
     <div className="relative overflow-hidden bg-[#F8F8F6] px-4 pb-16 pt-28 text-[#030412] selection:bg-[#4100F5] selection:text-white sm:px-6 sm:pb-24 sm:pt-36 lg:px-12">
       <SEO title="Meet Our Team" description="Meet the people behind D'Creativs Studio and explore their skills in design, development, AI, content, and marketing." />
       <div aria-hidden="true" className="pointer-events-none absolute -right-40 top-16 h-[500px] w-[500px] rounded-full bg-[#885FFF]/[0.08] blur-[120px]" />
-      <div className="relative mx-auto max-w-6xl">
+      <div className="site-container relative mx-auto">
         <header className="mb-12 max-w-3xl sm:mb-16">
           <Link to="/about" className="mb-8 inline-flex items-center gap-2 rounded-md font-heading text-sm font-semibold text-[#4100F5] hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#885FFF]">
             <ArrowLeft aria-hidden="true" className="h-4 w-4" /> About the studio
@@ -18,16 +18,16 @@ export function TeamPage() {
           <p className="max-w-2xl font-body text-base leading-relaxed text-slate-600 sm:text-xl">Designers, developers, and strategists working together to help your business communicate clearly and build useful digital experiences.</p>
         </header>
 
-        <section aria-label="Our team members" className="grid gap-6 md:grid-cols-2">
+        <section aria-label="Our team members" className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,19rem),1fr))] gap-[clamp(1rem,2vw,1.5rem)]">
           {teamMembers.map(member => (
             <article key={member.id} className="overflow-hidden rounded-3xl border border-black/[0.08] bg-white">
               <div className="relative overflow-hidden bg-[#F0EDF8]">
                 <img src={member.image} alt={member.name} loading="lazy" decoding="async" width="640" height="560" style={{ objectPosition: member.imagePosition || "center top" }} className="aspect-[8/7] w-full object-cover" />
                 <span aria-hidden="true" className="absolute left-5 top-5 rounded-full bg-white/90 px-3 py-1.5 font-mono text-xs text-[#4100F5]">{member.id}</span>
               </div>
-              <div className="p-6 sm:p-8">
+              <div className="p-6 [container-type:inline-size] sm:p-8">
                 <p className="mb-3 font-heading text-xs font-semibold uppercase tracking-widest text-[#4100F5]">{member.discipline}</p>
-                <h2 className="break-words font-heading text-2xl font-extrabold tracking-tight sm:text-3xl">{member.name}</h2>
+                <h2 className="break-normal font-heading text-[clamp(1rem,8cqw,1.875rem)] font-extrabold tracking-tight">{member.name}</h2>
                 <p className="mt-2 font-heading text-sm font-semibold text-[#4100F5]">{member.role}</p>
                 <p className="mt-5 font-body text-sm leading-relaxed text-slate-600">{member.bio}</p>
                 <ul aria-label={`${member.firstName}'s skills`} className="mt-6 flex flex-wrap gap-2">

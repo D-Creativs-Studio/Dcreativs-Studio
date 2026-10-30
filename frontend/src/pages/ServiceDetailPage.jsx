@@ -45,7 +45,7 @@ export function ServiceDetailPage() {
       <div className="absolute top-20 left-10 w-[600px] h-[600px] bg-[#4100F5]/[0.06] rounded-full blur-[180px] pointer-events-none z-0" />
       <div className="absolute top-1/2 right-10 w-[500px] h-[500px] bg-[#885FFF]/[0.05] rounded-full blur-[160px] pointer-events-none z-0" />
 
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="site-container mx-auto relative z-10">
         {/* Top Bar */}
         <div className="mb-8 flex items-center justify-end border-b border-black/[0.08] pb-4 sm:pb-6">
           <span className="text-xs font-heading font-semibold tracking-widest text-slate-500 uppercase">

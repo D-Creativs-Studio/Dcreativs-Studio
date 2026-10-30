@@ -41,7 +41,7 @@ export function FAQ() {
     >
       <div aria-hidden="true" className="pointer-events-none absolute -left-40 top-0 h-96 w-96 rounded-full bg-[#4100F5]/10 blur-[100px]" />
 
-      <div className="relative mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
+      <div className="site-container relative mx-auto grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
         <div>
           <p className="mb-4 font-heading text-xs font-semibold uppercase tracking-[0.25em] text-[#A78BFA]">
             A few things to know

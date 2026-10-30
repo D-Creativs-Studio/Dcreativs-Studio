@@ -30,7 +30,7 @@ export function ProjectDetailPage() {
         description={project.description}
         image={project.image.startsWith("http") ? project.image : `https://dcreativs.com${project.image}`}
       />
-      <div className="max-w-6xl mx-auto">
+      <div className="site-container mx-auto">
         <Link to={`/works/${category.slug}#case-studies`} className="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-[#4100F5] mb-10">
           <ArrowLeft className="w-4 h-4" />Back to {category.name}
         </Link>

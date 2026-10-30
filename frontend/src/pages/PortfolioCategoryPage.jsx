@@ -57,7 +57,7 @@ export function PortfolioCategoryPage() {
       <div className="absolute top-1/2 right-10 w-[500px] h-[500px] bg-[#885FFF]/[0.05] rounded-full blur-[160px] pointer-events-none z-0" />
       <div className="absolute bottom-10 left-10 w-[400px] h-[400px] bg-[#4100F5]/[0.04] rounded-full blur-[140px] pointer-events-none z-0" />
 
-      <div className="max-w-7xl mx-auto relative z-20">
+      <div className="site-container mx-auto relative z-20">
         {/* ── Top Navigation Bar ────────────────────────────────── */}
         <div className="mb-6 sm:mb-10 flex flex-wrap items-center justify-between gap-4 border-b border-black/[0.08] pb-4 sm:pb-6">
           <Link

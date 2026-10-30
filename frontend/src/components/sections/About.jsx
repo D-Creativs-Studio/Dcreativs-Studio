@@ -54,7 +54,7 @@ export function About() {
       <div className="absolute -bottom-32 -left-32 w-[500px] h-[500px] bg-[#4100F5]/08 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#885FFF]/06 rounded-full blur-[100px] pointer-events-none" />
 
-      <div className="relative z-10 container mx-auto px-4 min-[390px]:px-6 sm:px-10 max-w-6xl">
+      <div className="site-container relative z-10 mx-auto px-[var(--page-gutter)]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
 
           {/* ── Left Column: Text ── */}

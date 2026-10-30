@@ -423,7 +423,7 @@ export function ComingSoonPage({ onUnlockPreview }) {
 
       {/* Fixed Top Editorial Bar */}
       <header className="fixed top-0 left-0 right-0 z-40 w-full bg-transparent transition-all pointer-events-auto">
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-3.5 sm:py-5 flex items-center justify-between gap-3">
+        <div className="site-container mx-auto px-4 sm:px-6 py-3.5 sm:py-5 flex items-center justify-between gap-3">
           <div className="flex flex-col min-w-0">
             <span className="font-heading font-extrabold text-base min-[390px]:text-lg sm:text-2xl tracking-tight text-white drop-shadow-md whitespace-nowrap">
               D&apos;CREATIVS STUDIO
@@ -566,7 +566,7 @@ export function ComingSoonPage({ onUnlockPreview }) {
       </motion.div>
 
       {/* Footer Bar */}
-      <footer className="relative z-10 w-full max-w-7xl mx-auto px-6 py-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-300">
+      <footer className="relative z-10 site-container mx-auto px-6 py-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-300">
         <div className="flex flex-col gap-1 text-center sm:text-left">
           <span>&copy; {new Date().getFullYear()} D&apos;Creativs Technologies. All rights reserved.</span>
           <span className="text-[10px] text-zinc-400">

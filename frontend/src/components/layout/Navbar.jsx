@@ -277,7 +277,7 @@ export function Navbar() {
               href={item.name === "Home" ? "/" : `/${item.href}`}
               onClick={(e) => handleNavClick(e, item)}
               aria-current={isActive ? (isSubPage ? "page" : "location") : undefined}
-              className={`${item.desktopOnly ? "hidden lg:flex" : "flex"} relative z-10 items-center justify-center px-1.5 min-[360px]:px-2 min-[390px]:px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 text-[10.5px] min-[360px]:text-[11px] min-[390px]:text-xs sm:text-sm md:text-sm font-semibold font-heading leading-none rounded-full transition-colors duration-200 whitespace-nowrap cursor-pointer select-none ${
+              className={`${item.desktopOnly ? "hidden lg:flex" : "flex"} relative z-10 items-center justify-center px-[clamp(0.375rem,2vw,1.25rem)] py-1.5 sm:py-2 text-[clamp(0.65625rem,1.2vw,0.875rem)] font-semibold font-heading leading-none rounded-full transition-colors duration-200 whitespace-nowrap cursor-pointer select-none ${
                 lightNav
                   ? isActive
                     ? "text-white"

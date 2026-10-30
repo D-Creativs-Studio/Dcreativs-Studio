@@ -18,8 +18,8 @@ export function HomePage() {
       <BackgroundPaths 
         title={
           <span className="flex flex-col items-center justify-center gap-1 sm:gap-2">
-            <span className="text-3xl min-[360px]:text-[2.1rem] min-[390px]:text-5xl sm:text-6xl md:text-7xl font-bold text-white/95">Built To Be</span>
-            <span className="text-[2.75rem] min-[360px]:text-[3.25rem] min-[390px]:text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] font-extrabold text-white drop-shadow-[0_0_35px_rgba(255,255,255,0.2)] leading-[1.02]">Noticed.</span>
+            <span className="text-[clamp(1.875rem,6vw,4.5rem)] font-bold text-white/95">Built To Be</span>
+            <span className="text-[clamp(2.75rem,12vw,10rem)] font-extrabold text-white drop-shadow-[0_0_35px_rgba(255,255,255,0.2)] leading-[1.02]">Noticed.</span>
           </span>
         }
         subtitle="We build business websites that explain your offer and make it easy for customers to enquire. Brand identity and automation services are available too."

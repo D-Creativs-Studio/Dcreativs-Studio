@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
+:root {
+  --page-gutter: clamp(1rem, 4vw, 5rem);
+}
+
+/* Shared content width; text blocks retain their own reading widths. */
+.site-container {
+  width: 100%;
+  max-width: 100rem;
+  min-width: 0;
+}
+
 /* CSS Custom Properties & Tailwind v4 Theme Tokens */
 :root {
   --color-navy: #000422;
@@ -173,6 +184,60 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
+}
+
+.testimonials-marquee {
+  overflow: hidden;
+  --marquee-fade: clamp(1.5rem, 6vw, 7rem);
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black var(--marquee-fade),
+    black calc(100% - var(--marquee-fade)),
+    transparent
+  );
+}
+
+.testimonials-marquee:focus-visible {
+  outline: 2px solid #c4b5fd;
+  outline-offset: 6px;
+}
+
+.testimonials-track {
+  display: flex;
+  width: max-content;
+  animation: marquee var(--testimonials-duration, 80s) linear infinite;
+}
+
+.testimonials-group {
+  display: flex;
+  align-items: stretch;
+  gap: 1rem;
+  padding-right: 1rem;
+}
+
+.testimonials-card {
+  width: clamp(17rem, 30vw, 23rem);
+  flex-shrink: 0;
+}
+
+.testimonials-marquee:hover .testimonials-track,
+.testimonials-marquee:focus-within .testimonials-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .testimonials-marquee {
+    overflow-x: auto;
+  }
+
+  .testimonials-track {
+    animation: none;
+  }
+
+  .testimonials-group[aria-hidden='true'] {
+    display: none;
+  }
 }
 
 /* ── Container ─────────────────────────────────────────────────── */
