@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, Quote } from 'lucide-react';
+import { ArrowUpRight, Pause, Play, Quote } from 'lucide-react';
 import { testimonials, sampleTestimonials } from '@/data/testimonialsData';
 
 export function Testimonials() {
+  const [isPaused, setIsPaused] = useState(false);
   const isPreview = testimonials.length === 0;
   const entries = isPreview ? (import.meta.env.DEV ? sampleTestimonials : []) : testimonials;
   if (!entries.length) return null;
@@ -18,14 +20,19 @@ export function Testimonials() {
             <h2 id="testimonials-heading" className="text-balance font-heading text-3xl font-extrabold leading-[1.15] tracking-tight sm:text-5xl">The experience,<br /><span className="text-[#C4B5FD]">in their words.</span></h2>
             {isPreview && <p className="mt-4 font-body text-sm leading-relaxed text-slate-400">Fictional names and quotes shown for design preview only.</p>}
           </div>
-          <Link to="/works" className="inline-flex w-fit items-center gap-2 rounded-md font-heading text-sm font-semibold text-[#C4B5FD] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C4B5FD]">Explore our projects <ArrowUpRight aria-hidden="true" className="h-4 w-4" /></Link>
+          <div className="flex flex-wrap items-center gap-5">
+            <Link to="/works" className="inline-flex w-fit items-center gap-2 rounded-md font-heading text-sm font-semibold text-[#C4B5FD] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C4B5FD]">Explore our projects <ArrowUpRight aria-hidden="true" className="h-4 w-4" /></Link>
+            <button type="button" onClick={() => setIsPaused(paused => !paused)} aria-pressed={isPaused} aria-label="Pause testimonial scrolling" className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-[#C4B5FD] transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C4B5FD]">
+              {isPaused ? <Play aria-hidden="true" className="h-4 w-4" /> : <Pause aria-hidden="true" className="h-4 w-4" />}
+            </button>
+          </div>
         </div>
 
         </div>
       </div>
 
-        <div className="testimonials-marquee relative" tabIndex={0} role="region" aria-label="Testimonials. Focus or hover to pause scrolling.">
-          <div className="testimonials-track" style={{ '--testimonials-duration': `${entries.length * 8}s` }}>
+        <div className="testimonials-marquee relative" role="region" aria-label="Testimonials" data-paused={isPaused}>
+          <div className="testimonials-track" style={{ '--testimonials-duration': `${entries.length * 12}s` }}>
           {[0, 1].map(copy => (
           <div key={copy} className="testimonials-group" aria-hidden={copy === 1 ? true : undefined}>
           {entries.map((entry, index) => (

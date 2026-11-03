@@ -238,8 +238,8 @@ const DefaultLogo = ({ name }) => (
 export function ToolsStackMarquee({ tools = [] }) {
   if (!tools || tools.length === 0) return null;
 
-  // Duplicate tools array for seamless infinite marquee loop
-  const marqueeItems = [...tools, ...tools, ...tools, ...tools];
+  // Each of the two identical groups is long enough to fill the viewport.
+  const marqueeItems = Array.from({ length: Math.max(2, Math.ceil(12 / tools.length)) }, () => tools).flat();
 
   return (
     <div className="relative my-16 sm:my-24 w-screen left-1/2 -translate-x-1/2 overflow-hidden select-none">
@@ -252,7 +252,9 @@ export function ToolsStackMarquee({ tools = [] }) {
         <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 sm:w-32 md:w-48 bg-gradient-to-l from-[#F8F8F6] to-transparent z-20" />
 
         {/* ── Continuous Infinite Monochrome Logo Marquee ── */}
-        <div className="flex w-max items-center animate-marquee gap-10 sm:gap-16 hover:[animation-play-state:paused]">
+        <div className="animate-marquee [--marquee-gap:2.5rem] sm:[--marquee-gap:4rem]">
+          {[0, 1].map(copy => (
+          <div key={copy} className="marquee-group" aria-hidden={copy === 1 ? true : undefined}>
           {marqueeItems.map((toolName, index) => {
             const LogoComponent = TOOL_LOGOS[toolName] || (() => <DefaultLogo name={toolName} />);
 
@@ -271,6 +273,8 @@ export function ToolsStackMarquee({ tools = [] }) {
               </div>
             );
           })}
+          </div>
+          ))}
         </div>
       </div>
     </div>

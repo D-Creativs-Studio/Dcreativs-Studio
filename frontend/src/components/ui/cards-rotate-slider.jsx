@@ -352,7 +352,7 @@ export default function CardsRotateSlider({
       >
         <div
           ref={trackRef}
-          className="relative z-10 flex h-full items-center will-change-transform gap-[5vw] max-[1025px]:gap-[6vw] max-md:gap-[8vw] pl-[30vw] pr-[30vw] max-[1025px]:pl-[20vw] max-[1025px]:pr-[20vw] max-md:pl-[7vw] max-md:pr-[7vw]"
+          className="pointer-events-none relative z-10 flex h-full items-center will-change-transform gap-[5vw] max-[1025px]:gap-[6vw] max-md:gap-[8vw] pl-[30vw] pr-[30vw] max-[1025px]:pl-[20vw] max-[1025px]:pr-[20vw] max-md:pl-[7vw] max-md:pr-[7vw]"
           style={{ transformStyle: "preserve-3d" }}
         >
           {images.map((img, index) => (
@@ -361,7 +361,7 @@ export default function CardsRotateSlider({
               ref={(element) => {
                 wrappersRef.current[index] = element;
               }}
-              className="relative flex h-[50vh] w-[40vw] shrink-0 items-center justify-center max-[1025px]:h-[46vh] max-[1025px]:w-[58vw] max-md:h-[60vh] max-md:w-[86vw] max-[1025px]:[&>div]:h-[46vh] max-[1025px]:[&>div]:w-[58vw] max-md:[&>div]:h-[60vh] max-md:[&>div]:w-[86vw]"
+              className="pointer-events-none relative flex h-[50vh] w-[40vw] shrink-0 items-center justify-center max-[1025px]:h-[46vh] max-[1025px]:w-[58vw] max-md:h-[60vh] max-md:w-[86vw]"
               style={{ transformStyle: "preserve-3d" }}
             >
               <RotationCard
@@ -392,16 +392,17 @@ const RotationCard = forwardRef(({ src, index, total, text, subtitle, tags, slug
       ref={ref}
       to={slug ? `/services/${slug}` : "#services"}
       draggable={false}
-      className="absolute h-[50vh] w-[40vw] origin-right overflow-hidden rounded-3xl border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.8)] max-md:h-[60vh] max-md:w-[86vw] group bg-[#0A0C22] cursor-pointer hover:border-[#885FFF]/70 hover:shadow-[0_20px_50px_rgba(136,95,255,0.3)] will-change-transform transform-gpu"
+      className="pointer-events-auto absolute inset-0 h-full w-full origin-right overflow-hidden rounded-3xl border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.8)] group bg-[#0A0C22] cursor-pointer hover:border-[#885FFF]/70 hover:shadow-[0_20px_50px_rgba(136,95,255,0.3)] will-change-transform transform-gpu"
       style={{
-        transformStyle: "preserve-3d",
+        // Flatten decorative layers onto the link so its painted and clickable surfaces match.
+        transformStyle: "flat",
         backfaceVisibility: "hidden",
         WebkitBackfaceVisibility: "hidden",
         zIndex: total - index,
         transition: "border-color 0.3s ease, box-shadow 0.3s ease",
       }}
     >
-      <div className="relative h-full w-full" style={{ transformStyle: "preserve-3d" }}>
+      <div className="pointer-events-none relative h-full w-full">
         <img
           src={src}
           alt={text || "slide"}
@@ -415,7 +416,7 @@ const RotationCard = forwardRef(({ src, index, total, text, subtitle, tags, slug
       </div>
 
       {showCaptions && (
-        <div className="absolute inset-0 z-10 flex flex-col justify-end p-4 sm:p-6 md:p-8">
+        <div className="pointer-events-none absolute inset-0 z-10 flex flex-col justify-end p-4 sm:p-6 md:p-8">
           <div className="mb-2 flex items-center justify-between">
             <span className="font-heading text-xs font-semibold tracking-widest text-[#885FFF] uppercase">
               0{index + 1} / 0{total}

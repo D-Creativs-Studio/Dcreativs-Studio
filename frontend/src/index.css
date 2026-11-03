@@ -148,25 +148,27 @@ body {
 /* ── Marquee Keyframes ───────────────────────────────────────────── */
 
 @keyframes marquee {
-  0%   { transform: translateX(0%); }
-  100% { transform: translateX(-50%); }
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
 }
 
 @keyframes marquee-reverse {
-  0%   { transform: translateX(-50%); }
-  100% { transform: translateX(0%); }
+  0%   { transform: translate3d(-50%, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
 }
 
 .animate-marquee {
   display: flex;
   width: max-content;
-  animation: marquee 32s linear infinite;
+  will-change: transform;
+  animation: marquee 40s linear infinite;
 }
 
 .animate-marquee-reverse {
   display: flex;
   width: max-content;
-  animation: marquee-reverse 34s linear infinite;
+  will-change: transform;
+  animation: marquee-reverse 42s linear infinite;
 }
 
 .animate-marquee:hover,
@@ -189,31 +191,47 @@ body {
 .testimonials-marquee {
   overflow: hidden;
   --marquee-fade: clamp(1.5rem, 6vw, 7rem);
-  mask-image: linear-gradient(
-    to right,
-    transparent,
-    black var(--marquee-fade),
-    black calc(100% - var(--marquee-fade)),
-    transparent
-  );
 }
 
-.testimonials-marquee:focus-visible {
-  outline: 2px solid #c4b5fd;
-  outline-offset: 6px;
+.testimonials-marquee::before,
+.testimonials-marquee::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: var(--marquee-fade);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.testimonials-marquee::before {
+  left: 0;
+  background: linear-gradient(to right, #000422, transparent);
+}
+
+.testimonials-marquee::after {
+  right: 0;
+  background: linear-gradient(to left, #000422, transparent);
 }
 
 .testimonials-track {
   display: flex;
   width: max-content;
-  animation: marquee var(--testimonials-duration, 80s) linear infinite;
 }
 
 .testimonials-group {
+  flex-shrink: 0;
   display: flex;
   align-items: stretch;
   gap: 1rem;
   padding-right: 1rem;
+  will-change: transform;
+  animation: testimonials-scroll var(--testimonials-duration, 120s) linear infinite;
+}
+
+@keyframes testimonials-scroll {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-100%, 0, 0); }
 }
 
 .testimonials-card {
@@ -221,8 +239,7 @@ body {
   flex-shrink: 0;
 }
 
-.testimonials-marquee:hover .testimonials-track,
-.testimonials-marquee:focus-within .testimonials-track {
+.testimonials-marquee[data-paused='true'] .testimonials-group {
   animation-play-state: paused;
 }
 
@@ -231,8 +248,14 @@ body {
     overflow-x: auto;
   }
 
-  .testimonials-track {
+  .testimonials-group {
     animation: none;
+    will-change: auto;
+  }
+
+  .testimonials-marquee::before,
+  .testimonials-marquee::after {
+    display: none;
   }
 
   .testimonials-group[aria-hidden='true'] {
@@ -355,7 +378,7 @@ body {
   position: absolute;
   bottom: -2020px;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate3d(-50%, 0, 0);
   width: 2500px;
   height: 2500px;
   border-radius: 50%;
@@ -498,20 +521,9 @@ body {
 }
 
 /* ── Seamless Marquee Animation ──────────────────────────── */
-@keyframes marquee {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
 
-.animate-marquee {
-  display: flex;
-  width: max-content;
-  animation: marquee 35s linear infinite;
-}
+
+
 
 /* ── Hide Scrollbar Utility ──────────────────────────────── */
 .no-scrollbar::-webkit-scrollbar {
@@ -524,3 +536,20 @@ body {
 }
 
 
+
+/* Equal groups include their trailing gap, so -50% lands on an exact repeat. */
+.marquee-group {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--marquee-gap, 1.5rem);
+  padding-right: var(--marquee-gap, 1.5rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-marquee-reverse {
+    animation: none;
+    will-change: auto;
+  }
+}

@@ -22,7 +22,7 @@ export function HomePage() {
             <span className="text-[clamp(2.75rem,12vw,10rem)] font-extrabold text-white drop-shadow-[0_0_35px_rgba(255,255,255,0.2)] leading-[1.02]">Noticed.</span>
           </span>
         }
-        subtitle="We build business websites that explain your offer and make it easy for customers to enquire. Brand identity and automation services are available too."
+        subtitle="Websites that turn visitors into enquiries. Branding and automation to support your business."
       />
       <About />
       <Services />

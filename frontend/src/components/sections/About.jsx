@@ -170,22 +170,23 @@ export function About() {
               {/* Pill tags */}
               <div className="about-process-tags relative z-10 flex flex-wrap gap-1.5 min-[390px]:gap-2">
                 {[
-                  "Brand Identity",
-                  "Web Development",
-                  "UI / UX Design",
-                  "Motion & 3D",
-                  "Content Strategy",
-                  "Digital Products",
-                ].map((tag) => (
-                  <span
-                    key={tag}
+                  { label: "Brand Identity", slug: "brand-design" },
+                  { label: "Web Development", slug: "web-app-development" },
+                  { label: "UI / UX Design", slug: "web-app-development" },
+                  { label: "Motion & 3D", slug: "3d-visual-fx" },
+                  { label: "Content Strategy", slug: "social-marketing" },
+                  { label: "Digital Products", slug: "web-app-development" },
+                ].map(({ label, slug }) => (
+                  <Link
+                    key={label}
+                    to={`/services/${slug}`}
                     className="px-2.5 min-[390px]:px-3 py-1 sm:py-1.5 rounded-full text-[11px] min-[390px]:text-xs font-heading font-medium
                       bg-white border border-[#030412]/10 text-slate-600
                       hover:bg-[#4100F5] hover:border-[#4100F5] hover:text-white
-                      transition-all duration-200 cursor-default shadow-sm"
+                      transition-all duration-200 cursor-pointer shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4100F5]"
                   >
-                    {tag}
-                  </span>
+                    {label}
+                  </Link>
                 ))}
               </div>
             </motion.div>

@@ -403,49 +403,22 @@ export function Team() {
 
       {/* ── Crossing Marquee Capability Tapes (100% Full Bleed Edge-to-Edge, Zero Margins) ── */}
       <div className="relative w-full mt-20 sm:mt-28 py-6 sm:py-8 overflow-hidden select-none pointer-events-none z-20">
-        {/* Tape 1: Slanted Right (Brand Purple #4100F5) */}
-        <div className="rotate-[-2deg] w-[120vw] -ml-[10vw] bg-[#4100F5] text-white py-3 sm:py-4 shadow-2xl transform origin-center">
-          <div className="flex items-center gap-6 whitespace-nowrap animate-marquee font-heading font-black text-xs sm:text-base md:text-lg tracking-wider uppercase">
-            <span>★ SYSTEM ARCHITECTURE</span>
-            <span>•</span>
-            <span>WEBGL 3D & GLSL SHADERS</span>
-            <span>•</span>
-            <span>BRAND IDENTITY DESIGN</span>
-            <span>•</span>
-            <span>NEXT.JS & DISTRIBUTED APIS</span>
-            <span>•</span>
-            <span>CGI CINEMATIC MOTION</span>
-            <span>•</span>
-            <span>GENERATIVE AI AGENTS</span>
-            <span>★ SYSTEM ARCHITECTURE</span>
-            <span>•</span>
-            <span>WEBGL 3D & GLSL SHADERS</span>
-            <span>•</span>
-            <span>BRAND IDENTITY DESIGN</span>
-            <span>•</span>
-            <span>NEXT.JS & DISTRIBUTED APIS</span>
+        {[
+          { direction: 'animate-marquee', tape: 'rotate-[-2deg] bg-[#4100F5]', items: ['SYSTEM ARCHITECTURE', 'WEBGL 3D & GLSL SHADERS', 'BRAND IDENTITY DESIGN', 'NEXT.JS & DISTRIBUTED APIS', 'CGI CINEMATIC MOTION', 'GENERATIVE AI AGENTS'] },
+          { direction: 'animate-marquee-reverse', tape: 'rotate-[2deg] -mt-4 sm:-mt-6 bg-[#885FFF]', items: ['DIGITAL PRODUCT DESIGN', 'INTERACTION PROTOTYPING', 'DESIGN TOKENS & SYSTEMS', 'THOUGHTFULLY CRAFTED INTERFACES', 'HIGH-PERFORMANCE FRONTENDS'] },
+        ].map(({ direction, tape, items }) => (
+          <div key={direction} className={`${tape} w-[120vw] -ml-[10vw] text-white py-3 sm:py-4 shadow-2xl origin-center`}>
+            <div className={`${direction} whitespace-nowrap font-heading font-black text-xs sm:text-base md:text-lg tracking-wider uppercase`}>
+              {[0, 1].map(copy => (
+                <div key={copy} className="marquee-group" aria-hidden={copy === 1 ? true : undefined}>
+                  {items.map(item => (
+                    <span key={item} className="flex shrink-0 items-center gap-6"><span>{item}</span><span aria-hidden="true">&#10022;</span></span>
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-
-        {/* Tape 2: Slanted Opposite (Brand Lilac #885FFF) */}
-        <div className="rotate-[2deg] w-[120vw] -ml-[10vw] -mt-4 sm:-mt-6 bg-[#885FFF] text-white py-3 sm:py-4 shadow-2xl transform origin-center">
-          <div className="flex items-center gap-6 whitespace-nowrap animate-marquee-reverse font-heading font-black text-xs sm:text-base md:text-lg tracking-wider uppercase">
-            <span>✦ DIGITAL PRODUCT DESIGN</span>
-            <span>—</span>
-            <span>INTERACTION PROTOTYPING</span>
-            <span>—</span>
-            <span>DESIGN TOKENS & SYSTEMS</span>
-            <span>—</span>
-            <span>THOUGHTFULLY CRAFTED INTERFACES</span>
-            <span>—</span>
-            <span>HIGH-PERFORMANCE FRONTENDS</span>
-            <span>✦ DIGITAL PRODUCT DESIGN</span>
-            <span>—</span>
-            <span>INTERACTION PROTOTYPING</span>
-            <span>—</span>
-            <span>DESIGN TOKENS & SYSTEMS</span>
-          </div>
-        </div>
+        ))}
       </div>
 
     </section>

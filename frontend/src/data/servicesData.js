@@ -1,3 +1,5 @@
+import { portfolioCategories } from './portfolioData.js';
+
 export const servicesData = [
   {
     slug: 'brand-design',
@@ -358,7 +360,10 @@ export const servicesData = [
       },
     ],
   },
-];
+].map(service => ({
+  ...service,
+  src: portfolioCategories.find(category => category.serviceSlug === service.slug)?.image || service.src,
+}));
 
 export function getServiceBySlug(slug) {
   return servicesData.find((s) => s.slug === slug);

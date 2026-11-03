@@ -1,4 +1,5 @@
 import { Suspense, useRef } from "react";
+import { useInView } from "framer-motion";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useGLTF, Float, Center } from "@react-three/drei";
 import * as THREE from "three";
@@ -42,9 +43,12 @@ function Model({ scale = 4.2 }) {
 }
 
 export function LogoModelBackground({ className = "opacity-75", scale = 4.2 }) {
+  const containerRef = useRef(null);
+  const isInView = useInView(containerRef);
   return (
-    <div className={`absolute inset-0 pointer-events-none z-0 overflow-hidden ${className}`}>
+    <div ref={containerRef} className={`absolute inset-0 pointer-events-none z-0 overflow-hidden ${className}`}>
       <Canvas
+        frameloop={isInView ? "always" : "never"}
         camera={{ position: [0, 0, 6], fov: 45 }}
         gl={{ alpha: true, antialias: true }}
       >
