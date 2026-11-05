@@ -4,6 +4,9 @@ export const servicesData = [
   {
     slug: 'brand-design',
     src: 'https://images.unsplash.com/photo-1600132806370-bf17e65e942f?auto=format&fit=crop&w=800&q=75',
+    // Designer working on a logo in a design app on a laptop (Unsplash, free licence:
+    // https://unsplash.com/photos/person-designing-on-a-laptop-computer-screen--7oi_5uJPC4)
+    cardImage: '/services/brand-design-logo.webp',
     text: 'Brand & Design',
     subtitle:
       "We don't just make logos. We build brand systems — identity, guidelines, visuals that hold up whether you're printing a card or launching a campaign.",
@@ -67,6 +70,10 @@ export const servicesData = [
   {
     slug: 'web-app-development',
     src: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=75',
+    // Over-the-shoulder developer at a laptop; split screen (code | live preview) composited
+    // onto the display. Base photo: Unsplash, free licence:
+    // https://unsplash.com/photos/a-man-sitting-in-front-of-a-laptop-computer-vWJtYRfE_rw
+    cardImage: '/services/web-development-split.webp',
     text: 'Web & App Development',
     subtitle:
       'From landing pages to full platforms — built fast, built to scale.',
@@ -125,8 +132,66 @@ export const servicesData = [
     ],
   },
   {
+    slug: 'ui-ux-design',
+    src: '/services/ui-ux-design.webp',
+    // App screens laid out in a design tool on a desk (Unsplash, free licence:
+    // https://unsplash.com/photos/silver-imac-on-brown-wooden-table-xihqiK6rD9k)
+    cardImage: '/services/ui-ux-design.webp',
+    text: 'UI/UX Design',
+    subtitle:
+      'Interfaces people understand at a glance — researched, prototyped and tested before a line of code is written.',
+    tags: ['User Research', 'Wireframes', 'Prototyping', 'Design Systems'],
+    heroTitle: 'Interfaces That Feel Effortless to Use.',
+    overview:
+      "Great products feel obvious to the people using them. We map how your users think, structure every screen around the tasks that matter, and craft polished, accessible interfaces backed by interactive prototypes — so your team builds the right thing, once.",
+    deliverables: [
+      {
+        title: 'User Research & Journey Maps',
+        desc: 'Stakeholder interviews, user personas, competitor reviews and journey maps that reveal where people struggle and what they need.',
+      },
+      {
+        title: 'Wireframes & Information Architecture',
+        desc: 'Site maps, user flows and low-fidelity wireframes that organise content and features before visual design begins.',
+      },
+      {
+        title: 'High-Fidelity UI & Interactive Prototypes',
+        desc: 'Pixel-perfect screens for web and mobile, linked into clickable prototypes you can test with real users and share with stakeholders.',
+      },
+      {
+        title: 'Design System & Developer Handoff',
+        desc: 'Reusable components, design tokens and annotated specs that keep the product consistent and make development fast.',
+      },
+    ],
+    tools: ['Figma', 'FigJam', 'ProtoPie', 'Maze', 'Notion'],
+    process: [
+      {
+        step: '01',
+        title: 'Discover & Research',
+        desc: 'Understanding your goals, users and constraints through interviews, audits and analytics.',
+      },
+      {
+        step: '02',
+        title: 'Structure & Wireframe',
+        desc: 'Mapping user flows and information architecture, then sketching key screens in low fidelity.',
+      },
+      {
+        step: '03',
+        title: 'Design & Prototype',
+        desc: 'Crafting high-fidelity interfaces and interactive prototypes that bring the experience to life.',
+      },
+      {
+        step: '04',
+        title: 'Test, Refine & Handoff',
+        desc: 'Validating with real users, iterating on feedback and delivering a documented design system.',
+      },
+    ],
+  },
+  {
     slug: 'motion-video',
     src: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=800&q=75',
+    // Close view of a laptop on a table mid video-edit (Unsplash, free licence:
+    // https://unsplash.com/photos/a-man-sitting-at-a-table-using-a-laptop-computer-fB_kHwH6Sf0)
+    cardImage: '/services/motion-video-editing.webp',
     text: 'Motion & Video',
     subtitle:
       'Content that moves. Reels, ads, product videos, motion graphics.',
@@ -242,6 +307,9 @@ export const servicesData = [
   {
     slug: 'social-marketing',
     src: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=800&q=75',
+    // Laptop on a table showing a social media page, phone in hand (Unsplash, free licence:
+    // https://unsplash.com/photos/person-using-both-laptop-and-smartphone-tLZhFRLj6nY)
+    cardImage: '/services/social-marketing-laptop.webp',
     text: 'Social & Marketing',
     subtitle: 'Built to be seen, not just posted.',
     tags: ['Content Strategy', 'Social Management', 'Ad Campaigns'],
@@ -299,6 +367,8 @@ export const servicesData = [
   {
     slug: 'ai-automations',
     src: 'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?auto=format&fit=crop&w=800&q=75',
+    // n8n-style AI agent workflow, used as the service card image
+    cardImage: '/services/ai-automation-workflow.webp',
     text: 'AI & Automations',
     subtitle: 'Smarter workflows. Less manual work. More scale.',
     tags: [
@@ -362,7 +432,8 @@ export const servicesData = [
   },
 ].map(service => ({
   ...service,
-  src: portfolioCategories.find(category => category.serviceSlug === service.slug)?.image || service.src,
+  // A service's own cardImage wins; otherwise reuse its portfolio category cover
+  src: service.cardImage || portfolioCategories.find(category => category.serviceSlug === service.slug)?.image || service.src,
 }));
 
 export function getServiceBySlug(slug) {

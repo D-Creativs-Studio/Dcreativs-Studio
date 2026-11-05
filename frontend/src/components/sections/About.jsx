@@ -1,8 +1,12 @@
 import { useLayoutEffect, useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { ClipboardList, Eye, PackageCheck } from "lucide-react";
 import { workingTogether } from "@/data/workingTogether";
 import "./about-section.css";
+
+// One icon per step (same order as workingTogether)
+const stepIcons = [ClipboardList, Eye, PackageCheck];
 
 const slideInLeft = {
   hidden: { opacity: 0, x: -50 },
@@ -158,7 +162,14 @@ export function About() {
                     custom={i + 2}
                     className="flex items-start gap-4"
                   >
-                    <span aria-hidden="true" className="mt-0.5 font-mono text-xs text-[#4100F5]">0{i + 1}</span>
+                    {(() => {
+                      const Icon = stepIcons[i] || ClipboardList;
+                      return (
+                        <span aria-hidden="true" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#4100F5]/10 text-[#4100F5]">
+                          <Icon className="h-4 w-4" strokeWidth={2} />
+                        </span>
+                      );
+                    })()}
                     <div>
                       <h4 className="font-heading text-sm font-bold text-[#030412] sm:text-base">{title}</h4>
                       <p className="mt-1 font-body text-sm leading-relaxed text-slate-600">{description}</p>
@@ -172,7 +183,7 @@ export function About() {
                 {[
                   { label: "Brand Identity", slug: "brand-design" },
                   { label: "Web Development", slug: "web-app-development" },
-                  { label: "UI / UX Design", slug: "web-app-development" },
+                  { label: "UI / UX Design", slug: "ui-ux-design" },
                   { label: "Motion & 3D", slug: "3d-visual-fx" },
                   { label: "Content Strategy", slug: "social-marketing" },
                   { label: "Digital Products", slug: "web-app-development" },
@@ -195,7 +206,7 @@ export function About() {
               className="about-process-mascots"
             >
                 <img
-                  src="/Friendly%20Mascots%20Peeking%20In.png"
+                  src="/friendly-mascots.webp"
                   alt=""
                   width="1122"
                   height="1402"

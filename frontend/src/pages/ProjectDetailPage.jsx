@@ -1,12 +1,73 @@
 import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, ArrowUpRight, CheckCircle2 } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  ArrowUpRight,
+  Building2,
+  CheckCircle2,
+  CircleAlert,
+  CodeXml,
+  Cpu,
+  FileText,
+  Gem,
+  LayoutDashboard,
+  Layers,
+  Lightbulb,
+  Navigation,
+  Package,
+  Palette,
+  PenTool,
+  Scissors,
+  Shapes,
+  Shirt,
+  ShoppingBag,
+  Smile,
+  TrendingUp,
+  Users,
+  Workflow,
+} from "lucide-react";
 import { getPortfolioByCategory } from "@/data/portfolioData";
 import { SEO } from "@/components/common/SEO";
+
+// Icon for each project section heading (matched case-insensitively by title)
+const sectionIcons = {
+  "the problem": CircleAlert,
+  "the solution": Lightbulb,
+  "design approach": PenTool,
+  "interface features": LayoutDashboard,
+  "our philosophy": Gem,
+  "the collections": ShoppingBag,
+  "the digital atelier": Scissors,
+  "technical specification": Cpu,
+  "a directional identity": Navigation,
+  "colour & typography": Palette,
+  "brand applications": Package,
+  "a character-led brand": Smile,
+  "from pattern to apparel": Shirt,
+  "how it works": Workflow,
+  "design and development": CodeXml,
+  "business value": TrendingUp,
+};
+const iconFor = (title) => sectionIcons[title.trim().toLowerCase()] || FileText;
+
+// Brand-purple icon chip used beside section headings
+function IconChip({ icon: Icon, size = "md" }) {
+  const box = size === "sm" ? "h-7 w-7 rounded-lg" : "h-10 w-10 sm:h-11 sm:w-11 rounded-xl";
+  const glyph = size === "sm" ? "h-3.5 w-3.5" : "h-5 w-5";
+  return (
+    <span aria-hidden="true" className={`flex shrink-0 items-center justify-center bg-[#4100F5]/10 text-[#4100F5] ${box}`}>
+      <Icon className={glyph} strokeWidth={1.9} />
+    </span>
+  );
+}
 
 export function ProjectDetailPage() {
   const { categoryId, projectId } = useParams();
   const category = getPortfolioByCategory(categoryId);
-  const project = category?.caseStudies.find((study) => study.id === projectId);
+  const projectIndex = category?.caseStudies.findIndex((study) => study.id === projectId) ?? -1;
+  const project = projectIndex >= 0 ? category.caseStudies[projectIndex] : undefined;
+  // Next project in the same category (none after the last one)
+  const nextProject = project ? category.caseStudies[projectIndex + 1] : undefined;
 
   if (!project) {
     return (
@@ -58,8 +119,61 @@ export function ProjectDetailPage() {
           </div>
         </header>
 
-        <figure className="mb-12 sm:mb-16">
-          <img src={project.image} alt={project.imageAlt || project.title} className={`block w-full h-auto rounded-2xl sm:rounded-3xl border border-black/10 ${project.imageCaption ? "max-h-[680px] object-contain bg-white" : ""}`} />
+        {/* Mobile & tablet: a second page of the live site, captured at phone size */}
+        {project.introImage && (
+          <figure className="mb-12 sm:mb-16 lg:hidden">
+            <div className="relative w-full max-w-[420px] mx-auto aspect-[390/844] overflow-hidden bg-[#EDEDEA] border border-black/10">
+              <img
+                src={project.introImage}
+                alt={project.introImageAlt || project.title}
+                className="absolute inset-0 w-full h-full object-cover object-top"
+              />
+            </div>
+            {project.introImageCaption && (
+              <figcaption className="mt-3 max-w-[420px] mx-auto text-sm text-slate-500">{project.introImageCaption}</figcaption>
+            )}
+          </figure>
+        )}
+
+        {/* Desktop: a second page of the live site, captured at desktop size */}
+        {project.introImageDesktop && (
+          <figure className="mb-16 hidden lg:block">
+            <div className="relative w-full aspect-[16/10] overflow-hidden bg-[#EDEDEA] border border-black/10">
+              <img
+                src={project.introImageDesktop}
+                alt={project.introImageAlt?.replace("on mobile", "on desktop") || project.title}
+                className="absolute inset-0 w-full h-full object-cover object-top"
+              />
+            </div>
+            {project.introImageCaption && (
+              <figcaption className="mt-3 text-sm text-slate-500">{project.introImageCaption.replace("mobile view", "desktop view")}</figcaption>
+            )}
+          </figure>
+        )}
+
+        {/* Video projects: playable film at its true proportions (landscape or vertical reel) */}
+        {project.video && (
+          <figure className="mb-12 sm:mb-16">
+            <div
+              className={`relative mx-auto overflow-hidden border border-black/10 bg-black ${
+                project.videoOrientation === "portrait" ? "w-full max-w-[420px] aspect-[9/16]" : "w-full aspect-video"
+              }`}
+            >
+              <video
+                src={project.video}
+                poster={project.image}
+                controls
+                playsInline
+                preload="metadata"
+                className="absolute inset-0 h-full w-full object-contain"
+                aria-label={`${project.title} video`}
+              />
+            </div>
+          </figure>
+        )}
+
+        <figure className={`mb-12 sm:mb-16 ${project.video || project.introImageDesktop ? "hidden" : project.introImage ? "hidden lg:block" : ""}`}>
+          <img src={project.image} alt={project.imageAlt || project.title} loading="lazy" decoding="async" className={`block w-full h-auto rounded-2xl sm:rounded-3xl border border-black/10 ${project.imageCaption ? "max-h-[680px] object-contain bg-white" : ""}`} />
           {project.imageCaption && <figcaption className="mt-3 text-sm text-slate-500">{project.imageCaption}</figcaption>}
         </figure>
 
@@ -67,7 +181,10 @@ export function ProjectDetailPage() {
           <div className="min-w-0 space-y-10">
             {project.sections?.map((section) => (
               <section key={section.title}>
-                <h2 className="font-heading text-2xl sm:text-3xl font-bold mb-4">{section.title}</h2>
+                <h2 className="mb-4 flex items-center gap-3 sm:gap-4 font-heading text-2xl sm:text-3xl font-bold">
+                  <IconChip icon={iconFor(section.title)} />
+                  {section.title}
+                </h2>
                 {section.body && <p className="text-slate-700 text-base sm:text-lg leading-relaxed">{section.body}</p>}
                 {section.steps && (
                   <ol className="list-decimal pl-6 space-y-4 text-slate-700 text-base sm:text-lg leading-relaxed">
@@ -91,12 +208,18 @@ export function ProjectDetailPage() {
 
           <aside className="rounded-2xl border border-black/10 bg-white p-6 space-y-7">
             <div>
-              <h2 className="font-heading text-xs uppercase tracking-widest text-slate-500 mb-2">{project.audience ? "Built for" : "Client"}</h2>
+              <h2 className="mb-2 flex items-center gap-2 font-heading text-xs font-semibold uppercase tracking-widest text-[#4100F5]">
+                <IconChip icon={project.audience ? Users : Building2} size="sm" />
+                {project.audience ? "Built for" : "Client"}
+              </h2>
               <p className="font-semibold">{project.audience || project.client}</p>
             </div>
             {project.metrics && <p className="text-sm leading-relaxed text-slate-700">{project.metrics}</p>}
             <div>
-              <h2 className="font-heading text-xs uppercase tracking-widest text-slate-500 mb-3">Tech & Deliverable Scope</h2>
+              <h2 className="mb-3 flex items-center gap-2 font-heading text-xs font-semibold uppercase tracking-widest text-[#4100F5]">
+                <IconChip icon={Layers} size="sm" />
+                Tech & Deliverable Scope
+              </h2>
               <ul className="flex flex-wrap gap-2">
                 {project.tags.map((tag) => <li key={tag} className="px-3 py-1.5 rounded-lg bg-slate-100 text-xs text-slate-700">{tag}</li>)}
               </ul>
@@ -106,12 +229,45 @@ export function ProjectDetailPage() {
         </div>
         {project.boardImage && (
           <section className="mt-14 sm:mt-20" aria-label={`${project.client} brand presentation`}>
-            <h2 className="font-heading text-2xl sm:text-3xl font-bold mb-6">The Identity in Detail</h2>
+            <h2 className="mb-6 flex items-center gap-3 sm:gap-4 font-heading text-2xl sm:text-3xl font-bold">
+              <IconChip icon={Shapes} />
+              The Identity in Detail
+            </h2>
             <figure>
               <img src={project.boardImage} alt={project.boardAlt} loading="lazy" decoding="async" className="block w-full h-auto rounded-2xl border border-black/10" />
               {project.credit && <figcaption className="mt-4 text-sm text-slate-600">{project.credit}</figcaption>}
             </figure>
           </section>
+        )}
+
+        {nextProject && (
+          <nav aria-label="Next project" className="mt-20 sm:mt-28 pt-10 sm:pt-12 border-t border-black/10">
+            <Link
+              to={`/works/${category.slug}/${nextProject.id}`}
+              className="group grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_480px] gap-6 lg:gap-12 items-end"
+            >
+              <div className="min-w-0">
+                <p className="text-xs sm:text-sm uppercase tracking-widest font-semibold text-[#4100F5]">Next project</p>
+                <h2 className="mt-3 flex items-center gap-3 sm:gap-5 font-heading text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.05] text-[#030412] group-hover:text-[#4100F5] transition-colors duration-300">
+                  <span className="min-w-0">{nextProject.title}</span>
+                  <ArrowRight className="w-8 h-8 sm:w-12 sm:h-12 shrink-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-2" />
+                </h2>
+                {nextProject.type && <p className="mt-3 text-slate-600 text-base sm:text-lg">{nextProject.type}</p>}
+              </div>
+
+              <div className={`relative w-full overflow-hidden bg-[#EDEDEA] border border-black/10 ${nextProject.cardImage ? "aspect-[4/5] sm:aspect-[3/2] lg:aspect-[16/10]" : "aspect-[16/10]"}`}>
+                <picture>
+                  {nextProject.cardImageDesktop && <source media="(min-width: 1024px)" srcSet={nextProject.cardImageDesktop} />}
+                  <img
+                    src={nextProject.cardImage || nextProject.image}
+                    alt={nextProject.imageAlt || nextProject.title}
+                    loading="lazy"
+                    className={`absolute inset-0 w-full h-full ${nextProject.imageFit === "contain" && !nextProject.cardImage ? "object-contain" : "object-cover"} object-top transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.05]`}
+                  />
+                </picture>
+              </div>
+            </Link>
+          </nav>
         )}
       </div>
     </article>

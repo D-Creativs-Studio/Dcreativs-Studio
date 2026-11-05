@@ -114,7 +114,8 @@ export function Portfolio() {
     {
       id: "card-front-hero",
       title: portfolioCategories[0].name,
-      image: portfolioCategories[0].image,
+      image: portfolioCategories[0].cardImage || portfolioCategories[0].image,
+      imageTop: Boolean(portfolioCategories[0].cardImage),
       isHero: true,
       baseRotate: -7,
       hoverRotate: -2,
@@ -186,7 +187,7 @@ export function Portfolio() {
                     <img
                       src={layer.image}
                       alt={layer.title}
-                      className="w-full h-full object-cover select-none pointer-events-none"
+                      className={`w-full h-full object-cover ${layer.imageTop ? "object-top" : ""} select-none pointer-events-none`}
                       loading="lazy"
                     />
                   )}
@@ -199,7 +200,7 @@ export function Portfolio() {
                   {/* Editorial Tag on Front Hero Card */}
                   {layer.isHero && (
                     <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6 z-10 text-white flex flex-col justify-end pointer-events-none">
-                      <p className="font-mono text-[10px] sm:text-xs text-white/70 uppercase tracking-widest mb-1">
+                      <p className="font-heading text-[10px] sm:text-xs text-white/70 uppercase tracking-widest mb-1">
                         Curated Works
                       </p>
                       <h3 className="font-heading text-lg sm:text-2xl font-bold tracking-tight text-white leading-tight">

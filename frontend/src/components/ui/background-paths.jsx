@@ -1,8 +1,14 @@
+import { lazy, Suspense } from "react";
 import { motion } from "framer-motion";
-import { LogoModelBackground } from "@/components/ui/logo-model-background";
+
+// The 3D logo (and the three.js library behind it) loads after the page appears,
+// so it never blocks first paint and other pages never download it.
+const LogoModelBackground = lazy(() =>
+  import("@/components/ui/logo-model-background").then((m) => ({ default: m.LogoModelBackground }))
+);
 
 const ShootingStar = ({ delay, top, left, duration }) => (
-  <div className="absolute pointer-events-none z-0" style={{ top: `${top}%`, left: `${left}%`, transform: 'rotate(215deg)' }}>
+  <div className="absolute pointer-events-none z-0 will-change-transform" style={{ top: `${top}%`, left: `${left}%`, transform: 'rotate(215deg) translateZ(0)' }}>
     <motion.div
       initial={{ x: 0, opacity: 0, scaleX: 0 }}
       animate={{ 
@@ -18,7 +24,8 @@ const ShootingStar = ({ delay, top, left, duration }) => (
       }}
       className="w-[150px] sm:w-[200px] h-[1.5px] bg-gradient-to-r from-transparent via-white to-transparent"
       style={{
-        boxShadow: "0 0 10px 1px rgba(255,255,255,0.4)"
+        boxShadow: "0 0 10px 1px rgba(255,255,255,0.4)",
+        willChange: "transform, opacity",
       }}
     />
   </div>
@@ -31,7 +38,9 @@ export function BackgroundPaths({
   return (
     <section id="home" className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#030412] text-white font-body selection:bg-[#4100F5] selection:text-white pt-32 sm:pt-40 pb-12 sm:pb-16">
       {/* 3D Floating Model Canvas Background Layer */}
-      <LogoModelBackground />
+      <Suspense fallback={null}>
+        <LogoModelBackground />
+      </Suspense>
 
       {/* Volumetric Top-Right Spotlight */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -43,11 +52,11 @@ export function BackgroundPaths({
         <ShootingStar delay={6.2} top={40} left={110} duration={3.5} />
         <ShootingStar delay={8.0} top={-10} left={70} duration={2.8} />
         {/* Top-Right Soft Ambient Glows */}
-        <div className="absolute -top-24 -right-24 w-[700px] h-[700px] bg-[#4100F5]/25 rounded-full blur-[140px]" />
-        <div className="absolute -top-12 -right-12 w-[450px] h-[450px] bg-[#885FFF]/30 rounded-full blur-[90px]" />
+        <div className="absolute -top-24 -right-24 w-[700px] h-[700px] bg-[#4100F5]/25 rounded-full blur-[140px] will-change-transform [transform:translateZ(0)]" />
+        <div className="absolute -top-12 -right-12 w-[450px] h-[450px] bg-[#885FFF]/30 rounded-full blur-[90px] will-change-transform [transform:translateZ(0)]" />
 
         {/* SVG Tapered Volumetric Spotlight Cone */}
-        <div className="absolute top-0 right-0 w-[700px] sm:w-[950px] h-[750px] sm:h-[1000px] pointer-events-none opacity-85">
+        <div className="absolute top-0 right-0 w-[700px] sm:w-[950px] h-[750px] sm:h-[1000px] pointer-events-none opacity-85 will-change-transform [transform:translateZ(0)]">
           <svg
             viewBox="0 0 950 1000"
             fill="none"
