@@ -417,10 +417,7 @@ const RotationCard = forwardRef(({ src, index, total, text, subtitle, tags, slug
 
       {showCaptions && (
         <div className="pointer-events-none absolute inset-0 z-10 flex flex-col justify-end p-4 sm:p-6 md:p-8">
-          <div className="mb-2 flex items-center justify-between">
-            <span className="font-heading text-xs font-semibold tracking-widest text-[#885FFF] uppercase">
-              0{index + 1} / 0{total}
-            </span>
+          <div className="mb-2 flex items-center justify-end">
             <span className="rounded-full bg-[#4100F5]/30 group-hover:bg-[#4100F5] border border-[#4100F5]/60 group-hover:border-white px-2.5 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-xs font-heading text-white transition-all duration-300 flex items-center gap-1">
               View Service →
             </span>

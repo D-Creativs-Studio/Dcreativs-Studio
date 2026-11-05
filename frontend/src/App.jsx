@@ -1,9 +1,8 @@
 import { useState, useEffect, lazy, Suspense } from "react";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { Navbar } from "@/components/layout/Navbar";
 import { HomePage } from "@/pages/HomePage";
 import { AboutPage } from "@/pages/AboutPage";
-import { TeamPage } from "@/pages/TeamPage";
 import { ServiceDetailPage } from "@/pages/ServiceDetailPage";
 import { WorksPage } from "@/pages/WorksPage";
 import { PortfolioCategoryPage } from "@/pages/PortfolioCategoryPage";
@@ -95,7 +94,8 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
-        <Route path="/team" element={<TeamPage />} />
+        {/* The standalone team page is closed; full team details live in the homepage Team section */}
+        <Route path="/team" element={<Navigate to={{ pathname: "/", hash: "#team" }} replace />} />
         <Route path="/services/:serviceId" element={<ServiceDetailPage />} />
         <Route path="/works" element={<WorksPage />} />
         <Route path="/works/:categoryId" element={<PortfolioCategoryPage />} />

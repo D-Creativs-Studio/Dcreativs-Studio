@@ -20,7 +20,7 @@ export function Footer() {
 
   const services = [
     { label: 'Brand Identity', href: '/services/brand-design' },
-    { label: 'UI/UX Design', href: '/services/web-app-development' },
+    { label: 'UI/UX Design', href: '/services/ui-ux-design' },
     { label: 'Web Development', href: '/services/web-app-development' },
     { label: 'Motion & Animation', href: '/services/motion-video' },
     { label: 'Social Media Strategy', href: '/services/social-marketing' },

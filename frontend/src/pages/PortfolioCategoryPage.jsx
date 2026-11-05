@@ -7,8 +7,9 @@ import {
   ArrowLeft, 
   ArrowUpRight, 
   ArrowRight, 
-  CheckCircle2, 
-  Layers, 
+  CheckCircle2,
+  Layers,
+  Play,
   Send, 
   RefreshCw
 } from "lucide-react";
@@ -68,11 +69,6 @@ export function PortfolioCategoryPage() {
             Back to All Work
           </Link>
 
-          <div className="hidden sm:flex items-center gap-3">
-            <span className="text-xs font-heading font-semibold tracking-widest uppercase text-slate-500">
-              Category {category.id} / 0{portfolioCategories.length}
-            </span>
-          </div>
         </div>
 
         {/* ── Hero Section ────────────────────────────────────────── */}
@@ -118,11 +114,11 @@ export function PortfolioCategoryPage() {
               className="grid grid-cols-3 gap-4 sm:gap-6 lg:gap-8 pt-5 border-t border-black/[0.08] max-w-xl"
             >
               {category.stats.map((stat, i) => (
-                <div key={i} className="space-y-1">
-                  <div className="text-xl sm:text-2xl lg:text-3xl font-heading font-extrabold text-[#030412] tracking-tight whitespace-nowrap">
+                <div key={i} className="min-w-0 space-y-1">
+                  <div className="text-xl sm:text-2xl lg:text-3xl font-heading font-extrabold text-[#030412] tracking-tight leading-tight break-words">
                     {stat.value}
                   </div>
-                  <div className="text-[11px] sm:text-xs text-slate-500 font-medium leading-relaxed">
+                  <div className="text-[11px] sm:text-xs text-[#4100F5] font-medium leading-relaxed">
                     {stat.label}
                   </div>
                 </div>
@@ -209,15 +205,89 @@ export function PortfolioCategoryPage() {
               fallback={
                 <div className="w-full py-20 flex flex-col items-center justify-center gap-3 text-slate-500">
                   <RefreshCw className="w-6 h-6 animate-spin text-[#4100F5]" />
-                  <span className="text-xs font-mono tracking-widest uppercase">Loading 3D Showroom...</span>
+                  <span className="text-xs font-heading tracking-widest uppercase">Loading 3D Showroom...</span>
                 </div>
               }
             >
               <Babylon3DCardGrid />
             </Suspense>
+          ) : category.caseStudies.length === 0 ? (
+            <div className="rounded-3xl border border-[#4100F5]/15 bg-white px-6 py-14 text-center sm:px-12 sm:py-20">
+              <p className="font-heading text-xs font-semibold uppercase tracking-[0.22em] text-[#4100F5]">Case studies coming soon</p>
+              <h3 className="mx-auto mt-4 max-w-xl font-heading text-2xl font-extrabold tracking-tight text-[#030412] sm:text-4xl">
+                We’re preparing our {category.name} work for showcase.
+              </h3>
+              <p className="mx-auto mt-4 max-w-lg font-body text-base leading-relaxed text-[#030412]/75">
+                In the meantime, see how we approach this work or tell us about your project.
+              </p>
+              <div className="mt-8 flex flex-wrap justify-center gap-3">
+                {category.serviceSlug && (
+                  <Link
+                    to={`/services/${category.serviceSlug}`}
+                    className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#4100F5] to-[#885FFF] px-6 py-3.5 font-heading text-sm font-semibold text-white shadow-[0_8px_25px_rgba(65,0,245,0.25)] transition-all duration-300 hover:scale-105"
+                  >
+                    View the service <ArrowRight className="h-4 w-4" />
+                  </Link>
+                )}
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center gap-2 rounded-full border border-[#4100F5]/20 bg-white px-6 py-3.5 font-heading text-sm font-semibold text-[#030412] transition-all duration-300 hover:border-[#4100F5]/40 hover:text-[#4100F5]"
+                >
+                  Start a project <ArrowUpRight className="h-4 w-4" />
+                </Link>
+              </div>
+            </div>
           ) : (
-            <div className={`grid grid-cols-1 md:grid-cols-2 ${category.slug === "web-development" ? "lg:grid-cols-4" : category.caseStudies.length > 2 ? "lg:grid-cols-3" : ""} gap-6`}>
-              {category.caseStudies.map((study, idx) => (
+            <div className={`grid grid-cols-1 md:grid-cols-2 ${category.slug === "web-development" ? "lg:grid-cols-2 lg:gap-8" : category.caseStudies.length > 2 ? "lg:grid-cols-3" : ""} gap-6`}>
+              {category.caseStudies.map((study, idx) => study.cardImage ? (
+                /* Clean card: sharp mobile hero screenshot, label revealed on hover */
+                <MotionLink
+                  key={study.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  to={`/works/${category.slug}/${study.id}`}
+                  aria-label={`View project: ${study.title}`}
+                  className="group block"
+                >
+                  {/* Phone frame below 1024px, desktop-screen frame from 1024px up */}
+                  <div className={`relative aspect-[390/844] ${study.cardImageDesktop ? "lg:aspect-[16/10]" : ""} w-full overflow-hidden bg-[#EDEDEA]`}>
+                    <picture>
+                      {study.cardImageDesktop && <source media="(min-width: 1024px)" srcSet={study.cardImageDesktop} />}
+                      <img
+                        src={study.cardImage}
+                        alt={`${study.title} homepage`}
+                        className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.05]"
+                        loading="lazy"
+                      />
+                    </picture>
+
+                    {/* Hover-only label (pointer devices) */}
+                    <div className="[@media(hover:none)]:hidden">
+                      <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                      <div className="absolute inset-x-0 bottom-0 p-5 pointer-events-none">
+                        <div className="overflow-hidden">
+                          <h3 className="translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] text-white text-lg font-heading font-bold tracking-tight leading-tight">
+                            {study.type}
+                          </h3>
+                        </div>
+                        <div className="overflow-hidden mt-1">
+                          <p className="translate-y-full group-hover:translate-y-0 transition-transform duration-500 group-hover:delay-75 ease-[cubic-bezier(0.16,1,0.3,1)] text-white/80 text-sm font-body leading-snug">
+                            {study.title}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Touch devices can't hover: show the same label quietly beneath */}
+                  <div className="hidden [@media(hover:none)]:block mt-4">
+                    <h3 className="text-[#030412] text-lg font-heading font-bold tracking-tight leading-tight">{study.type}</h3>
+                    <p className="mt-1 text-slate-600 text-sm font-body">{study.title}</p>
+                  </div>
+                </MotionLink>
+              ) : (
                 <MotionLink
                   key={study.id}
                   initial={{ opacity: 0, y: 30 }}
@@ -233,17 +303,24 @@ export function PortfolioCategoryPage() {
                     <img
                       src={study.image}
                       alt={study.imageAlt || study.title}
-                      className={`w-full h-full ${study.imageFit === "contain" ? "object-contain" : "object-cover"} group-hover:scale-105 transition-transform duration-700`}
+                      className={`w-full h-full ${study.imageFit === "contain" ? "object-contain" : "object-cover"} ${study.videoOrientation === "portrait" ? "object-[50%_30%]" : ""} group-hover:scale-105 transition-transform duration-700`}
                       loading="lazy"
                     />
                     {study.imageFit !== "contain" && <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80" />}
 
+                    {/* Play button for video projects */}
+                    {study.video && (
+                      <span aria-hidden="true" className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-[#4100F5] shadow-[0_10px_30px_rgba(0,0,0,0.35)] transition-transform duration-500 group-hover:scale-110">
+                        <Play className="ml-1 h-6 w-6 fill-current" />
+                      </span>
+                    )}
+
                     {/* Top Badges */}
                     <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
-                      <span className="px-3 py-1 rounded-full text-[11px] font-mono font-semibold uppercase tracking-wider bg-black/60 text-white backdrop-blur-md border border-white/10">
+                      <span className="px-3 py-1 rounded-full text-[11px] font-heading font-semibold uppercase tracking-wider bg-black/60 text-white backdrop-blur-md border border-white/10">
                         {study.type.split(" ")[0]}
                       </span>
-                      {study.year && <span className="text-xs font-mono text-white/90 bg-black/50 px-2.5 py-1 rounded-full backdrop-blur-sm border border-white/10">
+                      {study.year && <span className="text-xs font-heading text-white/90 bg-black/50 px-2.5 py-1 rounded-full backdrop-blur-sm border border-white/10">
                         {study.year}
                       </span>}
                     </div>
@@ -285,7 +362,7 @@ export function PortfolioCategoryPage() {
                           </span>
                         ))}
                         {study.tags.length > 3 && (
-                          <span className="px-2 py-1 text-[11px] text-slate-500 font-mono">
+                          <span className="px-2 py-1 text-[11px] text-slate-500 font-heading">
                             +{study.tags.length - 3}
                           </span>
                         )}
@@ -333,7 +410,7 @@ export function PortfolioCategoryPage() {
               <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
             </div>
             <div className="text-left">
-              <span className="text-[11px] font-mono tracking-widest text-slate-400 block">PREVIOUS DISCIPLINE</span>
+              <span className="text-[11px] font-heading font-semibold tracking-widest text-[#4100F5] block">PREVIOUS DISCIPLINE</span>
               <span className="font-heading text-sm font-bold text-[#030412] group-hover:text-[#4100F5] transition-colors">{prevCategory.name}</span>
             </div>
           </Link>
@@ -351,7 +428,7 @@ export function PortfolioCategoryPage() {
             className="flex items-center gap-3 text-slate-600 hover:text-[#4100F5] transition-colors group text-right"
           >
             <div>
-              <span className="text-[11px] font-mono tracking-widest text-slate-400 block">NEXT DISCIPLINE</span>
+              <span className="text-[11px] font-heading font-semibold tracking-widest text-[#4100F5] block">NEXT DISCIPLINE</span>
               <span className="font-heading text-sm font-bold text-[#030412] group-hover:text-[#4100F5] transition-colors">{nextCategory.name}</span>
             </div>
             <div className="w-10 h-10 rounded-full border border-black/15 flex items-center justify-center group-hover:border-[#4100F5] transition-colors text-[#030412] group-hover:text-[#4100F5]">

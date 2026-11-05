@@ -70,11 +70,11 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
-            if (id.includes('@babylonjs/loaders')) {
-              return 'vendor-babylon-loaders'
-            }
+            // Babylon is NOT given a named chunk on purpose: it is only used by the lazily
+            // loaded 3D grid, so the bundler keeps it in that lazy chunk. Naming it here made
+            // Vite's preload helper land inside the 7 MB Babylon chunk, loading it on every page.
             if (id.includes('@babylonjs')) {
-              return 'vendor-babylon-core'
+              return undefined
             }
             if (id.includes('three') || id.includes('@react-three')) {
               return 'vendor-three'

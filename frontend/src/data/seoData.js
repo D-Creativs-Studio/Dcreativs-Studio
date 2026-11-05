@@ -10,6 +10,7 @@ export const normalizePath = (value) => value.replace(/\/+$/, "") || "/";
 const serviceCopy = {
   "brand-design": ["Brand Identity & Logo Design", "Build a consistent brand with logo design, visual identity, brand guidelines, print design, and packaging from D'Creativs Studio."],
   "web-app-development": ["Website & Web App Development", "Custom business websites, e-commerce stores, web applications, and dashboards. Explore web design and development services from D'Creativs Studio."],
+  "ui-ux-design": ["UI/UX Design, Wireframes & Prototyping", "User research, wireframes, interactive prototypes, and design systems for websites and apps. Explore UI/UX design services from D'Creativs Studio."],
   "motion-video": ["Motion Graphics & Video Editing", "Bring your brand to life with motion graphics, video editing, animated logos, social media ads, and product videos from D'Creativs Studio."],
   "3d-visual-fx": ["3D Modeling, Product Renders & Visual Effects", "Explore 3D modeling, product visualization, environment design, and visual effects for marketing and interactive websites from D'Creativs Studio."],
   "social-marketing": ["Social Media & Digital Marketing", "Connect with your audience through content strategy, social media management, and ad creatives. Explore D'Creativs Studio's digital marketing services."],
@@ -17,15 +18,15 @@ const serviceCopy = {
 };
 
 export const seoPages = [
-  { path: "/team", title: "Meet Our Team", description: "Meet the people behind D'Creativs Studio and explore their skills in design, development, AI, content, and marketing.", name: "Team", parent: "/about" },
   { path: "/", title: "Web Development, Branding & Creative Design", description: "D'Creativs Studio is a creative tech agency in Nigeria offering web development, brand identity, UI/UX design, 3D visuals, and AI automation.", name: "Home" },
   { path: "/about", title: "About Our Creative Technology Studio", description: "Meet the people behind D'Creativs Studio, explore a website project, and see how we approach scope, feedback, and handover for your website or brand.", name: "About" },
   { path: "/works", title: "Web Design, Branding & 3D Portfolio", description: "Explore D'Creativs Studio's selected website, branding, UI/UX, motion graphics, 3D, and automation projects. Find inspiration for your next project.", name: "Portfolio" },
   { path: "/contact", title: "Discuss Your Website, Brand or Automation Project", description: "Send a short enquiry to D'Creativs Studio about your website, brand, or automation goals. Budget and timing are optional. Discuss the next steps before committing.", name: "Contact" },
   ...servicesData.map(service => ({
     path: `/services/${service.slug}`,
-    title: serviceCopy[service.slug][0],
-    description: serviceCopy[service.slug][1],
+    // Fall back to the service's own copy so a new service can never crash the site
+    title: serviceCopy[service.slug]?.[0] || service.text,
+    description: serviceCopy[service.slug]?.[1] || service.subtitle,
     name: service.text,
     image: service.src,
     service: true,

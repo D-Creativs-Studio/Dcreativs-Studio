@@ -1,65 +1,52 @@
-// Add genuine, approved feedback here: { id, name, context, quote }.
-export const testimonials = [];
-
-export const sampleTestimonials = [
+// Client testimonials shown in the homepage "Client reflections" section.
+//
+// Shape: { id, quote, name, role, company?, country? }
+//   - name:    shown in bold (here, the client / company name)
+//   - role:    shown underneath (here, the service delivered)
+//   - country: optional two-letter code such as "NG" (shown as a flag)
+//
+// Only genuine, client-approved feedback belongs here.
+export const testimonials = [
   {
-    id: 'sample-1',
-    name: 'Ada Okoro',
-    context: 'Website project · fictional sample',
-    quote: 'The project scope was clear, and reviewing the work at each stage made it easy to give feedback.',
+    id: 'rukus',
+    name: 'RUKUS',
+    role: 'Website Development & Brand Identity',
+    quote:
+      "Working with D’Creativs was a great experience. They understood our vision and translated it into a brand identity that truly represents who we are. The website was equally impressive, with a clean design and a professional feel. They didn't just give us a website; they helped us build a stronger brand presence.",
   },
   {
-    id: 'sample-2',
-    name: 'Daniel Bello',
-    context: 'Brand identity · fictional sample',
-    quote: 'Having a clear direction and space to discuss the details made the design process feel collaborative.',
+    id: 'ikarisshoes',
+    name: 'IkarisShoes',
+    role: 'Website Development',
+    quote:
+      'D’Creativs brought our online presence to life. We wanted a website that showcased our products beautifully while making it easy for customers to explore what we offer. The final result was modern, visually appealing, and thoughtfully put together. Their attention to detail made the entire experience worthwhile.',
   },
   {
-    id: 'sample-3',
-    name: 'Tomi Adeyemi',
-    context: 'Workflow project · fictional sample',
-    quote: 'The walkthrough helped me understand what had been built and how to use it in my day-to-day work.',
+    id: 'marvel-driving-school',
+    name: 'Marvel Driving School',
+    role: 'Website Development & DSSP Automation',
+    quote:
+      'D’Creativs delivered more than we initially expected. From developing our website to implementing the Driving School Student Progression (DSSP) automation system, they helped us improve how we manage and monitor student progression. What previously involved repetitive manual processes is now more structured and efficient. Their ability to combine technology with real business needs is impressive.',
   },
   {
-    id: 'sample-4',
-    name: 'Chidinma Eze',
-    context: 'Online store · fictional sample',
-    quote: 'The product pages feel organised, and the checkout is easy to follow on my phone.',
+    id: 'duk-global-resources',
+    name: 'DUK Global Resources',
+    role: 'Brand Identity',
+    quote:
+      'We wanted a brand identity that communicates professionalism, trust, and the quality of our business. D’Creativs understood exactly what we needed and delivered a visual identity that gave our brand a more distinctive and consistent appearance. The creativity and thought behind the work were evident in every detail.',
   },
   {
-    id: 'sample-5',
-    name: 'Kunle Martins',
-    context: 'Brand strategy · fictional sample',
-    quote: 'The team helped turn my scattered ideas into a visual direction I could confidently build on.',
+    id: 'royalties-international-school',
+    name: 'Royalties International School',
+    role: 'Video Production & Marketing',
+    quote:
+      "D’Creativs brought a fresh creative perspective to our school's marketing. Their video production captured the atmosphere and values of our institution in an engaging way. The content was thoughtfully created to communicate our message and connect with our target audience. We appreciate their creativity and commitment to quality.",
   },
   {
-    id: 'sample-6',
-    name: 'Zainab Musa',
-    context: 'Product design · fictional sample',
-    quote: 'Seeing the prototype early gave us room to explore the details before moving into development.',
-  },
-  {
-    id: 'sample-7',
-    name: 'Emeka Nwosu',
-    context: 'Business website · fictional sample',
-    quote: 'Our services are easier to explain now, and visitors have a clear path to getting in touch.',
-  },
-  {
-    id: 'sample-8',
-    name: 'Amara Obi',
-    context: 'Content design · fictional sample',
-    quote: 'The layouts gave our content a consistent look while leaving space for our own personality.',
-  },
-  {
-    id: 'sample-9',
-    name: 'Femi Adebayo',
-    context: 'Automation project · fictional sample',
-    quote: 'The handover was practical, with clear examples that helped our team settle into the new workflow.',
-  },
-  {
-    id: 'sample-10',
-    name: 'Ifeoma Uche',
-    context: 'Website redesign · fictional sample',
-    quote: 'Each review felt focused, and the finished pages reflect the priorities we discussed at the start.',
+    id: '3d-fx-project',
+    name: '3D & FX Project',
+    role: '3D & Visual Effects Production',
+    quote:
+      'The 3D visuals and effects completely transformed our creative concept into something remarkable. D’Creativs demonstrated a strong understanding of visual storytelling, combining technical execution with creativity to produce something that stood out. The final output gave our project the visual impact we were looking for.',
   },
 ];

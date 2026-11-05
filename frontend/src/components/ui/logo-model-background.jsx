@@ -50,7 +50,13 @@ export function LogoModelBackground({ className = "opacity-75", scale = 4.2 }) {
       <Canvas
         frameloop={isInView ? "always" : "never"}
         camera={{ position: [0, 0, 6], fov: 45 }}
-        gl={{ alpha: true, antialias: true }}
+        // Cap resolution at 1.5x: phones render at 2-3x by default, which is very expensive
+        dpr={[1, 1.5]}
+        gl={{
+          alpha: true,
+          antialias: typeof window !== "undefined" ? window.devicePixelRatio < 2 : true,
+          powerPreference: "high-performance",
+        }}
       >
         <ambientLight intensity={1.5} />
         <directionalLight position={[5, 8, 5]} intensity={3} color="#885FFF" />

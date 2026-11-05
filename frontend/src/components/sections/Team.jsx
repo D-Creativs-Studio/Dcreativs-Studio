@@ -82,6 +82,21 @@ const DribbbleIcon = () => (
   </svg>
 );
 
+// Shown until a member's photo is uploaded: brand gradient tile with initials
+function PhotoPlaceholder({ member, large = false }) {
+  return (
+    <div
+      role="img"
+      aria-label={`${member.name} (photo coming soon)`}
+      className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#4100F5] via-[#2a0f8f] to-[#0a0624]"
+    >
+      <span className={`font-heading font-black tracking-tight text-white/90 ${large ? "text-8xl" : "text-6xl"}`}>
+        {member.initials}
+      </span>
+    </div>
+  );
+}
+
 export function Team() {
   // One selected member drives the portrait and the expanded biography.
   // Scrolling never switches the person while their details are being read.
@@ -138,9 +153,9 @@ export function Team() {
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-[#885FFF] font-mono text-xs sm:text-sm font-semibold tracking-widest uppercase mb-3 block"
+              className="text-[#885FFF] font-heading text-xs sm:text-sm font-semibold tracking-[0.22em] uppercase mb-3 block"
             >
-              // THE CREATIVE COLLECTIVE
+              The Creative Collective
             </motion.span>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -206,6 +221,7 @@ export function Team() {
                 {isExpanded && (
                   <div className="px-4 pb-7 min-[390px]:px-6 sm:px-12">
                     <div className="relative mb-5 h-64 overflow-hidden rounded-2xl bg-[#000422] sm:h-80">
+                      {member.image ? (
                       <img
                         src={member.image}
                         alt={member.name}
@@ -217,8 +233,11 @@ export function Team() {
                         }}
                         decoding="async"
                       />
+                      ) : (
+                        <PhotoPlaceholder member={member} />
+                      )}
                     </div>
-                    <blockquote className="mb-3 max-w-xl font-serif text-lg italic leading-relaxed text-white/95">{member.quote}</blockquote>
+                    {member.quote && <blockquote className="mb-3 max-w-xl font-serif text-lg italic leading-relaxed text-white/95">{member.quote}</blockquote>}
                     <p className="max-w-xl select-text font-body text-base font-normal leading-relaxed text-white/90">{member.bio}</p>
                   </div>
                 )}
@@ -253,6 +272,7 @@ export function Team() {
                   transition={{ duration: 0.18, ease: "easeOut" }}
                   className="absolute inset-0 w-full h-full"
                 >
+                  {activeMember.image ? (
                   <img
                     src={activeMember.image}
                     alt={activeMember.name}
@@ -266,15 +286,14 @@ export function Team() {
                     decoding="async"
                     fetchPriority="high"
                   />
+                  ) : (
+                    <PhotoPlaceholder member={activeMember} large />
+                  )}
                   {/* Subtle contrast gradient for depth */}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#000422]/60 via-transparent to-black/20 pointer-events-none" />
                 </motion.div>
               </AnimatePresence>
 
-              {/* Floating Top Right: Serial Tag (hidden on mobile) */}
-              <div className="hidden sm:block absolute top-6 right-6 z-20 px-3 py-1 rounded-full bg-black/60 border border-white/15 backdrop-blur-md font-mono text-[11px] font-bold text-white/90">
-                <span className="text-[#885FFF]">// {activeMember.id}</span> / {String(teamMembers.length).padStart(2, "0")}
-              </div>
             </div>
           </div>
 
@@ -382,9 +401,11 @@ export function Team() {
                       >
                         <div className="px-6 pb-6 sm:px-10 sm:pb-8 lg:px-12 lg:pb-9 pt-0">
                           {/* Editorial Serif Italic Quote */}
+                          {member.quote && (
                           <blockquote className="font-serif italic text-base sm:text-lg lg:text-xl leading-snug text-white/95 my-2.5 sm:my-3 font-normal max-w-xl">
                             {member.quote}
                           </blockquote>
+                          )}
 
                           {/* Authentic Bio Narrative */}
                           <p className="font-body text-xs sm:text-sm lg:text-[14.5px] text-white/85 leading-relaxed max-w-xl font-normal">
