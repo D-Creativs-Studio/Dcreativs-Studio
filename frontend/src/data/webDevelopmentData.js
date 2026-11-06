@@ -11,6 +11,7 @@ export const webDevelopmentCategory = {
   "image": "/projects/web/marvel.webp",
   "cardImage": "/projects/web/mobile/rukus-hero.webp",
   "cardImageDesktop": "/projects/web/desktop/rukus-hero.webp",
+  "listImage": "/projects/web/mobile/rukus-hero-list.webp",
   "accent": "#38bdf8",
   "glowColor": "rgba(56, 189, 248, 0.35)",
   "shortDescription": "Explore RUKUS, The Haven Place, Ikaris Shoes, and Marvel Driving School: websites connecting brand stories, products, services, and enquiries.",

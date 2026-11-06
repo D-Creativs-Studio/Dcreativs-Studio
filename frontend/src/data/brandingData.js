@@ -55,6 +55,8 @@ export const brandingCategory = {
   discipline: "Logos • Typography • Brand Patterns",
   year: "Selected Work",
   image: "/projects/branding/rukus-cover.webp",
+  // Portrait version for the mobile works list, so the full RUKUS logo shows
+  listImage: "/projects/branding/rukus-cover-mobile.webp",
   accent: "#c084fc",
   glowColor: "rgba(192, 132, 252, 0.35)",
   shortDescription: "Explore the DUK Global Resources and RUKUS identities, from logo systems and typography to patterns and branded applications.",

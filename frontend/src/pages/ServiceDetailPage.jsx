@@ -47,6 +47,17 @@ export function ServiceDetailPage() {
 
       <div className="site-container mx-auto relative z-10">
 
+        {/* Back to the home page — on every screen size */}
+        <div className="mb-8 sm:mb-10">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-heading font-semibold text-[#030412] hover:text-[#4100F5] bg-black/[0.04] hover:bg-black/[0.08] border border-black/10 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full backdrop-blur-md transition-all duration-300 group shadow-sm"
+          >
+            <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:-translate-x-1" />
+            Back to Home
+          </Link>
+        </div>
+
         {/* Hero Section */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center mb-16">
           <div className="lg:col-span-7 space-y-6">
