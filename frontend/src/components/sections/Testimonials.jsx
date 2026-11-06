@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { testimonials } from "@/data/testimonialsData";
@@ -45,10 +45,16 @@ export function Testimonials() {
   const reduce = useReducedMotion();
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
-  const pointerStart = useRef(null);
+  const [dir, setDir] = useState(1); // which way the last change went, for the slide direction
   const total = entries.length;
 
-  const go = useCallback((dir) => setIndex((i) => (i + dir + total) % total), [total]);
+  const go = useCallback(
+    (step) => {
+      setDir(step);
+      setIndex((i) => (i + step + total) % total);
+    },
+    [total]
+  );
 
   // Gentle autoplay — off for reduced motion, while hovered/focused, or with one quote
   useEffect(() => {
@@ -60,6 +66,8 @@ export function Testimonials() {
   if (!total) return null;
   const entry = entries[index];
   const credit = [entry.role, entry.company].filter(Boolean).join(" · ") || entry.context;
+  const quoteClass =
+    "indent-[8%] font-heading text-xl font-semibold leading-[1.35] tracking-tight sm:text-2xl lg:text-[2rem] lg:leading-[1.3]";
   const roundBtn =
     "inline-flex h-12 w-12 items-center justify-center rounded-full border border-[#C4B5FD]/30 bg-white/[0.04] text-[#C4B5FD] transition-all duration-300 hover:border-transparent hover:bg-gradient-to-r hover:from-[#4100F5] hover:to-[#885FFF] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C4B5FD]";
 
@@ -67,7 +75,7 @@ export function Testimonials() {
     <section
       id="testimonials"
       aria-labelledby="testimonials-heading"
-      className="relative overflow-clip bg-[#000422] py-24 text-white sm:py-32"
+      className="relative overflow-clip bg-[#000422] pt-24 pb-10 text-white sm:py-32"
     >
       <div aria-hidden="true" className="pointer-events-none absolute -left-40 top-10 h-[420px] w-[420px] rounded-full bg-[#4100F5]/15 blur-[140px]" />
       <div aria-hidden="true" className="pointer-events-none absolute -right-32 bottom-0 h-[360px] w-[360px] rounded-full bg-[#885FFF]/10 blur-[130px]" />
@@ -102,7 +110,8 @@ export function Testimonials() {
             onBlur={() => setPaused(false)}
           >
             {/* Left: arrows, counter, big index */}
-            <div className="flex items-center justify-between lg:col-span-3 lg:flex-col lg:items-start">
+            {/* Hidden on phones: there you swipe the quote instead */}
+            <div className="hidden items-center justify-between sm:flex lg:col-span-3 lg:flex-col lg:items-start">
               <div className="flex items-center gap-3">
                 <button type="button" onClick={() => go(-1)} aria-label="Previous testimonial" className={roundBtn}>
                   <ArrowLeft aria-hidden="true" className="h-5 w-5" />
@@ -121,23 +130,46 @@ export function Testimonials() {
 
             {/* Right: one quote at a time */}
             <div
-              className="min-h-[31rem] touch-pan-y sm:min-h-[26rem] lg:min-h-[24rem] lg:col-span-9"
+              className="touch-pan-y lg:col-span-9"
               aria-live={paused ? "polite" : "off"}
-              onPointerDown={(e) => (pointerStart.current = e.clientX)}
-              onPointerUp={(e) => {
-                if (pointerStart.current == null) return;
-                const dx = e.clientX - pointerStart.current;
-                pointerStart.current = null;
-                if (Math.abs(dx) > 50) go(dx < 0 ? 1 : -1);
-              }}
             >
-              <AnimatePresence mode="wait" initial={false}>
+              {/* All quotes share one grid cell. Invisible copies of every quote
+                  size the slider to the longest one, so it never jumps and leaves
+                  no spare space below. */}
+              <div className="grid">
+              {entries.map((item) => (
+                <div key={item.id} aria-hidden="true" className="invisible pointer-events-none col-start-1 row-start-1">
+                  <p className={quoteClass}>{`“${item.quote}”`}</p>
+                  <div className="mt-10">
+                    <p className="font-heading text-base font-bold">{item.name}</p>
+                    <p className="mt-1 font-body text-sm">{[item.role, item.company].filter(Boolean).join(" · ") || item.context}</p>
+                  </div>
+                </div>
+              ))}
+              <AnimatePresence mode="wait" initial={false} custom={dir}>
                 <motion.figure
                   key={entry.id}
-                  initial={reduce ? false : { opacity: 1 }}
-                  exit={reduce ? { opacity: 0 } : { opacity: 0, transition: { duration: 0.25 } }}
+                  custom={dir}
+                  className="col-start-1 row-start-1 cursor-grab select-none active:cursor-grabbing"
+                  // Swipe / drag sideways to move between quotes
+                  drag="x"
+                  dragSnapToOrigin
+                  dragElastic={0.35}
+                  dragConstraints={{ left: 0, right: 0 }}
+                  onDragEnd={(_, info) => {
+                    const { offset, velocity } = info;
+                    if (offset.x < -60 || velocity.x < -400) go(1);
+                    else if (offset.x > 60 || velocity.x > 400) go(-1);
+                  }}
+                  variants={{
+                    exit: (dir) =>
+                      reduce
+                        ? { opacity: 0 }
+                        : { opacity: 0, x: dir > 0 ? -80 : 80, transition: { duration: 0.25 } },
+                  }}
+                  exit="exit"
                 >
-                  <blockquote className="indent-[8%] font-heading text-xl font-semibold leading-[1.35] tracking-tight sm:text-2xl lg:text-[2rem] lg:leading-[1.3]">
+                  <blockquote className={quoteClass}>
                     <QuoteWords text={entry.quote} reduce={reduce} />
                   </blockquote>
                   <motion.figcaption
@@ -153,6 +185,7 @@ export function Testimonials() {
                   </motion.figcaption>
                 </motion.figure>
               </AnimatePresence>
+              </div>
 
               {/* Mobile / tablet dots */}
               {total > 1 && (

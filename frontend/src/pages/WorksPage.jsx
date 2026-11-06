@@ -406,9 +406,9 @@ function WorksListCard({ category }) {
         transition={{ duration: 1.2, ease: WIPE_EASE }}
       >
         <img
-          src={category.cardImage || category.image}
+          src={category.listImage || category.cardImage || category.image}
           alt={category.name}
-          className={`absolute inset-0 w-full h-full object-cover ${category.cardImage ? "object-top" : ""}`}
+          className={`absolute inset-0 w-full h-full object-cover ${category.cardImage && !category.listImage ? "object-top" : ""}`}
           loading="lazy"
           draggable={false}
         />

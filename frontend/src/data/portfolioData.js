@@ -120,6 +120,8 @@ export const portfolioCategories = [
     category: "Intelligent Systems & Workflows",
     discipline: "Workflow Automation • Client Reviews • Python",
     image: "/projects/automations/client-approval.webp",
+    // Portrait version for the mobile works list, so the whole laptop screen shows
+    listImage: "/projects/automations/client-approval-list.webp",
     accent: "#a855f7",
     glowColor: "rgba(168, 85, 247, 0.35)",
     shortDescription: "Practical workflows for client approvals, revision tracking and driving-school recordkeeping.",
